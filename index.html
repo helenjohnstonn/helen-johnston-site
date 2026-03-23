@@ -404,140 +404,64 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 3px;
+      gap: 30px;
     }
 
     .project-card {
-      background: #232323;
-      border: 3px solid #333;
-      padding: 40px;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      cursor: pointer;
     }
 
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, transparent 0%, rgba(232, 116, 42, 0.08) 100%);
-      opacity: 0;
-      transition: opacity 0.4s;
+    .project-card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
-    .project-card:hover {
+    .project-card .project-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #232323;
+      border: 2px solid #333;
+      transition: border-color 0.3s;
+    }
+
+    .project-card:hover .project-img {
       border-color: var(--orange);
-      transform: translateY(-4px);
     }
 
-    .project-card:hover::before {
-      opacity: 1;
+    .project-card .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .project-card .project-number {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-family: var(--font-bebas);
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      color: var(--teal);
-      opacity: 0.6;
+    .project-card:hover .project-img img {
+      transform: scale(1.05);
     }
 
-    .project-card .project-type {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 12px;
+    .project-card .project-info {
+      padding: 16px 0;
     }
 
     .project-card h3 {
       font-family: var(--font-display);
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       text-transform: uppercase;
       color: var(--cream);
-      margin-bottom: 12px;
       line-height: 1.1;
+      margin-bottom: 6px;
     }
 
     .project-card p {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      line-height: 1.7;
+      font-size: 0.65rem;
+      line-height: 1.6;
       color: var(--cream);
-      opacity: 0.8;
-      max-width: 340px;
-    }
-
-    .project-card .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      font-family: var(--font-bebas);
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      color: var(--teal);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s, gap 0.3s;
-    }
-
-    .project-card .project-link:hover {
-      color: var(--orange);
-      gap: 14px;
-    }
-
-    .project-card .project-link .arrow {
-      transition: transform 0.3s;
-    }
-
-    .project-card .project-link:hover .arrow {
-      transform: translateX(4px);
-    }
-
-    /* Feature project — spans full width */
-    .project-card.featured {
-      grid-column: 1 / -1;
-      min-height: 200px;
-      background: var(--orange);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .project-card.featured h3 {
-      color: var(--black);
-      font-size: 2.5rem;
-    }
-
-    .project-card.featured .project-type {
-      color: var(--charcoal);
-    }
-
-    .project-card.featured p {
-      color: var(--black);
-      opacity: 0.7;
-    }
-
-    .project-card.featured .project-link {
-      color: var(--black);
-    }
-
-    .project-card.featured:hover {
-      border-color: var(--teal);
-      background: var(--orange);
+      opacity: 0.6;
     }
 
     /* ═══════════════════════════════════════
@@ -895,49 +819,101 @@
       object-fit: contain;
     }
 
-    /* Invert hands on dark sections so they pop */
+    /* Invert hands on dark sections so they're light */
     .projects .tear-hand img,
     .contact .tear-hand img {
       filter: invert(1);
     }
 
+    /* Tear rip effect behind each hand */
+    .tear-hand::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+    }
+
+    /* On dark sections, show cream-colored tears; on light, show dark tears */
+    .projects .tear-hand::before,
+    .contact .tear-hand::before {
+      background: var(--cream);
+    }
+    .about .tear-hand::before,
+    .creative .tear-hand::before {
+      background: var(--charcoal);
+    }
+
     /* Hands positioned within sections, near edges */
     .tear-hand-1 {
-      width: 220px;
-      right: 20px;
-      top: 5px;
-      transform: rotate(-20deg);
+      width: 200px;
+      right: 60px;
+      top: 8px;
+      transform: rotate(-15deg);
+    }
+    .tear-hand-1::before {
+      width: 120px;
+      height: 90px;
+      bottom: -10px;
+      left: 30px;
+      clip-path: polygon(10% 0%, 25% 15%, 40% 5%, 55% 20%, 70% 0%, 85% 10%, 100% 5%, 95% 40%, 100% 70%, 85% 85%, 100% 100%, 60% 95%, 30% 100%, 0% 80%, 5% 50%, 0% 20%);
     }
 
     .tear-hand-2 {
-      width: 200px;
-      left: 10px;
-      top: 10px;
-      transform: rotate(30deg) scaleX(-1);
+      width: 180px;
+      left: 15px;
+      top: 12px;
+      transform: rotate(25deg) scaleX(-1);
+    }
+    .tear-hand-2::before {
+      width: 100px;
+      height: 80px;
+      bottom: -5px;
+      right: 20px;
+      clip-path: polygon(5% 10%, 20% 0%, 45% 12%, 65% 0%, 80% 8%, 100% 0%, 95% 35%, 100% 65%, 90% 100%, 65% 90%, 40% 100%, 15% 85%, 0% 100%, 5% 60%, 0% 30%);
     }
 
     .tear-hand-3 {
-      width: 200px;
-      right: 40px;
-      bottom: 5px;
-      transform: rotate(-160deg);
+      width: 160px;
+      right: 150px;
+      bottom: 8px;
+      transform: rotate(-155deg);
+    }
+    .tear-hand-3::before {
+      width: 110px;
+      height: 85px;
+      top: -5px;
+      left: 25px;
+      clip-path: polygon(0% 15%, 15% 0%, 35% 10%, 55% 0%, 75% 12%, 100% 0%, 90% 30%, 100% 60%, 85% 100%, 60% 88%, 35% 100%, 10% 90%, 0% 65%);
     }
 
     .tear-hand-4 {
-      width: 180px;
-      left: 20px;
-      top: 5px;
-      transform: rotate(45deg);
+      width: 170px;
+      left: 25px;
+      top: 8px;
+      transform: rotate(40deg);
+    }
+    .tear-hand-4::before {
+      width: 95px;
+      height: 75px;
+      bottom: -8px;
+      left: 35px;
+      clip-path: polygon(8% 5%, 30% 0%, 50% 15%, 72% 0%, 100% 10%, 92% 45%, 100% 80%, 75% 100%, 45% 88%, 20% 100%, 0% 75%, 5% 40%);
     }
 
     .tear-hand-5 {
-      width: 190px;
-      right: 40px;
-      top: 10px;
-      transform: rotate(-15deg) scaleX(-1);
+      width: 170px;
+      right: 100px;
+      top: 12px;
+      transform: rotate(-10deg) scaleX(-1);
+    }
+    .tear-hand-5::before {
+      width: 105px;
+      height: 80px;
+      bottom: -6px;
+      left: 30px;
+      clip-path: polygon(0% 10%, 20% 0%, 40% 8%, 65% 0%, 85% 12%, 100% 5%, 95% 40%, 100% 75%, 80% 100%, 50% 90%, 25% 100%, 0% 85%, 5% 50%);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
       .tear-hand { display: none; }
     }
 
@@ -977,8 +953,7 @@
       .about-number { display: none; }
 
       .projects { padding: 80px 20px; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-card.featured { flex-direction: column; }
+      .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
       .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
@@ -1052,7 +1027,7 @@
     <div class="tear-hand tear-hand-2"><img src="hand.png" alt=""></div>
     <div class="tear-hand tear-hand-3"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
-      <h2>Selected<br>Work</h2>
+      <h2>A<br>Side</h2>
       <span class="count">05 Projects</span>
     </div>
 
@@ -1065,7 +1040,7 @@
   <section class="creative" id="creative" style="overflow:visible;">
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
-      <h2>Creative<br>Work</h2>
+      <h2>B<br>Side</h2>
       <span class="label">Photography & DJ</span>
     </div>
 
@@ -1137,36 +1112,37 @@
        EDIT YOUR CONTENT HERE — just update these arrays!
     ════════════════════════════════════════════ */
 
+    /*
+     * ── YOUR PROJECTS ──
+     * To add a project, copy one of the blocks below and fill in:
+     *   title — project name
+     *   desc  — short one-liner
+     *   img   — path to your image (e.g. "images/my-project.jpg")
+     *   link  — URL the image clicks through to (use "#" as placeholder)
+     */
     const PROJECTS = [
       {
-        title: "Brand Campaign — Social First",
-        type: "Social Video Campaign",
-        desc: "End-to-end social video production. From concept and storyboarding through to shoot and post-production. Content engineered for engagement.",
+        title: "Brand Campaign",
+        desc: "Social-first video production, concept to post.",
+        img: "",
         link: "#"
       },
       {
-        title: "Visual Identity & Content",
-        type: "Creative Direction",
-        desc: "Full creative direction for brand visual identity — photography, video, and graphic systems designed to cut through noise.",
+        title: "Visual Identity",
+        desc: "Creative direction for brand photography & video.",
+        img: "",
         link: "#"
-      },
-      {
-        title: "Your Featured Project Here",
-        type: "Featured Work",
-        desc: "A standout piece that defines the breadth and ambition of your creative practice.",
-        link: "#",
-        featured: true
       },
       {
         title: "Editorial Short Film",
-        type: "Video Production",
-        desc: "Cinematic storytelling meets commercial purpose — short-form films that blend artistry with brand messaging.",
+        desc: "Cinematic short-form brand storytelling.",
+        img: "",
         link: "#"
       },
       {
-        title: "Digital Content Ecosystem",
-        type: "Content Strategy",
-        desc: "Strategic content frameworks designed for multi-platform distribution. Photography, video, and copy working as one system.",
+        title: "Content Ecosystem",
+        desc: "Multi-platform content strategy & production.",
+        img: "",
         link: "#"
       }
     ];
@@ -1186,26 +1162,23 @@
       const count = document.querySelector('.projects .count');
       if (count) count.textContent = `0${PROJECTS.length} Projects`;
 
-      PROJECTS.forEach((p, i) => {
+      PROJECTS.forEach((p) => {
         const card = document.createElement('div');
-        card.className = `project-card reveal${p.featured ? ' featured' : ''}`;
+        card.className = 'project-card reveal';
 
-        if (p.featured) {
-          card.innerHTML = `
-            <div>
-              <span class="project-type">${p.type}</span>
+        const imgSrc = p.img || '';
+        const imgTag = imgSrc
+          ? `<img src="${imgSrc}" alt="${p.title}">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#555;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;">Add image</div>`;
+
+        card.innerHTML = `
+          <a href="${p.link}" class="hoverable">
+            <div class="project-img">${imgTag}</div>
+            <div class="project-info">
               <h3>${p.title}</h3>
               <p>${p.desc}</p>
             </div>
-            <a href="${p.link}" class="project-link hoverable">View Case Study <span class="arrow">&rarr;</span></a>`;
-        } else {
-          card.innerHTML = `
-            <span class="project-number">${String(i + 1).padStart(3, '0')}</span>
-            <span class="project-type">${p.type}</span>
-            <h3>${p.title}</h3>
-            <p>${p.desc}</p>
-            <a href="${p.link}" class="project-link hoverable">View Project <span class="arrow">&rarr;</span></a>`;
-        }
+          </a>`;
         grid.appendChild(card);
       });
     })();
