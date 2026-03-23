@@ -245,8 +245,8 @@
        EDITORIAL DIVIDER
     ═══════════════════════════════════════ */
     .section-divider {
-      height: 6px;
-      background: var(--black);
+      height: 8px;
+      background: var(--orange);
     }
 
     /* ═══════════════════════════════════════
@@ -295,8 +295,8 @@
 
     .about-right p {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      line-height: 1.9;
+      font-size: 0.9rem;
+      line-height: 2.0;
       color: var(--black);
       margin-bottom: 24px;
       opacity: 0.85;
@@ -337,7 +337,7 @@
       font-size: 0.85rem;
       letter-spacing: 0.15em;
       padding: 8px 20px;
-      border: 2px solid var(--black);
+      border: 3px solid var(--black);
       color: var(--black);
       text-transform: uppercase;
       transition: all 0.3s ease;
@@ -349,19 +349,35 @@
       border-color: var(--teal);
       color: var(--black);
       transform: translateY(-2px);
+      box-shadow: 4px 4px 0 var(--black);
     }
 
-    .about-number {
+    .section-number {
       position: absolute;
       right: -20px;
       top: -40px;
       font-family: var(--font-display);
       font-size: 15rem;
-      color: var(--black);
-      opacity: 0.04;
+      opacity: 0.06;
       line-height: 1;
       pointer-events: none;
       user-select: none;
+    }
+
+    .about .section-number {
+      color: var(--black);
+    }
+
+    .projects .section-number {
+      color: var(--cream);
+    }
+
+    .creative .section-number {
+      color: var(--black);
+    }
+
+    .contact .section-number {
+      color: var(--cream);
     }
 
     /* ═══════════════════════════════════════
@@ -375,7 +391,7 @@
 
     .projects .section-header {
       max-width: 1200px;
-      margin: 0 auto 80px;
+      margin: 0 auto 50px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -390,6 +406,16 @@
       font-size: clamp(3rem, 6vw, 5rem);
       color: var(--cream);
       line-height: 0.95;
+    }
+
+    .projects .section-header h2::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background: var(--orange);
+      margin-right: 16px;
+      vertical-align: middle;
     }
 
     .projects .section-header .count {
@@ -425,12 +451,24 @@
       aspect-ratio: 4 / 3;
       overflow: hidden;
       background: #232323;
-      border: 2px solid #333;
+      border: 3px solid #444;
       transition: border-color 0.3s;
     }
 
     .project-card:hover .project-img {
       border-color: var(--orange);
+    }
+
+    .project-card::after {
+      content: '';
+      display: block;
+      height: 4px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .project-card:hover::after {
+      background: var(--orange);
     }
 
     .project-card .project-img img {
@@ -450,7 +488,7 @@
 
     .project-card h3 {
       font-family: var(--font-bebas);
-      font-size: 1.8rem;
+      font-size: 2rem;
       letter-spacing: 0.05em;
       color: #fff;
       line-height: 1.1;
@@ -476,7 +514,7 @@
 
     .creative .section-header {
       max-width: 1200px;
-      margin: 0 auto 80px;
+      margin: 0 auto 50px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -491,6 +529,16 @@
       font-size: clamp(3rem, 6vw, 5rem);
       color: var(--black);
       line-height: 0.95;
+    }
+
+    .creative .section-header h2::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background: var(--orange);
+      margin-right: 16px;
+      vertical-align: middle;
     }
 
     .creative .section-header .label {
@@ -529,9 +577,15 @@
       font-size: 0.8rem;
       letter-spacing: 0.2em;
       color: var(--cream);
-      opacity: 0.3;
+      opacity: 0.5;
       text-transform: uppercase;
-      background: var(--charcoal);
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--charcoal),
+        var(--charcoal) 8px,
+        #333 8px,
+        #333 9px
+      );
       position: relative;
     }
 
@@ -710,6 +764,7 @@
       background: var(--black);
       position: relative;
       overflow: hidden;
+      border-top: 6px solid var(--orange);
     }
 
     .contact-inner {
@@ -752,13 +807,14 @@
 
     .contact-link {
       font-family: var(--font-bebas);
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--cream);
       text-decoration: none;
-      padding-bottom: 4px;
-      border-bottom: 2px solid transparent;
+      padding: 8px 0 8px 16px;
+      border-left: 4px solid var(--orange);
+      border-bottom: none;
       transition: all 0.3s;
       display: inline-flex;
       align-items: center;
@@ -767,7 +823,7 @@
 
     .contact-link:hover {
       color: var(--teal);
-      border-bottom-color: var(--teal);
+      border-left-color: var(--teal);
     }
 
     .contact-bg-text {
@@ -788,7 +844,7 @@
     .footer {
       background: var(--black);
       padding: 20px 40px;
-      border-top: 1px solid rgba(242, 237, 228, 0.1);
+      border-top: 3px solid var(--orange);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -799,7 +855,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       color: var(--cream);
-      opacity: 0.4;
+      opacity: 0.6;
       text-transform: uppercase;
     }
 
@@ -828,9 +884,9 @@
     /* Hands positioned within sections, near edges */
     .tear-hand-1 {
       width: 200px;
-      right: 60px;
-      top: 8px;
-      transform: rotate(-15deg);
+      left: 20px;
+      top: -120px;
+      transform: rotate(0deg) scaleX(-1);
     }
 
     .tear-hand-2 {
@@ -898,7 +954,7 @@
 
       .about { padding: 80px 20px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-number { display: none; }
+      .section-number { display: none; }
 
       .projects { padding: 80px 20px; }
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -937,12 +993,11 @@
   <!-- ═══════════════════════════════════════
        ABOUT SECTION
   ═══════════════════════════════════════ -->
-  <section class="about" id="about" style="overflow:visible;">
+  <section class="about" id="about" style="overflow:hidden;">
     <div class="tear-hand tear-hand-1"><img src="hand.png" alt=""></div>
-    <div class="about-number">01</div>
+    <div class="section-number">01</div>
     <div class="about-grid">
       <div class="about-left reveal-left">
-        <span class="section-tag">001 / About</span>
         <img src="IMG_6992.jpg" alt="Helen Johnston" class="about-photo" />
       </div>
       <div class="about-right reveal-right">
@@ -972,6 +1027,7 @@
        PROJECTS SECTION
   ═══════════════════════════════════════ -->
   <section class="projects" id="projects" style="overflow:visible;">
+    <div class="section-number">02</div>
     <div class="tear-hand tear-hand-2"><img src="hand.png" alt=""></div>
     <div class="tear-hand tear-hand-3"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
@@ -985,6 +1041,7 @@
        CREATIVE WORK SECTION
   ═══════════════════════════════════════ -->
   <section class="creative" id="creative" style="overflow:visible;">
+    <div class="section-number">03</div>
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
       <h2>B Side</h2>
@@ -1020,6 +1077,7 @@
        CONTACT SECTION
   ═══════════════════════════════════════ -->
   <section class="contact" id="contact" style="overflow:visible;">
+    <div class="section-number">04</div>
     <div class="tear-hand tear-hand-5"><img src="hand.png" alt=""></div>
     <div class="contact-inner">
       <span class="section-tag reveal">005 / Contact</span>
@@ -1077,7 +1135,7 @@
       {
         title: "Early Days",
         desc: "An interactive UX research simulator that lets you instantly pressure-test product concepts against a diverse set of AI personas — second place at a Google-wide hackathon.",
-        img: "",
+        img: "early-days.jpg",
         link: "#"
       },
       {
@@ -1338,7 +1396,7 @@
 
       // ── NAVIGATION LINKS — rotated 90°, down the right edge ──
       const navItems = ['About', 'A Side', 'B Side', 'Contact'];
-      const navAnchors = ['#about', '#side-a', '#side-b', '#contact'];
+      const navAnchors = ['#about', '#projects', '#creative', '#contact'];
       ctx.font = '44px "Permanent Marker", cursive';
       ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
       const navX = w - 35;
@@ -1490,15 +1548,17 @@
       });
     });
 
-    // Parallax on about number
-    gsap.to('.about-number', {
-      y: -100,
-      scrollTrigger: {
-        trigger: '.about',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
-      }
+    // Parallax on section numbers
+    gsap.utils.toArray('.section-number').forEach(num => {
+      gsap.to(num, {
+        y: -100,
+        scrollTrigger: {
+          trigger: num.parentElement,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
     });
 
     // Stagger project cards
