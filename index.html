@@ -381,12 +381,13 @@
       align-items: flex-end;
       border-bottom: 3px solid var(--cream);
       padding-bottom: 20px;
+      position: relative;
+      z-index: 25;
     }
 
     .projects .section-header h2 {
-      font-family: var(--font-display);
+      font-family: 'Permanent Marker', cursive;
       font-size: clamp(3rem, 6vw, 5rem);
-      text-transform: uppercase;
       color: var(--cream);
       line-height: 0.95;
     }
@@ -448,20 +449,20 @@
     }
 
     .project-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      color: var(--cream);
+      font-family: var(--font-bebas);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: #fff;
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .project-card p {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       line-height: 1.6;
       color: var(--cream);
-      opacity: 0.6;
+      opacity: 0.85;
     }
 
     /* ═══════════════════════════════════════
@@ -479,14 +480,15 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      position: relative;
+      z-index: 25;
       border-bottom: 3px solid var(--black);
       padding-bottom: 20px;
     }
 
     .creative .section-header h2 {
-      font-family: var(--font-display);
+      font-family: 'Permanent Marker', cursive;
       font-size: clamp(3rem, 6vw, 5rem);
-      text-transform: uppercase;
       color: var(--black);
       line-height: 0.95;
     }
@@ -614,9 +616,8 @@
     }
 
     .dj-info h3 {
-      font-family: var(--font-display);
+      font-family: 'Permanent Marker', cursive;
       font-size: 2.5rem;
-      text-transform: uppercase;
       color: var(--black);
       margin-bottom: 16px;
       line-height: 1;
@@ -729,9 +730,8 @@
     }
 
     .contact h2 {
-      font-family: var(--font-display);
+      font-family: 'Permanent Marker', cursive;
       font-size: clamp(4rem, 10vw, 9rem);
-      text-transform: uppercase;
       color: var(--cream);
       line-height: 0.9;
       margin-bottom: 60px;
@@ -825,36 +825,12 @@
       filter: invert(1);
     }
 
-    /* Tear rip effect behind each hand */
-    .tear-hand::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-    }
-
-    /* On dark sections, show cream-colored tears; on light, show dark tears */
-    .projects .tear-hand::before,
-    .contact .tear-hand::before {
-      background: var(--cream);
-    }
-    .about .tear-hand::before,
-    .creative .tear-hand::before {
-      background: var(--charcoal);
-    }
-
     /* Hands positioned within sections, near edges */
     .tear-hand-1 {
       width: 200px;
       right: 60px;
       top: 8px;
       transform: rotate(-15deg);
-    }
-    .tear-hand-1::before {
-      width: 120px;
-      height: 90px;
-      bottom: -10px;
-      left: 30px;
-      clip-path: polygon(10% 0%, 25% 15%, 40% 5%, 55% 20%, 70% 0%, 85% 10%, 100% 5%, 95% 40%, 100% 70%, 85% 85%, 100% 100%, 60% 95%, 30% 100%, 0% 80%, 5% 50%, 0% 20%);
     }
 
     .tear-hand-2 {
@@ -863,26 +839,12 @@
       top: 12px;
       transform: rotate(25deg) scaleX(-1);
     }
-    .tear-hand-2::before {
-      width: 100px;
-      height: 80px;
-      bottom: -5px;
-      right: 20px;
-      clip-path: polygon(5% 10%, 20% 0%, 45% 12%, 65% 0%, 80% 8%, 100% 0%, 95% 35%, 100% 65%, 90% 100%, 65% 90%, 40% 100%, 15% 85%, 0% 100%, 5% 60%, 0% 30%);
-    }
 
     .tear-hand-3 {
       width: 160px;
       right: 150px;
       bottom: 8px;
       transform: rotate(-155deg);
-    }
-    .tear-hand-3::before {
-      width: 110px;
-      height: 85px;
-      top: -5px;
-      left: 25px;
-      clip-path: polygon(0% 15%, 15% 0%, 35% 10%, 55% 0%, 75% 12%, 100% 0%, 90% 30%, 100% 60%, 85% 100%, 60% 88%, 35% 100%, 10% 90%, 0% 65%);
     }
 
     .tear-hand-4 {
@@ -891,26 +853,12 @@
       top: 8px;
       transform: rotate(40deg);
     }
-    .tear-hand-4::before {
-      width: 95px;
-      height: 75px;
-      bottom: -8px;
-      left: 35px;
-      clip-path: polygon(8% 5%, 30% 0%, 50% 15%, 72% 0%, 100% 10%, 92% 45%, 100% 80%, 75% 100%, 45% 88%, 20% 100%, 0% 75%, 5% 40%);
-    }
 
     .tear-hand-5 {
       width: 170px;
       right: 100px;
       top: 12px;
       transform: rotate(-10deg) scaleX(-1);
-    }
-    .tear-hand-5::before {
-      width: 105px;
-      height: 80px;
-      bottom: -6px;
-      left: 30px;
-      clip-path: polygon(0% 10%, 20% 0%, 40% 8%, 65% 0%, 85% 12%, 100% 5%, 95% 40%, 100% 75%, 80% 100%, 50% 90%, 25% 100%, 0% 85%, 5% 50%);
     }
 
     @media (max-width: 480px) {
@@ -1027,8 +975,7 @@
     <div class="tear-hand tear-hand-2"><img src="hand.png" alt=""></div>
     <div class="tear-hand tear-hand-3"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
-      <h2>A<br>Side</h2>
-      <span class="count">05 Projects</span>
+      <h2>A Side</h2>
     </div>
 
     <div class="projects-grid" id="projectsGrid"></div>
@@ -1040,7 +987,7 @@
   <section class="creative" id="creative" style="overflow:visible;">
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
-      <h2>B<br>Side</h2>
+      <h2>B Side</h2>
       <span class="label">Photography & DJ</span>
     </div>
 
@@ -1122,26 +1069,26 @@
      */
     const PROJECTS = [
       {
-        title: "Brand Campaign",
-        desc: "Social-first video production, concept to post.",
+        title: "Pique",
+        desc: "An iOS app that gets people outside — built end-to-end using AI-assisted development to turn a simple insight about outdoor motivation into a shippable product.",
+        img: "pique.png",
+        link: "#"
+      },
+      {
+        title: "Early Days",
+        desc: "An interactive UX research simulator that lets you instantly pressure-test product concepts against a diverse set of AI personas — second place at a Google-wide hackathon.",
         img: "",
         link: "#"
       },
       {
-        title: "Visual Identity",
-        desc: "Creative direction for brand photography & video.",
+        title: "Find Hub",
+        desc: "Partnered with the product team to implement location sharing and led GTM strategy for Find Hub's platform evolution, contributing to 1M+ DAU growth and 1B downloads on the Play Store.",
         img: "",
         link: "#"
       },
       {
-        title: "Editorial Short Film",
-        desc: "Cinematic short-form brand storytelling.",
-        img: "",
-        link: "#"
-      },
-      {
-        title: "Content Ecosystem",
-        desc: "Multi-platform content strategy & production.",
+        title: "Android Interoperability",
+        desc: "Helped scale a cross-platform file sharing initiative between Android and Apple AirDrop, driving a 165% lift in usage across millions of OEMs.",
         img: "",
         link: "#"
       }
@@ -1159,8 +1106,6 @@
     /* ── Auto-render projects ── */
     (function renderProjects() {
       const grid = document.getElementById('projectsGrid');
-      const count = document.querySelector('.projects .count');
-      if (count) count.textContent = `0${PROJECTS.length} Projects`;
 
       PROJECTS.forEach((p) => {
         const card = document.createElement('div');
