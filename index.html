@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helen Johnston — Photographer / DJ / Creative Director</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal: #4DBFB8;
+      --orange: #E8742A;
+      --black: #1A1A1A;
+      --cream: #F2EDE4;
+      --charcoal: #2E2E2E;
+      --font-display: 'Anton', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-bebas: 'Bebas Neue', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--orange) var(--charcoal);
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--black);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    ::selection {
+      background: var(--orange);
+      color: var(--cream);
+    }
+
+    /* ═══════════════════════════════════════
+       CUSTOM CURSOR FOLLOWER
+    ═══════════════════════════════════════ */
+    .cursor-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--orange);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-ring.hovering {
+      width: 70px;
+      height: 70px;
+      border-color: var(--teal);
+    }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    nav {
+      display: none;
+    }
+
+    nav .logo {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.35rem;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    nav .nav-links a {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 0.85rem;
+      color: var(--cream);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+
+    nav .nav-links a:hover {
+      color: var(--orange);
+    }
+
+    nav .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--orange);
+      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    nav .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    nav .nav-divider {
+      color: var(--orange);
+      font-family: 'Permanent Marker', cursive;
+      font-size: 0.7rem;
+      opacity: 0.5;
+      user-select: none;
+    }
+
+    /* Issue number badge — hidden now, annotations handle this */
+    .issue-badge {
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO — FUKT MAGAZINE INSPIRED
+    ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      background: var(--charcoal);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-overlay-text {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      z-index: 10;
+    }
+
+    .hero-overlay-text .subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .hero-overlay-text .tagline {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--black);
+      max-width: 400px;
+      line-height: 1.4;
+      opacity: 0.8;
+    }
+
+    .hero-meta {
+      position: absolute;
+      top: 50%;
+      right: 40px;
+      transform: translateY(-50%);
+      z-index: 10;
+      text-align: right;
+    }
+
+    .hero-meta .label {
+      font-family: var(--font-bebas);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--black);
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .hero-meta .value {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--black);
+      opacity: 0.7;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      opacity: 0.5;
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-indicator .line {
+      width: 1px;
+      height: 60px;
+      background: var(--black);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.5; }
+      50% { transform: scaleY(0.5); opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════
+       EDITORIAL DIVIDER
+    ═══════════════════════════════════════ */
+    .section-divider {
+      height: 6px;
+      background: var(--black);
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT SECTION
+    ═══════════════════════════════════════ */
+    .about {
+      padding: 120px 40px;
+      background: var(--orange);
+      position: relative;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-left {
+      position: relative;
+    }
+
+    .about-left .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .about-photo {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-right p {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--black);
+      margin-bottom: 24px;
+      opacity: 0.85;
+    }
+
+    .about-right p strong {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--black);
+      opacity: 1;
+      line-height: 1;
+    }
+
+    .about-disciplines {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .discipline-label {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--black);
+      width: 100%;
+      margin-top: 16px;
+      margin-bottom: -4px;
+    }
+
+    .discipline-label:first-child {
+      margin-top: 0;
+    }
+
+    .discipline-tag {
+      font-family: var(--font-bebas);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 8px 20px;
+      border: 2px solid var(--black);
+      color: var(--black);
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .discipline-tag:hover {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    .about-number {
+      position: absolute;
+      right: -20px;
+      top: -40px;
+      font-family: var(--font-display);
+      font-size: 15rem;
+      color: var(--black);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════
+       PROJECTS SECTION
+    ═══════════════════════════════════════ */
+    .projects {
+      padding: 120px 40px;
+      background: var(--charcoal);
+      position: relative;
+    }
+
+    .projects .section-header {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--cream);
+      padding-bottom: 20px;
+    }
+
+    .projects .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 0.95;
+    }
+
+    .projects .section-header .count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      text-transform: uppercase;
+    }
+
+    .projects-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+
+    .project-card {
+      background: #232323;
+      border: 3px solid #333;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(232, 116, 42, 0.08) 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .project-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-4px);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card .project-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--font-bebas);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      opacity: 0.6;
+    }
+
+    .project-card .project-type {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .project-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .project-card p {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      line-height: 1.7;
+      color: var(--cream);
+      opacity: 0.8;
+      max-width: 340px;
+    }
+
+    .project-card .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-family: var(--font-bebas);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s, gap 0.3s;
+    }
+
+    .project-card .project-link:hover {
+      color: var(--orange);
+      gap: 14px;
+    }
+
+    .project-card .project-link .arrow {
+      transition: transform 0.3s;
+    }
+
+    .project-card .project-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* Feature project — spans full width */
+    .project-card.featured {
+      grid-column: 1 / -1;
+      min-height: 200px;
+      background: var(--orange);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .project-card.featured h3 {
+      color: var(--black);
+      font-size: 2.5rem;
+    }
+
+    .project-card.featured .project-type {
+      color: var(--charcoal);
+    }
+
+    .project-card.featured p {
+      color: var(--black);
+      opacity: 0.7;
+    }
+
+    .project-card.featured .project-link {
+      color: var(--black);
+    }
+
+    .project-card.featured:hover {
+      border-color: var(--teal);
+      background: var(--orange);
+    }
+
+    /* ═══════════════════════════════════════
+       CREATIVE WORK SECTION
+    ═══════════════════════════════════════ */
+    .creative {
+      padding: 120px 40px;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .creative .section-header {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--black);
+      padding-bottom: 20px;
+    }
+
+    .creative .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 0.95;
+    }
+
+    .creative .section-header .label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    /* Photography Grid */
+    .photo-grid {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 320px 320px;
+      gap: 3px;
+    }
+
+    .photo-cell {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .photo-cell .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-bebas);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+      opacity: 0.3;
+      text-transform: uppercase;
+      background: var(--charcoal);
+      position: relative;
+    }
+
+    /* Generative pattern backgrounds for photo placeholders */
+    .photo-cell:nth-child(1) .photo-placeholder {
+      background: linear-gradient(135deg, var(--charcoal) 25%, #3a3a3a 25%, #3a3a3a 50%, var(--charcoal) 50%, var(--charcoal) 75%, #3a3a3a 75%);
+      background-size: 20px 20px;
+    }
+
+    .photo-cell:nth-child(2) .photo-placeholder {
+      background: repeating-conic-gradient(var(--charcoal) 0% 25%, #333 0% 50%) 0 0 / 30px 30px;
+    }
+
+    .photo-cell:nth-child(3) .photo-placeholder {
+      background: radial-gradient(circle at 30% 50%, #3a3a3a 0%, var(--charcoal) 70%);
+    }
+
+    .photo-cell:nth-child(5) .photo-placeholder {
+      background: linear-gradient(45deg, var(--charcoal) 0%, #3d3d3d 50%, var(--charcoal) 100%);
+    }
+
+    .photo-cell:nth-child(6) .photo-placeholder {
+      background: repeating-linear-gradient(0deg, var(--charcoal), var(--charcoal) 4px, #353535 4px, #353535 5px);
+    }
+
+    .photo-cell:nth-child(1) { grid-row: span 2; }
+    .photo-cell:nth-child(4) { grid-column: span 2; }
+
+    .photo-cell .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(232, 116, 42, 0);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      transition: background 0.4s;
+    }
+
+    .photo-cell:hover .photo-overlay {
+      background: rgba(232, 116, 42, 0.15);
+    }
+
+    .photo-cell .photo-caption {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s;
+    }
+
+    .photo-cell:hover .photo-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* DJ Section */
+    .dj-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .dj-info {
+      border: 3px solid var(--black);
+      padding: 40px;
+    }
+
+    .dj-info .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .dj-info h3 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .dj-info p {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.8;
+      color: var(--charcoal);
+    }
+
+    .dj-player {
+      background: #1A1A1A;
+      border: 3px solid #1A1A1A;
+      padding: 40px;
+      position: relative;
+    }
+
+    .dj-player .player-label {
+      font-family: var(--font-bebas);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .dj-player .waveform {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .waveform-bar {
+      flex: 1;
+      background: var(--orange);
+      border-radius: 1px 1px 0 0;
+      transition: height 0.3s;
+      min-height: 4px;
+    }
+
+    .dj-player .track-info {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dj-player .track-name {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cream);
+      opacity: 0.7;
+    }
+
+    .dj-player .play-btn {
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .dj-player .play-btn:hover {
+      background: var(--teal);
+    }
+
+    .dj-player .play-btn svg {
+      fill: var(--teal);
+      transition: fill 0.3s;
+    }
+
+    .dj-player .play-btn:hover svg {
+      fill: var(--black);
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT SECTION
+    ═══════════════════════════════════════ */
+    .contact {
+      padding: 120px 40px 80px;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .contact h2 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9rem);
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 0.9;
+      margin-bottom: 60px;
+    }
+
+    .contact h2 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      text-transform: none;
+      color: var(--orange);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-family: var(--font-bebas);
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-link:hover {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    .contact-bg-text {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      font-family: var(--font-display);
+      font-size: 20rem;
+      color: var(--cream);
+      opacity: 0.03;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      text-transform: uppercase;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--black);
+      padding: 20px 40px;
+      border-top: 1px solid rgba(242, 237, 228, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--cream);
+      opacity: 0.4;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════
+       TEARING HANDS
+    ═══════════════════════════════════════ */
+    .tear-hand {
+      position: absolute;
+      z-index: 20;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .tear-hand img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Invert hands on dark sections so they pop */
+    .projects .tear-hand img,
+    .contact .tear-hand img {
+      filter: invert(1);
+    }
+
+    /* Hands positioned within sections, near edges */
+    .tear-hand-1 {
+      width: 220px;
+      right: 20px;
+      top: 5px;
+      transform: rotate(-20deg);
+    }
+
+    .tear-hand-2 {
+      width: 200px;
+      left: 10px;
+      top: 10px;
+      transform: rotate(30deg) scaleX(-1);
+    }
+
+    .tear-hand-3 {
+      width: 200px;
+      right: 40px;
+      bottom: 5px;
+      transform: rotate(-160deg);
+    }
+
+    .tear-hand-4 {
+      width: 180px;
+      left: 20px;
+      top: 5px;
+      transform: rotate(45deg);
+    }
+
+    .tear-hand-5 {
+      width: 190px;
+      right: 40px;
+      top: 10px;
+      transform: rotate(-15deg) scaleX(-1);
+    }
+
+    @media (max-width: 768px) {
+      .tear-hand { display: none; }
+    }
+
+    /* ═══════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      nav .nav-links { gap: 16px; }
+      nav .nav-links a { font-size: 0.6rem; }
+
+      .hero-overlay-text { left: 20px; bottom: 20px; }
+      .hero-overlay-text .tagline { font-size: 1rem; }
+      .hero-meta { display: none; }
+      .scroll-indicator { right: 20px; bottom: 20px; }
+
+      .about { padding: 80px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-number { display: none; }
+
+      .projects { padding: 80px 20px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { flex-direction: column; }
+
+      .creative { padding: 80px 20px; }
+      .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .photo-cell:nth-child(1) { grid-row: auto; }
+      .photo-cell:nth-child(4) { grid-column: auto; }
+      .dj-section { grid-template-columns: 1fr; }
+
+      .contact { padding: 80px 20px; }
+      .contact-bg-text { font-size: 8rem; }
+
+      .issue-badge { display: none; }
+      .cursor-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor follower -->
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Navigation removed from fixed bar — now drawn on canvas -->
+
+  <!-- ═══════════════════════════════════════
+       HERO SECTION — FUKT MAGAZINE COVER
+  ═══════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       ABOUT SECTION
+  ═══════════════════════════════════════ -->
+  <section class="about" id="about" style="overflow:visible;">
+    <div class="tear-hand tear-hand-1"><img src="hand.png" alt=""></div>
+    <div class="about-number">01</div>
+    <div class="about-grid">
+      <div class="about-left reveal-left">
+        <span class="section-tag">001 / About</span>
+        <img src="IMG_6992.jpg" alt="Helen Johnston" class="about-photo" />
+      </div>
+      <div class="about-right reveal-right">
+        <p>
+          <strong>Helen Johnston</strong> has spent three years at Google understanding why people use the things they use. Now she's building them. She's passionate about AI that works for everyone, and tech that earns your attention by sending you back into the real world.
+        </p>
+        <p>
+          That's what got her second place at a global Google hackathon with Early Days, a UXR simulator, and it's what's behind Pique, an app to get people outside and into the world.
+        </p>
+        <p>
+          When she's not at a laptop she's behind the decks, playing high energy sets with her custom visuals. Helen also dabbles in graphic design, photography, metal welding, and has probably picked up another hobby by the time you finished reading this.
+        </p>
+        <div class="about-disciplines">
+          <span class="discipline-label">A-Side</span>
+          <span class="discipline-tag hoverable">Product Marketing</span>
+          <span class="discipline-tag hoverable">Projects</span>
+          <span class="discipline-label">B-Side</span>
+          <span class="discipline-tag hoverable">Photography</span>
+          <span class="discipline-tag hoverable">DJing</span>
+          <span class="discipline-tag hoverable">Graphic Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PROJECTS SECTION
+  ═══════════════════════════════════════ -->
+  <section class="projects" id="projects" style="overflow:visible;">
+    <div class="tear-hand tear-hand-2"><img src="hand.png" alt=""></div>
+    <div class="tear-hand tear-hand-3"><img src="hand.png" alt=""></div>
+    <div class="section-header reveal">
+      <h2>Selected<br>Work</h2>
+      <span class="count">05 Projects</span>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CREATIVE WORK SECTION
+  ═══════════════════════════════════════ -->
+  <section class="creative" id="creative" style="overflow:visible;">
+    <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
+    <div class="section-header reveal">
+      <h2>Creative<br>Work</h2>
+      <span class="label">Photography & DJ</span>
+    </div>
+
+    <!-- Photography Grid -->
+    <div class="photo-grid" id="photoGrid"></div>
+
+    <!-- DJ Section -->
+    <div class="dj-section">
+      <div class="dj-info reveal-left">
+        <span class="section-tag">Sound</span>
+        <h3>Behind The Decks</h3>
+        <p>Curating sonic experiences that move bodies and minds. From intimate bar sets to festival stages — every track selection is intentional, every transition a story beat.</p>
+      </div>
+      <div class="dj-player reveal-right">
+        <span class="player-label">Now Playing</span>
+        <div class="waveform" id="waveform"></div>
+        <div class="track-info">
+          <span class="track-name">Latest Mix — 58:32</span>
+          <button class="play-btn hoverable" id="playBtn">
+            <svg width="16" height="18" viewBox="0 0 16 18">
+              <polygon points="0,0 16,9 0,18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════ -->
+  <section class="contact" id="contact" style="overflow:visible;">
+    <div class="tear-hand tear-hand-5"><img src="hand.png" alt=""></div>
+    <div class="contact-inner">
+      <span class="section-tag reveal">005 / Contact</span>
+      <h2 class="reveal">Let's<br><em>Make</em><br>Something</h2>
+      <div class="contact-links reveal">
+        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
+          Email &nearr;
+        </a>
+        <a href="#" class="contact-link hoverable">
+          Instagram &nearr;
+        </a>
+        <a href="#" class="contact-link hoverable">
+          SoundCloud &nearr;
+        </a>
+        <a href="#" class="contact-link hoverable">
+          LinkedIn &nearr;
+        </a>
+        <a href="#" class="contact-link hoverable">
+          Vimeo &nearr;
+        </a>
+      </div>
+    </div>
+    <div class="contact-bg-text">HJ</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>&copy; 2026 Helen Johnston</span>
+    <span>Portfolio — Issue No. 01</span>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════ -->
+  <script>
+    /* ════════════════════════════════════════════
+       EDIT YOUR CONTENT HERE — just update these arrays!
+    ════════════════════════════════════════════ */
+
+    const PROJECTS = [
+      {
+        title: "Brand Campaign — Social First",
+        type: "Social Video Campaign",
+        desc: "End-to-end social video production. From concept and storyboarding through to shoot and post-production. Content engineered for engagement.",
+        link: "#"
+      },
+      {
+        title: "Visual Identity & Content",
+        type: "Creative Direction",
+        desc: "Full creative direction for brand visual identity — photography, video, and graphic systems designed to cut through noise.",
+        link: "#"
+      },
+      {
+        title: "Your Featured Project Here",
+        type: "Featured Work",
+        desc: "A standout piece that defines the breadth and ambition of your creative practice.",
+        link: "#",
+        featured: true
+      },
+      {
+        title: "Editorial Short Film",
+        type: "Video Production",
+        desc: "Cinematic storytelling meets commercial purpose — short-form films that blend artistry with brand messaging.",
+        link: "#"
+      },
+      {
+        title: "Digital Content Ecosystem",
+        type: "Content Strategy",
+        desc: "Strategic content frameworks designed for multi-platform distribution. Photography, video, and copy working as one system.",
+        link: "#"
+      }
+    ];
+
+    const PHOTOS = [
+      { caption: "Series Title — 2025" },
+      { caption: "Series Title — 2024" },
+      { caption: "Series Title — 2024" },
+      { caption: "Series Title — 2025" },
+      { caption: "Series Title — 2023" },
+      { caption: "Series Title — 2024" }
+    ];
+
+    /* ── Auto-render projects ── */
+    (function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      const count = document.querySelector('.projects .count');
+      if (count) count.textContent = `0${PROJECTS.length} Projects`;
+
+      PROJECTS.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = `project-card reveal${p.featured ? ' featured' : ''}`;
+
+        if (p.featured) {
+          card.innerHTML = `
+            <div>
+              <span class="project-type">${p.type}</span>
+              <h3>${p.title}</h3>
+              <p>${p.desc}</p>
+            </div>
+            <a href="${p.link}" class="project-link hoverable">View Case Study <span class="arrow">&rarr;</span></a>`;
+        } else {
+          card.innerHTML = `
+            <span class="project-number">${String(i + 1).padStart(3, '0')}</span>
+            <span class="project-type">${p.type}</span>
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <a href="${p.link}" class="project-link hoverable">View Project <span class="arrow">&rarr;</span></a>`;
+        }
+        grid.appendChild(card);
+      });
+    })();
+
+    /* ── Auto-render photo grid ── */
+    (function renderPhotos() {
+      const grid = document.getElementById('photoGrid');
+      PHOTOS.forEach((photo, i) => {
+        const cell = document.createElement('div');
+        cell.className = 'photo-cell reveal';
+        cell.innerHTML = `
+          <div class="photo-placeholder">Photo ${String(i + 1).padStart(2, '0')}</div>
+          <div class="photo-overlay"><span class="photo-caption">${photo.caption}</span></div>`;
+        grid.appendChild(cell);
+      });
+    })();
+
+    /* ─── HERO CANVAS — FUKT MAGAZINE STYLE ─── */
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    let mouseX = 0.5, mouseY = 0.5;
+    let targetMouseX = 0.5, targetMouseY = 0.5;
+    let animFrame;
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    let isMouseDown = false;
+    let interactionStrength = 1;
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      targetMouseX = (e.clientX - rect.left) / rect.width;
+      targetMouseY = (e.clientY - rect.top) / rect.height;
+    });
+
+    canvas.addEventListener('mousedown', () => { isMouseDown = true; });
+    canvas.addEventListener('mouseup', () => { isMouseDown = false; });
+    canvas.addEventListener('mouseleave', () => { isMouseDown = false; });
+
+    // Offscreen canvas for text rendering + displacement
+    const offCanvas = document.createElement('canvas');
+    const offCtx = offCanvas.getContext('2d');
+
+    function drawHero() {
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+
+      // More responsive mouse tracking — circle follows mouse closely
+      const smoothing = isMouseDown ? 0.3 : 0.18;
+      mouseX += (targetMouseX - mouseX) * smoothing;
+      mouseY += (targetMouseY - mouseY) * smoothing;
+
+      // Ramp up interaction strength when mouse is down
+      const targetStrength = isMouseDown ? 2.5 : 1;
+      interactionStrength += (targetStrength - interactionStrength) * 0.08;
+
+      if (offCanvas.width !== canvas.width || offCanvas.height !== canvas.height) {
+        offCanvas.width = canvas.width;
+        offCanvas.height = canvas.height;
+      }
+
+      // ── ORANGE BACKGROUND ──
+      ctx.fillStyle = '#E8742A';
+      ctx.fillRect(0, 0, w, h);
+
+      // ── PAPER TEXTURE ──
+      for (let y = 0; y < h; y += 2) {
+        const opacity = 0.01 + Math.random() * 0.025;
+        ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+        ctx.fillRect(0, y, w, 1);
+      }
+      for (let i = 0; i < 3000; i++) {
+        const gx = Math.random() * w;
+        const gy = Math.random() * h;
+        const gs = Math.random() * 1.5 + 0.5;
+        const go = Math.random() * 0.04;
+        ctx.fillStyle = Math.random() > 0.5
+          ? `rgba(0, 0, 0, ${go})`
+          : `rgba(255, 255, 255, ${go * 0.5})`;
+        ctx.fillRect(gx, gy, gs, gs);
+      }
+      const vGrad = ctx.createRadialGradient(w/2, h/2, h*0.3, w/2, h/2, h*0.85);
+      vGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      vGrad.addColorStop(1, 'rgba(0,0,0,0.08)');
+      ctx.fillStyle = vGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // ── SIZING — Letters fill frame, starting lower to clear nav ──
+      const baseSize = w * 0.28;
+      const verticalStretch = 2.5;
+      const textCenterY = h * 0.55; // shifted down from center
+      const cx = w / 2 + (mouseX - 0.5) * 250 * interactionStrength;
+      const cy = textCenterY + (mouseY - 0.5) * 180 * interactionStrength;
+      const maxRadius = Math.min(w, h) * 0.45;
+      const numRings = 28;
+      const dpr = window.devicePixelRatio;
+
+      // ── DRAW TEXT TO OFFSCREEN CANVAS ──
+      offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
+      offCtx.save();
+      offCtx.scale(dpr, dpr);
+
+      const mx = (mouseX - 0.5) * 45 * interactionStrength;
+      const my = (mouseY - 0.5) * 35 * interactionStrength;
+
+      // Draw each letter individually, vertically stretched
+      const letters = ['H', 'E', 'L', 'E', 'N'];
+      // Tight spacing — letters nearly overlapping
+      const spacing = baseSize * 0.62;
+      const totalLetterW = spacing * (letters.length - 1);
+      const startX = w / 2 - totalLetterW / 2;
+
+      // Helper to draw all letters with vertical stretch
+      function drawLetters(fillColor, offsetX, offsetY) {
+        offCtx.fillStyle = fillColor;
+        for (let i = 0; i < letters.length; i++) {
+          offCtx.save();
+          const lx = startX + i * spacing + offsetX;
+          const ly = textCenterY + offsetY;
+          offCtx.translate(lx, ly);
+          offCtx.scale(1, verticalStretch); // VERTICAL STRETCH — key to FUKT look
+          offCtx.font = `900 ${baseSize}px Anton, sans-serif`;
+          offCtx.textAlign = 'center';
+          offCtx.textBaseline = 'middle';
+          offCtx.fillText(letters[i], 0, 0);
+          offCtx.restore();
+        }
+      }
+
+      // Teal shadow layer — moves with cursor
+      drawLetters('rgba(77, 191, 184, 0.35)', mx, my);
+      // Main black letters
+      drawLetters('#1A1A1A', 0, 0);
+
+      offCtx.restore();
+
+      // ── RENDER IN CONCENTRIC RING BANDS (integrated warp) ──
+      const ringGap = maxRadius / numRings;
+
+      for (let i = 0; i < numRings; i++) {
+        const innerR = i * ringGap;
+        const outerR = (i + 1) * ringGap;
+        const t = i / numRings;
+
+        const radialShift = Math.sin(t * Math.PI * 3.5) * 6 * interactionStrength;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, outerR, 0, Math.PI * 2);
+        if (innerR > 0) {
+          ctx.arc(cx, cy, innerR, 0, Math.PI * 2, true);
+        }
+        ctx.clip();
+
+        const shiftX = Math.cos(t * Math.PI * 4) * radialShift * interactionStrength;
+        const shiftY = Math.sin(t * Math.PI * 4) * radialShift * interactionStrength;
+
+        ctx.drawImage(offCanvas,
+          0, 0, offCanvas.width, offCanvas.height,
+          shiftX, shiftY, w, h
+        );
+
+        // Groove line — prominent vinyl grooves
+        if (i > 0) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+          ctx.lineWidth = 1.2 + Math.sin(t * Math.PI) * 2.5;
+          ctx.strokeStyle = `rgba(120, 50, 10, ${0.35 + t * 0.25})`;
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      // ── TEXT OUTSIDE VINYL (no warp) ──
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, w, h);
+      ctx.arc(cx, cy, maxRadius, 0, Math.PI * 2, true);
+      ctx.clip();
+      ctx.drawImage(offCanvas, 0, 0, offCanvas.width, offCanvas.height, 0, 0, w, h);
+      ctx.restore();
+
+      // ── VINYL GROOVES (on background — prominent!) ──
+      for (let i = 1; i < numRings; i++) {
+        const t = i / numRings;
+        const radius = i * ringGap;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.lineWidth = 1 + Math.sin(t * Math.PI) * 2;
+        ctx.strokeStyle = `rgba(120, 50, 10, ${0.25 + t * 0.2})`;
+        ctx.stroke();
+      }
+
+      // Spindle
+      ctx.beginPath();
+      ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(26, 26, 26, 0.7)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(26, 26, 26, 0.3)';
+      ctx.stroke();
+
+      // ── NAVIGATION LINKS — rotated 90°, down the right edge ──
+      const navItems = ['About', 'A Side', 'B Side', 'Contact'];
+      const navAnchors = ['#about', '#side-a', '#side-b', '#contact'];
+      ctx.font = '44px "Permanent Marker", cursive';
+      ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
+      const navX = w - 35;
+      const sectionHeight = h / navItems.length;
+      canvas._navAreas = [];
+      for (let i = 0; i < navItems.length; i++) {
+        const ny = sectionHeight * i + sectionHeight / 2;
+        ctx.save();
+        ctx.translate(navX, ny);
+        ctx.rotate(Math.PI / 2);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(navItems[i], 0, 0);
+        ctx.restore();
+        // Hit area for clicks
+        const textWidth = ctx.measureText(navItems[i]).width;
+        canvas._navAreas.push({
+          x: navX - 20,
+          y: ny - textWidth / 2,
+          w: 40,
+          h: textWidth,
+          href: navAnchors[i]
+        });
+      }
+
+      animFrame = requestAnimationFrame(drawHero);
+    }
+
+    // Wait for font to load then start
+    document.fonts.ready.then(() => {
+      drawHero();
+    });
+
+    // Click handling for canvas nav links
+    canvas.addEventListener('click', (e) => {
+      if (!canvas._navAreas) return;
+      const rect = canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      for (const area of canvas._navAreas) {
+        if (clickX >= area.x && clickX <= area.x + area.w &&
+            clickY >= area.y && clickY <= area.y + area.h) {
+          document.querySelector(area.href)?.scrollIntoView({ behavior: 'smooth' });
+          break;
+        }
+      }
+    });
+
+    // Change cursor when hovering nav areas
+    canvas.addEventListener('mousemove', (e) => {
+      if (!canvas._navAreas) return;
+      const rect = canvas.getBoundingClientRect();
+      const hx = e.clientX - rect.left;
+      const hy = e.clientY - rect.top;
+      let overNav = false;
+      for (const area of canvas._navAreas) {
+        if (hx >= area.x && hx <= area.x + area.w &&
+            hy >= area.y && hy <= area.y + area.h) {
+          overNav = true;
+          break;
+        }
+      }
+      canvas.style.cursor = overNav ? 'pointer' : 'crosshair';
+    });
+
+    /* ─── CURSOR RING ─── */
+    const cursorRing = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', (e) => {
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.hoverable').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+    });
+
+    /* ─── WAVEFORM BARS ─── */
+    const waveform = document.getElementById('waveform');
+    const barCount = 60;
+    for (let i = 0; i < barCount; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'waveform-bar';
+      const h = Math.random() * 60 + 10;
+      bar.style.height = h + 'px';
+      bar.style.opacity = 0.4 + Math.random() * 0.6;
+      waveform.appendChild(bar);
+    }
+
+    // Animate waveform on hover
+    waveform.addEventListener('mouseenter', () => {
+      document.querySelectorAll('.waveform-bar').forEach((bar, i) => {
+        const interval = setInterval(() => {
+          bar.style.height = (Math.random() * 65 + 10) + 'px';
+        }, 100 + i * 5);
+        bar._interval = interval;
+      });
+    });
+
+    waveform.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.waveform-bar').forEach(bar => {
+        clearInterval(bar._interval);
+      });
+    });
+
+    /* ─── GSAP SCROLL ANIMATIONS ─── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Reveal animations
+    gsap.utils.toArray('.reveal').forEach(el => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    gsap.utils.toArray('.reveal-left').forEach(el => {
+      gsap.to(el, {
+        opacity: 1,
+        x: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    gsap.utils.toArray('.reveal-right').forEach(el => {
+      gsap.to(el, {
+        opacity: 1,
+        x: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Parallax on about number
+    gsap.to('.about-number', {
+      y: -100,
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    // Stagger project cards
+    gsap.utils.toArray('.project-card').forEach((card, i) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Photo cells stagger
+    gsap.utils.toArray('.photo-cell').forEach((cell, i) => {
+      gsap.to(cell, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: cell,
+          start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Contact heading — reveal with character split feel
+    gsap.to('.contact h2', {
+      opacity: 1,
+      y: 0,
+      duration: 1.4,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.contact',
+        start: 'top 70%',
+        toggleActions: 'play none none none'
+      }
+    });
+  </script>
+</body>
+</html>
