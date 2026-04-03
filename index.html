@@ -18,34 +18,69 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
+      /* Raw palette */
       --teal: #4DBFB8;
       --orange: #E8742A;
       --black: #1A1A1A;
       --cream: #F2EDE4;
       --charcoal: #2E2E2E;
+
+      /* Semantic tokens — A Side (default) */
+      --accent: var(--orange);
+      --accent-rgb: 232, 116, 42;
+      --accent-secondary: var(--teal);
+      --bg-primary: var(--cream);
+      --bg-dark: var(--charcoal);
+      --bg-hero: var(--orange);
+      --text-primary: var(--black);
+      --text-on-dark: var(--cream);
+      --text-on-hero: var(--black);
+
+      /* Fonts */
       --font-display: 'Anton', sans-serif;
+      --font-display-alt: 'Permanent Marker', cursive;
       --font-serif: 'Instrument Serif', serif;
       --font-mono: 'Space Mono', monospace;
       --font-bebas: 'Bebas Neue', sans-serif;
+
+      /* Active display font (swapped on B Side) */
+      --font-heading: var(--font-display);
+    }
+
+    /* ═══════════════════════════════════════
+       B SIDE — INVERTED STATE
+    ═══════════════════════════════════════ */
+    body.b-side {
+      --accent: var(--teal);
+      --accent-rgb: 77, 191, 184;
+      --accent-secondary: var(--orange);
+      --bg-primary: var(--charcoal);
+      --bg-dark: var(--cream);
+      --bg-hero: var(--charcoal);
+      --text-primary: var(--cream);
+      --text-on-dark: var(--black);
+      --text-on-hero: var(--cream);
+      --font-heading: var(--font-display-alt);
     }
 
     html {
       scroll-behavior: smooth;
       scrollbar-width: thin;
-      scrollbar-color: var(--orange) var(--charcoal);
+      scrollbar-color: var(--accent) var(--bg-dark);
     }
 
     body {
-      background: var(--cream);
-      color: var(--black);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       font-family: var(--font-mono);
       overflow-x: hidden;
       cursor: crosshair;
+      transition: background 0.1s, color 0.1s;
     }
 
     ::selection {
-      background: var(--orange);
-      color: var(--cream);
+      background: var(--accent);
+      color: var(--bg-primary);
     }
 
     /* ═══════════════════════════════════════
@@ -55,7 +90,7 @@
       position: fixed;
       width: 40px;
       height: 40px;
-      border: 2px solid var(--orange);
+      border: 2px solid var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -67,14 +102,38 @@
     .cursor-ring.hovering {
       width: 70px;
       height: 70px;
-      border-color: var(--teal);
+      border-color: var(--accent-secondary);
     }
 
     /* ═══════════════════════════════════════
        NAVIGATION
     ═══════════════════════════════════════ */
     nav {
-      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(26, 26, 26, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 0.4s ease;
+      border-bottom: 2px solid var(--accent);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 0.4s ease,
+                  border-color 0.3s;
+    }
+
+    nav.visible {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     nav .logo {
@@ -103,7 +162,7 @@
     }
 
     nav .nav-links a:hover {
-      color: var(--orange);
+      color: var(--accent);
     }
 
     nav .nav-links a::after {
@@ -113,7 +172,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--orange);
+      background: var(--accent);
       transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -122,11 +181,19 @@
     }
 
     nav .nav-divider {
-      color: var(--orange);
+      color: var(--accent);
       font-family: 'Permanent Marker', cursive;
       font-size: 0.7rem;
       opacity: 0.5;
       user-select: none;
+    }
+
+    /* Active side indicator in nav */
+    nav .nav-links a.active-side {
+      color: var(--accent);
+    }
+    nav .nav-links a.active-side::after {
+      width: 100%;
     }
 
     /* Issue number badge — hidden now, annotations handle this */
@@ -251,7 +318,7 @@
     ═══════════════════════════════════════ */
     .section-divider {
       height: 8px;
-      background: var(--orange);
+      background: var(--accent);
     }
 
     /* ═══════════════════════════════════════
@@ -259,7 +326,7 @@
     ═══════════════════════════════════════ */
     .about {
       padding: 120px 40px;
-      background: var(--orange);
+      background: var(--accent);
       position: relative;
     }
 
@@ -350,8 +417,8 @@
     }
 
     .discipline-tag:hover {
-      background: var(--teal);
-      border-color: var(--teal);
+      background: var(--accent-secondary);
+      border-color: var(--accent-secondary);
       color: var(--black);
       transform: translateY(-2px);
       box-shadow: 4px 4px 0 var(--black);
@@ -361,7 +428,7 @@
       position: absolute;
       right: -20px;
       top: -40px;
-      font-family: var(--font-display);
+      font-family: var(--font-heading);
       font-size: 15rem;
       opacity: 0.06;
       line-height: 1;
@@ -374,11 +441,11 @@
     }
 
     .projects .section-number {
-      color: var(--cream);
+      color: var(--text-on-dark);
     }
 
     .creative .section-number {
-      color: var(--cream);
+      color: var(--text-primary);
     }
 
     .contact .section-number {
@@ -386,11 +453,79 @@
     }
 
     /* ═══════════════════════════════════════
+       SECTION TRANSITION — TORN PAPER EDGE
+    ═══════════════════════════════════════ */
+    .torn-transition {
+      position: relative;
+      height: 0;
+      z-index: 30;
+    }
+
+    /* Accent layer tearing down — the bottom edge of the About section */
+    .torn-transition::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -2px;
+      right: -2px;
+      height: 60px;
+      background: var(--accent);
+      clip-path: polygon(
+        0% 0%,
+        0% 42%, 1.2% 50%, 2% 38%, 3.5% 55%, 4.2% 40%, 5.8% 48%, 6.5% 35%,
+        8% 58%, 9% 42%, 9.8% 52%, 11% 38%, 12.5% 62%, 13% 44%, 14.2% 36%,
+        15.5% 56%, 16% 40%, 17.5% 65%, 18.2% 48%, 19% 38%, 20.5% 58%,
+        21.5% 42%, 22% 50%, 23.5% 35%, 25% 62%, 26% 45%, 27% 38%,
+        28.5% 55%, 29.5% 68%, 30.5% 44%, 32% 38%, 33% 52%, 34.5% 40%,
+        36% 60%, 37% 42%, 38% 48%, 39.5% 35%, 41% 55%, 42% 72%, 43% 48%,
+        44.5% 38%, 45.5% 52%, 47% 42%, 48% 60%, 49% 38%, 50.5% 50%,
+        52% 35%, 53% 58%, 54.5% 42%, 55.5% 48%, 57% 65%, 58% 40%,
+        59.5% 52%, 60.5% 38%, 62% 55%, 63% 42%, 64.5% 48%, 65.5% 35%,
+        67% 60%, 68.5% 70%, 69.5% 45%, 71% 38%, 72% 55%, 73.5% 42%,
+        75% 62%, 76% 38%, 77.5% 50%, 78.5% 42%, 80% 58%, 81% 35%,
+        82.5% 52%, 84% 44%, 85% 38%, 86.5% 55%, 87.5% 65%, 88.5% 42%,
+        90% 50%, 91% 38%, 92.5% 58%, 93.5% 44%, 95% 52%, 96% 35%,
+        97.5% 48%, 98.5% 55%, 100% 40%,
+        100% 0%
+      );
+    }
+
+    /* Dark layer tearing up — the top edge of the Projects section */
+    .torn-transition::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -2px;
+      right: -2px;
+      height: 60px;
+      background: var(--bg-dark);
+      clip-path: polygon(
+        0% 100%,
+        0% 48%, 1.5% 40%, 2.5% 50%, 3.8% 35%, 5% 45%, 6% 52%, 7.2% 38%,
+        8.5% 55%, 9.5% 42%, 10.5% 48%, 12% 34%, 13% 52%, 14% 40%,
+        15.5% 48%, 16.5% 55%, 17.5% 38%, 19% 50%, 20% 42%, 21% 55%,
+        22.5% 38%, 23.5% 48%, 25% 35%, 26.5% 52%, 27.5% 60%, 28.5% 42%,
+        30% 50%, 31% 38%, 32.5% 55%, 33.5% 42%, 35% 48%, 36% 35%,
+        37.5% 52%, 38.5% 62%, 39.5% 44%, 41% 38%, 42.5% 55%, 43.5% 42%,
+        45% 50%, 46% 35%, 47.5% 48%, 49% 58%, 50% 40%, 51.5% 50%,
+        52.5% 38%, 54% 52%, 55% 42%, 56.5% 55%, 57.5% 35%, 59% 48%,
+        60% 58%, 61.5% 40%, 63% 50%, 64% 38%, 65.5% 52%, 67% 42%,
+        68% 62%, 69% 44%, 70.5% 38%, 72% 52%, 73% 42%, 74.5% 55%,
+        76% 38%, 77% 48%, 78.5% 58%, 79.5% 40%, 81% 50%, 82% 35%,
+        83.5% 48%, 85% 55%, 86% 40%, 87.5% 52%, 89% 38%, 90% 48%,
+        91.5% 58%, 92.5% 42%, 94% 52%, 95% 38%, 96.5% 48%, 98% 55%,
+        99% 42%, 100% 48%,
+        100% 100%
+      );
+    }
+
+    /* ═══════════════════════════════════════
        PROJECTS SECTION
     ═══════════════════════════════════════ */
     .projects {
       padding: 120px 40px;
-      background: var(--charcoal);
+      padding-top: 160px;
+      background: var(--bg-dark);
       position: relative;
     }
 
@@ -400,16 +535,16 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      border-bottom: 3px solid var(--cream);
+      border-bottom: 3px solid var(--text-on-dark);
       padding-bottom: 20px;
       position: relative;
       z-index: 25;
     }
 
     .projects .section-header h2 {
-      font-family: 'Permanent Marker', cursive;
+      font-family: var(--font-display-alt);
       font-size: clamp(3rem, 6vw, 5rem);
-      color: var(--cream);
+      color: var(--text-on-dark);
       line-height: 0.95;
     }
 
@@ -418,7 +553,7 @@
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: var(--orange);
+      background: var(--accent);
       margin-right: 16px;
       vertical-align: middle;
     }
@@ -427,7 +562,7 @@
       font-family: var(--font-mono);
       font-size: 0.7rem;
       letter-spacing: 0.2em;
-      color: var(--teal);
+      color: var(--accent-secondary);
       text-transform: uppercase;
     }
 
@@ -461,7 +596,7 @@
     }
 
     .project-card:hover .project-img {
-      border-color: var(--orange);
+      border-color: var(--accent);
     }
 
     .project-card::after {
@@ -473,7 +608,7 @@
     }
 
     .project-card:hover::after {
-      background: var(--orange);
+      background: var(--accent);
     }
 
     .project-card .project-img img {
@@ -504,36 +639,39 @@
       font-family: var(--font-mono);
       font-size: 0.7rem;
       line-height: 1.6;
-      color: var(--cream);
+      color: var(--text-on-dark);
       opacity: 0.85;
     }
 
     /* ═══════════════════════════════════════
-       CREATIVE WORK SECTION
+       CREATIVE WORK SECTION — B SIDE
     ═══════════════════════════════════════ */
     .creative {
       padding: 120px 40px;
-      background: var(--black);
+      background: #fff;
       position: relative;
       color: var(--cream);
       overflow: hidden;
     }
 
+    .creative .section-number {
+      color: #ddd;
+    }
 
     .creative .section-header {
       max-width: 1200px;
-      margin: 0 auto 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      margin: 0 auto 60px;
       position: relative;
       z-index: 25;
       border-bottom: 3px solid var(--cream);
       padding-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
     .creative .section-header h2 {
-      font-family: 'Permanent Marker', cursive;
+      font-family: var(--font-display-alt);
       font-size: clamp(3rem, 6vw, 5rem);
       color: var(--cream);
       line-height: 0.95;
@@ -544,279 +682,24 @@
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: var(--orange);
+      background: var(--accent);
       margin-right: 16px;
       vertical-align: middle;
     }
 
-    .creative .section-header .label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--orange);
-    }
-
-    /* Photography Collage */
-    .photo-collage {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto 100px;
-      height: 720px;
-      z-index: 2;
-    }
-
-    .photo-cell {
-      position: absolute;
-      cursor: pointer;
-      transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s, filter 0.3s;
-      transform-origin: center center;
-    }
-
-    .photo-cell:hover {
-      z-index: 100 !important;
-      filter: brightness(1.08);
-    }
-
-    .photo-cell img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Polaroid treatment */
-    .photo-cell.polaroid {
-      background: #f0ece4;
-      padding: 8px 8px 36px 8px;
-      box-shadow: 4px 6px 25px rgba(0,0,0,0.6);
-    }
-
-    .photo-cell.polaroid img {
-      width: 100%;
-      height: calc(100% - 28px);
-    }
-
-    .photo-cell.polaroid .polaroid-label {
-      position: absolute;
-      bottom: 8px;
-      left: 14px;
-      font-family: 'Permanent Marker', cursive;
-      font-size: 0.7rem;
-      color: #444;
-      transform: rotate(-1deg);
-    }
-
-    /* Tape strip treatment */
-    .photo-cell.tape {
-      box-shadow: 3px 5px 20px rgba(0,0,0,0.5);
-    }
-
-    .photo-cell.tape::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%) rotate(2deg);
-      width: 65px;
-      height: 20px;
-      background: rgba(255, 255, 240, 0.3);
-      backdrop-filter: blur(1px);
-      z-index: 10;
-      border: 1px solid rgba(255, 255, 240, 0.1);
-    }
-
-    /* Raw/pinned treatment */
-    .photo-cell.raw {
-      box-shadow: 2px 4px 18px rgba(0,0,0,0.45);
-      border: 2px solid rgba(255,255,255,0.08);
-    }
-
-    .photo-cell.raw::after {
-      content: '';
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 10px;
-      height: 10px;
-      background: var(--orange);
-      border-radius: 50%;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.4);
-      z-index: 5;
-    }
-
-    .photo-cell .photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: transparent;
-      display: flex;
-      align-items: flex-end;
-      padding: 12px;
-      transition: background 0.4s;
-    }
-
-    .photo-cell.polaroid .photo-overlay {
-      inset: 8px 8px 36px 8px;
-    }
-
-    .photo-cell:hover .photo-overlay {
-      background: rgba(232, 116, 42, 0.12);
-    }
-
-    .photo-cell .photo-caption {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--cream);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.4s;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-    }
-
-    .photo-cell:hover .photo-caption {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Scattered decorative elements */
-    .collage-scatter {
-      position: absolute;
-      pointer-events: none;
-      z-index: 1;
-      font-family: var(--font-bebas);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .collage-sticker {
-      position: absolute;
-      z-index: 10;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid var(--orange);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-bebas);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: var(--orange);
-      pointer-events: none;
-    }
-
-    /* DJ Section */
-    .dj-section {
+    /* Sketch image — casually placed */
+    .bside-sketch {
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .dj-info {
-      border: 3px solid var(--cream);
-      padding: 40px;
-    }
-
-    .dj-info .section-tag {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .dj-info h3 {
-      font-family: 'Permanent Marker', cursive;
-      font-size: 2.5rem;
-      color: var(--cream);
-      margin-bottom: 16px;
-      line-height: 1;
-    }
-
-    .dj-info p {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      line-height: 1.8;
-      color: rgba(242, 237, 228, 0.7);
-    }
-
-    .dj-player {
-      background: #1A1A1A;
-      border: 3px solid #1A1A1A;
-      padding: 40px;
-      position: relative;
-    }
-
-    .dj-player .player-label {
-      font-family: var(--font-bebas);
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
-      color: var(--teal);
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    .dj-player .waveform {
-      width: 100%;
-      height: 80px;
       display: flex;
-      align-items: flex-end;
-      gap: 2px;
-    }
-
-    .waveform-bar {
-      flex: 1;
-      background: var(--orange);
-      border-radius: 1px 1px 0 0;
-      transition: height 0.3s;
-      min-height: 4px;
-    }
-
-    .dj-player .track-info {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .dj-player .track-name {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--cream);
-      opacity: 0.7;
-    }
-
-    .dj-player .play-btn {
-      width: 50px;
-      height: 50px;
-      border: 2px solid var(--teal);
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      transition: all 0.3s;
+      padding: 40px 0;
     }
 
-    .dj-player .play-btn:hover {
-      background: var(--teal);
-    }
-
-    .dj-player .play-btn svg {
-      fill: var(--teal);
-      transition: fill 0.3s;
-    }
-
-    .dj-player .play-btn:hover svg {
-      fill: var(--black);
+    .bside-sketch img {
+      max-width: 70%;
+      height: auto;
+      transform: rotate(-2.5deg) translate(-30px, 10px);
     }
 
     /* ═══════════════════════════════════════
@@ -827,15 +710,7 @@
       background: var(--charcoal);
       position: relative;
       overflow: hidden;
-      border-top: 6px solid var(--orange);
-      /* Brick / concrete texture via CSS */
-      background-image:
-        linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(0,0,0,0.06) 1px, transparent 1px),
-        radial-gradient(ellipse at 20% 50%, rgba(0,0,0,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(0,0,0,0.1) 0%, transparent 50%);
-      background-size: 60px 30px, 60px 30px, 100% 100%, 100% 100%;
-      background-color: var(--charcoal);
+      border-top: 6px solid var(--accent);
     }
 
     .contact-inner {
@@ -850,14 +725,14 @@
       font-size: 0.6rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--accent-secondary);
       margin-bottom: 20px;
       display: block;
     }
 
     .contact h2 {
-      font-family: 'Permanent Marker', cursive;
-      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-family: var(--font-heading);
+      font-size: clamp(4rem, 10vw, 9rem);
       color: var(--cream);
       line-height: 0.95;
       margin-bottom: 30px;
@@ -871,7 +746,7 @@
       font-family: var(--font-serif);
       font-style: italic;
       text-transform: none;
-      color: var(--orange);
+      color: var(--accent);
     }
 
     /* Contact links row — bottom of section */
@@ -892,7 +767,7 @@
       color: var(--cream);
       text-decoration: none;
       padding: 8px 0 8px 16px;
-      border-left: 4px solid var(--orange);
+      border-left: 4px solid var(--accent);
       border-bottom: none;
       transition: all 0.3s;
       display: inline-flex;
@@ -901,8 +776,8 @@
     }
 
     .contact-link:hover {
-      color: var(--teal);
-      border-left-color: var(--teal);
+      color: var(--accent-secondary);
+      border-left-color: var(--accent-secondary);
     }
 
     /* Note form — inline spray-can style */
@@ -1110,7 +985,7 @@
     .footer {
       background: var(--black);
       padding: 20px 40px;
-      border-top: 3px solid var(--orange);
+      border-top: 3px solid var(--accent);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1151,7 +1026,7 @@
     .tear-hand-1 {
       width: 200px;
       left: 20px;
-      top: -120px;
+      top: 20px;
       transform: rotate(0deg) scaleX(-1);
     }
 
@@ -1206,12 +1081,65 @@
     }
 
     /* ═══════════════════════════════════════
+       B SIDE — LAYOUT LOOSENESS
+    ═══════════════════════════════════════ */
+    body.b-side .projects .section-header {
+      border-bottom-style: dashed;
+    }
+
+    body.b-side .project-card:nth-child(odd) {
+      transform: rotate(-1.2deg);
+    }
+    body.b-side .project-card:nth-child(even) {
+      transform: rotate(0.8deg);
+    }
+    body.b-side .project-card:hover {
+      transform: rotate(0deg) scale(1.02) !important;
+    }
+
+    body.b-side .section-number {
+      font-family: var(--font-display-alt);
+      opacity: 0.08;
+    }
+
+    body.b-side .discipline-tag {
+      border-style: dashed;
+      border-width: 2px;
+    }
+
+    /* ═══════════════════════════════════════
+       FLIP TRANSITION OVERLAY
+    ═══════════════════════════════════════ */
+    .flip-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      opacity: 0;
+      background: var(--black);
+    }
+
+    .flip-edge-line {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100vh;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* ═══════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════ */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      nav .nav-links { gap: 16px; }
-      nav .nav-links a { font-size: 0.6rem; }
+      nav { padding: 12px 16px; }
+      nav .nav-links { gap: 12px; }
+      nav .nav-links a { font-family: var(--font-bebas); font-size: 0.8rem; letter-spacing: 0.08em; }
+      nav .nav-divider { display: none; }
+      nav .logo { font-size: 1rem; }
 
       .hero-overlay-text { left: 20px; bottom: 20px; }
       .hero-overlay-text .tagline { font-size: 1rem; }
@@ -1226,16 +1154,7 @@
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
-      .photo-collage { height: 900px; }
-      .photo-cell { width: 45% !important; height: 30% !important; }
-      .photo-cell:nth-child(1) { left: 2% !important; top: 0% !important; }
-      .photo-cell:nth-child(2) { left: 48% !important; top: 2% !important; }
-      .photo-cell:nth-child(3) { left: 5% !important; top: 32% !important; }
-      .photo-cell:nth-child(4) { left: 45% !important; top: 34% !important; }
-      .photo-cell:nth-child(5) { left: 2% !important; top: 65% !important; }
-      .photo-cell:nth-child(6) { left: 50% !important; top: 67% !important; }
-      .collage-sticker, .collage-scatter { display: none; }
-      .dj-section { grid-template-columns: 1fr; }
+      .bside-sketch img { max-width: 95%; transform: rotate(-1.5deg) translate(-10px, 5px); }
 
       .contact { padding: 80px 20px; }
       .contact-bg-text { font-size: 8rem; }
@@ -1250,7 +1169,23 @@
   <!-- Cursor follower -->
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Navigation removed from fixed bar — now drawn on canvas -->
+  <!-- Flip transition overlays -->
+  <div class="flip-overlay" id="flipOverlay"></div>
+  <div class="flip-edge-line" id="flipEdgeLine"></div>
+
+  <!-- Fixed Navigation — appears on scroll -->
+  <nav id="mainNav">
+    <a href="#hero" class="logo hoverable">HJ</a>
+    <ul class="nav-links">
+      <li><a href="#about" class="hoverable">About</a></li>
+      <li><span class="nav-divider">/</span></li>
+      <li><a href="#projects" class="hoverable" id="navASide">A Side</a></li>
+      <li><span class="nav-divider">/</span></li>
+      <li><a href="#creative" class="hoverable" id="navBSide">B Side</a></li>
+      <li><span class="nav-divider">/</span></li>
+      <li><a href="#contact" class="hoverable">Contact</a></li>
+    </ul>
+  </nav>
 
   <!-- ═══════════════════════════════════════
        HERO SECTION — FUKT MAGAZINE COVER
@@ -1295,6 +1230,9 @@
     </div>
   </section>
 
+  <!-- Torn paper transition -->
+  <div class="torn-transition"></div>
+
   <!-- ═══════════════════════════════════════
        PROJECTS SECTION
   ═══════════════════════════════════════ -->
@@ -1312,36 +1250,15 @@
   <!-- ═══════════════════════════════════════
        CREATIVE WORK SECTION
   ═══════════════════════════════════════ -->
-  <section class="creative" id="creative" style="overflow:visible;">
+  <section class="creative" id="creative">
     <div class="section-number">03</div>
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
       <h2>B Side</h2>
-      <span class="label">Photography & DJ</span>
     </div>
 
-    <!-- Photography Collage -->
-    <div class="photo-collage" id="photoCollage"></div>
-
-    <!-- DJ Section -->
-    <div class="dj-section">
-      <div class="dj-info reveal-left">
-        <span class="section-tag">Sound</span>
-        <h3>Behind The Decks</h3>
-        <p>Curating sonic experiences that move bodies and minds. From intimate bar sets to festival stages — every track selection is intentional, every transition a story beat.</p>
-      </div>
-      <div class="dj-player reveal-right">
-        <span class="player-label">Now Playing</span>
-        <div class="waveform" id="waveform"></div>
-        <div class="track-info">
-          <span class="track-name">Latest Mix — 58:32</span>
-          <button class="play-btn hoverable" id="playBtn">
-            <svg width="16" height="18" viewBox="0 0 16 18">
-              <polygon points="0,0 16,9 0,18" />
-            </svg>
-          </button>
-        </div>
-      </div>
+    <div class="bside-sketch reveal">
+      <img src="djing-sketch2.jpg" alt="DJing sketch">
     </div>
   </section>
 
@@ -1505,8 +1422,8 @@
 
     /* ── Auto-render photo collage ── */
     (function renderPhotos() {
-      const collage = document.getElementById('photoCollage');
-
+      const grid = document.getElementById('photoGrid');
+      if (!grid) return;
       PHOTOS.forEach((photo, i) => {
         const cell = document.createElement('div');
         cell.className = `photo-cell ${photo.style}`;
@@ -1843,31 +1760,32 @@
 
     /* ─── WAVEFORM BARS ─── */
     const waveform = document.getElementById('waveform');
-    const barCount = 60;
-    for (let i = 0; i < barCount; i++) {
-      const bar = document.createElement('div');
-      bar.className = 'waveform-bar';
-      const h = Math.random() * 60 + 10;
-      bar.style.height = h + 'px';
-      bar.style.opacity = 0.4 + Math.random() * 0.6;
-      waveform.appendChild(bar);
+    if (waveform) {
+      const barCount = 60;
+      for (let i = 0; i < barCount; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'waveform-bar';
+        const h = Math.random() * 60 + 10;
+        bar.style.height = h + 'px';
+        bar.style.opacity = 0.4 + Math.random() * 0.6;
+        waveform.appendChild(bar);
+      }
+
+      waveform.addEventListener('mouseenter', () => {
+        document.querySelectorAll('.waveform-bar').forEach((bar, i) => {
+          const interval = setInterval(() => {
+            bar.style.height = (Math.random() * 65 + 10) + 'px';
+          }, 100 + i * 5);
+          bar._interval = interval;
+        });
+      });
+
+      waveform.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.waveform-bar').forEach(bar => {
+          clearInterval(bar._interval);
+        });
+      });
     }
-
-    // Animate waveform on hover
-    waveform.addEventListener('mouseenter', () => {
-      document.querySelectorAll('.waveform-bar').forEach((bar, i) => {
-        const interval = setInterval(() => {
-          bar.style.height = (Math.random() * 65 + 10) + 'px';
-        }, 100 + i * 5);
-        bar._interval = interval;
-      });
-    });
-
-    waveform.addEventListener('mouseleave', () => {
-      document.querySelectorAll('.waveform-bar').forEach(bar => {
-        clearInterval(bar._interval);
-      });
-    });
 
     /* ─── GSAP SCROLL ANIMATIONS ─── */
     gsap.registerPlugin(ScrollTrigger);
@@ -1961,6 +1879,15 @@
       });
     });
 
+    /* ─── SCROLL-TRIGGERED NAV ─── */
+    const mainNav = document.getElementById('mainNav');
+    ScrollTrigger.create({
+      trigger: '#about',
+      start: 'top 80%',
+      onEnter: () => mainNav.classList.add('visible'),
+      onLeaveBack: () => mainNav.classList.remove('visible')
+    });
+
     // Contact heading — reveal with character split feel
     gsap.to('.contact h2', {
       opacity: 1,
@@ -2045,3 +1972,8 @@
   </script>
 </body>
 </html>
+>
+
+>
+>
+

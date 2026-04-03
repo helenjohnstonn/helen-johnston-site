@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "helen-site",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "/Users/helenjohnston/Projects/helen-johnston-site", "-l", "3456"],
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "3456", "-d", "/Users/helenjohnston/Projects/helen-johnston-site"],
       "port": 3456
     }
   ]
