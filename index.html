@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Helen Johnston — Photographer / DJ / Creative Director</title>
+  <meta name="description" content="Helen Johnston — Product marketer, photographer, and DJ. Exploring the intersection of creativity and technology.">
+  <meta property="og:title" content="Helen Johnston — Portfolio">
+  <meta property="og:description" content="Product marketer, photographer, and DJ. Exploring the intersection of creativity and technology.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -373,7 +378,7 @@
     }
 
     .creative .section-number {
-      color: var(--black);
+      color: var(--cream);
     }
 
     .contact .section-number {
@@ -508,9 +513,12 @@
     ═══════════════════════════════════════ */
     .creative {
       padding: 120px 40px;
-      background: var(--cream);
+      background: var(--black);
       position: relative;
+      color: var(--cream);
+      overflow: hidden;
     }
+
 
     .creative .section-header {
       max-width: 1200px;
@@ -520,14 +528,14 @@
       align-items: flex-end;
       position: relative;
       z-index: 25;
-      border-bottom: 3px solid var(--black);
+      border-bottom: 3px solid var(--cream);
       padding-bottom: 20px;
     }
 
     .creative .section-header h2 {
       font-family: 'Permanent Marker', cursive;
       font-size: clamp(3rem, 6vw, 5rem);
-      color: var(--black);
+      color: var(--cream);
       line-height: 0.95;
     }
 
@@ -549,99 +557,154 @@
       color: var(--orange);
     }
 
-    /* Photography Grid */
-    .photo-grid {
+    /* Photography Collage */
+    .photo-collage {
+      position: relative;
       max-width: 1200px;
-      margin: 0 auto 80px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: 320px 320px;
-      gap: 3px;
+      margin: 0 auto 100px;
+      height: 720px;
+      z-index: 2;
     }
 
     .photo-cell {
-      background: var(--charcoal);
-      position: relative;
-      overflow: hidden;
+      position: absolute;
       cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s, filter 0.3s;
+      transform-origin: center center;
     }
 
-    .photo-cell .photo-placeholder {
+    .photo-cell:hover {
+      z-index: 100 !important;
+      filter: brightness(1.08);
+    }
+
+    .photo-cell img {
       width: 100%;
       height: 100%;
-      min-height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-bebas);
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--cream);
-      opacity: 0.5;
-      text-transform: uppercase;
-      background: repeating-linear-gradient(
-        -45deg,
-        var(--charcoal),
-        var(--charcoal) 8px,
-        #333 8px,
-        #333 9px
-      );
-      position: relative;
+      object-fit: cover;
+      display: block;
     }
 
-    /* Generative pattern backgrounds for photo placeholders */
-    .photo-cell:nth-child(1) .photo-placeholder {
-      background: linear-gradient(135deg, var(--charcoal) 25%, #3a3a3a 25%, #3a3a3a 50%, var(--charcoal) 50%, var(--charcoal) 75%, #3a3a3a 75%);
-      background-size: 20px 20px;
+    /* Polaroid treatment */
+    .photo-cell.polaroid {
+      background: #f0ece4;
+      padding: 8px 8px 36px 8px;
+      box-shadow: 4px 6px 25px rgba(0,0,0,0.6);
     }
 
-    .photo-cell:nth-child(2) .photo-placeholder {
-      background: repeating-conic-gradient(var(--charcoal) 0% 25%, #333 0% 50%) 0 0 / 30px 30px;
+    .photo-cell.polaroid img {
+      width: 100%;
+      height: calc(100% - 28px);
     }
 
-    .photo-cell:nth-child(3) .photo-placeholder {
-      background: radial-gradient(circle at 30% 50%, #3a3a3a 0%, var(--charcoal) 70%);
+    .photo-cell.polaroid .polaroid-label {
+      position: absolute;
+      bottom: 8px;
+      left: 14px;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 0.7rem;
+      color: #444;
+      transform: rotate(-1deg);
     }
 
-    .photo-cell:nth-child(5) .photo-placeholder {
-      background: linear-gradient(45deg, var(--charcoal) 0%, #3d3d3d 50%, var(--charcoal) 100%);
+    /* Tape strip treatment */
+    .photo-cell.tape {
+      box-shadow: 3px 5px 20px rgba(0,0,0,0.5);
     }
 
-    .photo-cell:nth-child(6) .photo-placeholder {
-      background: repeating-linear-gradient(0deg, var(--charcoal), var(--charcoal) 4px, #353535 4px, #353535 5px);
+    .photo-cell.tape::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(2deg);
+      width: 65px;
+      height: 20px;
+      background: rgba(255, 255, 240, 0.3);
+      backdrop-filter: blur(1px);
+      z-index: 10;
+      border: 1px solid rgba(255, 255, 240, 0.1);
     }
 
-    .photo-cell:nth-child(1) { grid-row: span 2; }
-    .photo-cell:nth-child(4) { grid-column: span 2; }
+    /* Raw/pinned treatment */
+    .photo-cell.raw {
+      box-shadow: 2px 4px 18px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.08);
+    }
+
+    .photo-cell.raw::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 10px;
+      height: 10px;
+      background: var(--orange);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.4);
+      z-index: 5;
+    }
 
     .photo-cell .photo-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(232, 116, 42, 0);
+      background: transparent;
       display: flex;
       align-items: flex-end;
-      padding: 20px;
+      padding: 12px;
       transition: background 0.4s;
     }
 
+    .photo-cell.polaroid .photo-overlay {
+      inset: 8px 8px 36px 8px;
+    }
+
     .photo-cell:hover .photo-overlay {
-      background: rgba(232, 116, 42, 0.15);
+      background: rgba(232, 116, 42, 0.12);
     }
 
     .photo-cell .photo-caption {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--cream);
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
       transition: all 0.4s;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
     .photo-cell:hover .photo-caption {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Scattered decorative elements */
+    .collage-scatter {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      font-family: var(--font-bebas);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .collage-sticker {
+      position: absolute;
+      z-index: 10;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-bebas);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+      pointer-events: none;
     }
 
     /* DJ Section */
@@ -655,7 +718,7 @@
     }
 
     .dj-info {
-      border: 3px solid var(--black);
+      border: 3px solid var(--cream);
       padding: 40px;
     }
 
@@ -672,7 +735,7 @@
     .dj-info h3 {
       font-family: 'Permanent Marker', cursive;
       font-size: 2.5rem;
-      color: var(--black);
+      color: var(--cream);
       margin-bottom: 16px;
       line-height: 1;
     }
@@ -681,7 +744,7 @@
       font-family: var(--font-mono);
       font-size: 0.75rem;
       line-height: 1.8;
-      color: var(--charcoal);
+      color: rgba(242, 237, 228, 0.7);
     }
 
     .dj-player {
@@ -757,14 +820,22 @@
     }
 
     /* ═══════════════════════════════════════
-       CONTACT SECTION
+       CONTACT / GRAFFITI WALL SECTION
     ═══════════════════════════════════════ */
     .contact {
       padding: 120px 40px 80px;
-      background: var(--black);
+      background: var(--charcoal);
       position: relative;
       overflow: hidden;
       border-top: 6px solid var(--orange);
+      /* Brick / concrete texture via CSS */
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(0,0,0,0.06) 1px, transparent 1px),
+        radial-gradient(ellipse at 20% 50%, rgba(0,0,0,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(0,0,0,0.1) 0%, transparent 50%);
+      background-size: 60px 30px, 60px 30px, 100% 100%, 100% 100%;
+      background-color: var(--charcoal);
     }
 
     .contact-inner {
@@ -786,10 +857,14 @@
 
     .contact h2 {
       font-family: 'Permanent Marker', cursive;
-      font-size: clamp(4rem, 10vw, 9rem);
+      font-size: clamp(3.5rem, 9vw, 8rem);
       color: var(--cream);
-      line-height: 0.9;
-      margin-bottom: 60px;
+      line-height: 0.95;
+      margin-bottom: 30px;
+      /* Spray paint drip feel */
+      text-shadow:
+        3px 3px 0 rgba(0,0,0,0.4),
+        0 0 40px rgba(232, 116, 42, 0.15);
     }
 
     .contact h2 em {
@@ -799,10 +874,14 @@
       color: var(--orange);
     }
 
+    /* Contact links row — bottom of section */
     .contact-links {
       display: flex;
-      gap: 40px;
+      gap: 30px;
       flex-wrap: wrap;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     .contact-link {
@@ -826,18 +905,205 @@
       border-left-color: var(--teal);
     }
 
+    /* Note form — inline spray-can style */
+    .note-form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .note-form {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .note-form textarea {
+      flex: 1;
+      min-width: 240px;
+      min-height: 70px;
+      max-height: 100px;
+      padding: 14px 18px;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1rem;
+      line-height: 1.4;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 0;
+      color: var(--cream);
+      resize: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .note-form textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .note-form textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: rgba(0,0,0,0.7);
+    }
+
+    .note-form input[type="text"] {
+      width: 160px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 0;
+      color: var(--cream);
+    }
+
+    .note-form input[type="text"]::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .note-form input[type="text"]:focus {
+      outline: none;
+      border-color: var(--teal);
+      background: rgba(0,0,0,0.7);
+    }
+
+    .note-submit {
+      padding: 14px 36px;
+      font-family: var(--font-bebas);
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--cream);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    }
+
+    .note-submit:hover {
+      background: var(--teal);
+      color: var(--black);
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+    }
+
+    /* Graffiti wall / notes board */
+    .notes-board {
+      width: 100%;
+      min-height: 420px;
+      position: relative;
+      margin-top: 40px;
+      padding: 20px;
+      /* Subtle wall texture */
+      border-top: 2px solid rgba(255,255,255,0.05);
+    }
+
+    /* Graffiti tag style notes */
+    .wall-tag {
+      position: absolute;
+      max-width: 200px;
+      padding: 0;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1rem;
+      line-height: 1.3;
+      color: var(--cream);
+      background: none;
+      border: none;
+      cursor: default;
+      transition: transform 0.3s, filter 0.3s;
+      /* Spray paint glow */
+      text-shadow: 0 0 12px currentColor, 0 0 2px currentColor;
+      opacity: 0.85;
+    }
+
+    .wall-tag:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      opacity: 1;
+      z-index: 10;
+      filter: brightness(1.3);
+    }
+
+    .wall-tag .note-author {
+      display: block;
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      opacity: 0.4;
+      text-transform: uppercase;
+      text-shadow: none;
+    }
+
+    /* Graffiti color palette — matching site palette */
+    .wall-tag.tag-orange { color: var(--orange); }
+    .wall-tag.tag-teal { color: var(--teal); }
+    .wall-tag.tag-cream { color: var(--cream); }
+    .wall-tag.tag-pink { color: #E85D8A; }
+    .wall-tag.tag-gold { color: #D4A843; }
+    .wall-tag.tag-white { color: rgba(255,255,255,0.7); text-shadow: 0 0 8px rgba(255,255,255,0.3); }
+
+    /* Some tags look like stickers (pasted paper) */
+    .wall-tag.sticker {
+      background: var(--cream);
+      color: var(--black);
+      padding: 10px 14px;
+      text-shadow: none;
+      transform-origin: center;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      font-size: 0.85rem;
+      border: 2px solid transparent;
+    }
+
+    .wall-tag.sticker .note-author {
+      opacity: 0.5;
+    }
+
+    .wall-tag.sticker:hover {
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
+    }
+
+    /* Crossed-out / underline accents — like real walls */
+    .wall-tag.underlined::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: currentColor;
+      opacity: 0.4;
+      transform: rotate(-1deg);
+    }
+
+    .note-success {
+      display: none;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.2rem;
+      color: var(--teal);
+      margin-top: 12px;
+      text-shadow: 0 0 10px var(--teal);
+    }
+
     .contact-bg-text {
       position: absolute;
       bottom: -40px;
       right: -20px;
       font-family: var(--font-display);
-      font-size: 20rem;
+      font-size: 18rem;
       color: var(--cream);
-      opacity: 0.03;
+      opacity: 0.02;
       line-height: 1;
       pointer-events: none;
       user-select: none;
       text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .contact { padding: 80px 20px 60px; }
+      .notes-board { min-height: 350px; }
+      .wall-tag { font-size: 0.85rem; max-width: 150px; }
+      .wall-tag.sticker { font-size: 0.75rem; }
+      .contact-bg-text { font-size: 8rem; }
     }
 
     /* Footer */
@@ -960,9 +1226,15 @@
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
-      .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-      .photo-cell:nth-child(1) { grid-row: auto; }
-      .photo-cell:nth-child(4) { grid-column: auto; }
+      .photo-collage { height: 900px; }
+      .photo-cell { width: 45% !important; height: 30% !important; }
+      .photo-cell:nth-child(1) { left: 2% !important; top: 0% !important; }
+      .photo-cell:nth-child(2) { left: 48% !important; top: 2% !important; }
+      .photo-cell:nth-child(3) { left: 5% !important; top: 32% !important; }
+      .photo-cell:nth-child(4) { left: 45% !important; top: 34% !important; }
+      .photo-cell:nth-child(5) { left: 2% !important; top: 65% !important; }
+      .photo-cell:nth-child(6) { left: 50% !important; top: 67% !important; }
+      .collage-sticker, .collage-scatter { display: none; }
       .dj-section { grid-template-columns: 1fr; }
 
       .contact { padding: 80px 20px; }
@@ -1048,8 +1320,8 @@
       <span class="label">Photography & DJ</span>
     </div>
 
-    <!-- Photography Grid -->
-    <div class="photo-grid" id="photoGrid"></div>
+    <!-- Photography Collage -->
+    <div class="photo-collage" id="photoCollage"></div>
 
     <!-- DJ Section -->
     <div class="dj-section">
@@ -1074,29 +1346,74 @@
   </section>
 
   <!-- ═══════════════════════════════════════
-       CONTACT SECTION
+       CONTACT / GRAFFITI WALL SECTION
   ═══════════════════════════════════════ -->
   <section class="contact" id="contact" style="overflow:visible;">
     <div class="section-number">04</div>
     <div class="tear-hand tear-hand-5"><img src="hand.png" alt=""></div>
     <div class="contact-inner">
-      <span class="section-tag reveal">005 / Contact</span>
-      <h2 class="reveal">Let's<br><em>Make</em><br>Something</h2>
+      <span class="section-tag reveal">005 / The Wall</span>
+      <h2 class="reveal">Leave Me<br>a <em>Note</em></h2>
+
+      <div class="note-form-wrap reveal">
+        <form class="note-form" id="noteForm">
+          <textarea name="message" placeholder="Tag the wall..." required></textarea>
+          <input type="text" name="name" placeholder="Your tag">
+          <button type="submit" class="note-submit hoverable">Spray it ↗</button>
+          <div class="note-success" id="noteSuccess">🎨 Tagged! It's on the wall now.</div>
+        </form>
+      </div>
+
+      <div class="notes-board" id="notesBoard">
+        <!-- Pre-seeded graffiti tags -->
+        <div class="wall-tag tag-orange" style="top: 15px; left: 2%; transform: rotate(-4deg); font-size: 1.4rem;">
+          Cool site! The record flip is 🔥
+          <span class="note-author">— visitor</span>
+        </div>
+        <div class="wall-tag tag-teal underlined" style="top: 10px; left: 48%; transform: rotate(1deg); font-size: 1.2rem;">
+          Your DJ sets go hard
+          <span class="note-author">— a fan</span>
+        </div>
+        <div class="wall-tag sticker" style="top: 20px; right: 4%; transform: rotate(-6deg);">
+          Incredible vibes ✨
+          <span class="note-author">— nightowl</span>
+        </div>
+        <div class="wall-tag tag-cream" style="top: 140px; left: 25%; transform: rotate(-2deg); font-size: 1.1rem;">
+          Love the zine vibes ✂️
+          <span class="note-author">— anon</span>
+        </div>
+        <div class="wall-tag tag-pink underlined" style="top: 180px; left: 60%; transform: rotate(3deg); font-size: 1.3rem;">
+          Let's collab sometime!
+          <span class="note-author">— fellow creative</span>
+        </div>
+        <div class="wall-tag sticker" style="top: 280px; left: 5%; transform: rotate(4deg);">
+          This made me want to learn to DJ
+          <span class="note-author">— inspired</span>
+        </div>
+        <div class="wall-tag tag-gold" style="top: 300px; left: 45%; transform: rotate(-3deg); font-size: 0.9rem;">
+          was here 🖤
+          <span class="note-author">— ghost</span>
+        </div>
+        <div class="wall-tag tag-white" style="top: 260px; right: 8%; transform: rotate(2deg); font-size: 1.5rem;">
+          HEL WAS HERE
+          <span class="note-author"></span>
+        </div>
+      </div>
       <div class="contact-links reveal">
-        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
+        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           Email &nearr;
         </a>
-        <a href="#" class="contact-link hoverable">
+        <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           Instagram &nearr;
         </a>
-        <a href="#" class="contact-link hoverable">
+        <a href="https://soundcloud.com/itsjusthel" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           SoundCloud &nearr;
         </a>
-        <a href="#" class="contact-link hoverable">
+        <a href="https://www.linkedin.com/in/helenjohnstonn/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           LinkedIn &nearr;
         </a>
-        <a href="#" class="contact-link hoverable">
-          Vimeo &nearr;
+        <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
+          Video Work &nearr;
         </a>
       </div>
     </div>
@@ -1153,12 +1470,12 @@
     ];
 
     const PHOTOS = [
-      { caption: "Series Title — 2025" },
-      { caption: "Series Title — 2024" },
-      { caption: "Series Title — 2024" },
-      { caption: "Series Title — 2025" },
-      { caption: "Series Title — 2023" },
-      { caption: "Series Title — 2024" }
+      { caption: "Urban Light — 2025", img: "https://picsum.photos/seed/hj-urban/800/1200", style: "polaroid", label: "Melbourne", x: 0, y: 6, w: 30, h: 55, rot: -4, z: 3 },
+      { caption: "Quiet Hours — 2024", img: "https://picsum.photos/seed/hj-quiet/600/400", style: "tape", x: 24, y: 0, w: 30, h: 35, rot: 3, z: 4 },
+      { caption: "Concrete & Sky — 2024", img: "https://picsum.photos/seed/hj-concrete/600/400", style: "raw", x: 58, y: 3, w: 24, h: 32, rot: -2.5, z: 2 },
+      { caption: "After Dark — 2025", img: "https://picsum.photos/seed/hj-dark/1200/400", style: "tape", label: "2am", x: 10, y: 58, w: 40, h: 30, rot: 1.5, z: 5 },
+      { caption: "Distant Frames — 2023", img: "https://picsum.photos/seed/hj-frames/600/400", style: "polaroid", label: "Tokyo", x: 52, y: 48, w: 22, h: 38, rot: -5.5, z: 3 },
+      { caption: "Still Moving — 2024", img: "https://picsum.photos/seed/hj-still/600/400", style: "raw", x: 72, y: 28, w: 27, h: 42, rot: 4, z: 2 }
     ];
 
     /* ── Auto-render projects ── */
@@ -1186,16 +1503,66 @@
       });
     })();
 
-    /* ── Auto-render photo grid ── */
+    /* ── Auto-render photo collage ── */
     (function renderPhotos() {
-      const grid = document.getElementById('photoGrid');
+      const collage = document.getElementById('photoCollage');
+
       PHOTOS.forEach((photo, i) => {
         const cell = document.createElement('div');
-        cell.className = 'photo-cell reveal';
-        cell.innerHTML = `
-          <div class="photo-placeholder">Photo ${String(i + 1).padStart(2, '0')}</div>
+        cell.className = `photo-cell ${photo.style}`;
+        cell.style.cssText = `
+          left: ${photo.x}%; top: ${photo.y}%; width: ${photo.w}%; height: ${photo.h}%;
+          transform: rotate(${photo.rot}deg); z-index: ${photo.z};
+          opacity: 0; translate: 0 40px;
+        `;
+
+        let inner = `<img src="${photo.img}" alt="${photo.caption}" loading="lazy">
           <div class="photo-overlay"><span class="photo-caption">${photo.caption}</span></div>`;
-        grid.appendChild(cell);
+
+        if (photo.style === 'polaroid' && photo.label) {
+          inner += `<span class="polaroid-label">${photo.label}</span>`;
+        }
+
+        cell.innerHTML = inner;
+
+        cell.addEventListener('mouseenter', () => {
+          cell.style.transform = `rotate(0deg) scale(1.04)`;
+        });
+        cell.addEventListener('mouseleave', () => {
+          cell.style.transform = `rotate(${photo.rot}deg)`;
+        });
+
+        collage.appendChild(cell);
+      });
+
+      /* Scattered decorative elements */
+      const scatterData = [
+        { text: 'SOUND', size: '7rem', x: 88, y: 15, rot: -90, opacity: 0.06 },
+        { text: '♪', size: '2.5rem', x: 84, y: 75, rot: 20, opacity: 0.1 },
+        { text: '★', size: '1.5rem', x: 5, y: 72, rot: 12, opacity: 0.08 },
+        { text: '///', size: '1.8rem', x: 48, y: 92, rot: -8, opacity: 0.1 },
+      ];
+
+      scatterData.forEach(s => {
+        const el = document.createElement('div');
+        el.className = 'collage-scatter';
+        el.textContent = s.text;
+        el.style.cssText = `font-size: ${s.size}; left: ${s.x}%; top: ${s.y}%; transform: rotate(${s.rot}deg); opacity: ${s.opacity}; color: var(--cream);`;
+        collage.appendChild(el);
+      });
+
+      /* Vinyl sticker badges */
+      const stickers = [
+        { text: 'B-SIDE', x: 82, y: 2, rot: 8 },
+        { text: 'VOL.03', x: 45, y: 82, rot: -12 },
+      ];
+
+      stickers.forEach(s => {
+        const el = document.createElement('div');
+        el.className = 'collage-sticker';
+        el.textContent = s.text;
+        el.style.cssText = `left: ${s.x}%; top: ${s.y}%; transform: rotate(${s.rot}deg);`;
+        collage.appendChild(el);
       });
     })();
 
@@ -1237,13 +1604,13 @@
       const h = canvas.offsetHeight;
 
       // More responsive mouse tracking — circle follows mouse closely
-      const smoothing = isMouseDown ? 0.3 : 0.18;
+      const smoothing = isMouseDown ? 0.5 : 0.18;
       mouseX += (targetMouseX - mouseX) * smoothing;
       mouseY += (targetMouseY - mouseY) * smoothing;
 
       // Ramp up interaction strength when mouse is down
-      const targetStrength = isMouseDown ? 2.5 : 1;
-      interactionStrength += (targetStrength - interactionStrength) * 0.08;
+      const targetStrength = isMouseDown ? 4.5 : 1;
+      interactionStrength += (targetStrength - interactionStrength) * (isMouseDown ? 0.2 : 0.08);
 
       if (offCanvas.width !== canvas.width || offCanvas.height !== canvas.height) {
         offCanvas.width = canvas.width;
@@ -1395,7 +1762,7 @@
       ctx.stroke();
 
       // ── NAVIGATION LINKS — rotated 90°, down the right edge ──
-      const navItems = ['About', 'A Side', 'B Side', 'Contact'];
+      const navItems = ['About', 'A Side', 'B Side', 'The Wall'];
       const navAnchors = ['#about', '#projects', '#creative', '#contact'];
       ctx.font = '44px "Permanent Marker", cursive';
       ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
@@ -1577,17 +1944,18 @@
       });
     });
 
-    // Photo cells stagger
+    // Photo cells — drop in like tossed onto a table
     gsap.utils.toArray('.photo-cell').forEach((cell, i) => {
+      const extraRot = (Math.random() - 0.5) * 8;
       gsap.to(cell, {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        delay: i * 0.08,
-        ease: 'power2.out',
+        duration: 0.7,
+        delay: i * 0.12,
+        ease: 'back.out(1.2)',
         scrollTrigger: {
-          trigger: cell,
-          start: 'top 90%',
+          trigger: '.photo-collage',
+          start: 'top 80%',
           toggleActions: 'play none none none'
         }
       });
@@ -1605,6 +1973,75 @@
         toggleActions: 'play none none none'
       }
     });
+
+    /* ═══════════════════════════════════════
+       LEAVE A NOTE — Guestbook Logic
+    ═══════════════════════════════════════ */
+    (function() {
+      const form = document.getElementById('noteForm');
+      const board = document.getElementById('notesBoard');
+      const successMsg = document.getElementById('noteSuccess');
+      const tagStyles = ['tag-orange','tag-teal','tag-cream','tag-pink','tag-gold','tag-white'];
+      const isSticker = () => Math.random() < 0.3; // 30% chance of sticker style
+
+      // Load saved notes from localStorage
+      const savedNotes = JSON.parse(localStorage.getItem('hj_guestbook') || '[]');
+      savedNotes.forEach(n => pinNote(n.message, n.name, false));
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const message = form.message.value.trim();
+        const name = form.name.value.trim() || 'anonymous';
+
+        if (!message) return;
+
+        // Save to localStorage
+        savedNotes.push({ message, name });
+        localStorage.setItem('hj_guestbook', JSON.stringify(savedNotes));
+
+        // Pin to board
+        pinNote(message, name, true);
+
+        // Show success
+        successMsg.style.display = 'block';
+        form.message.value = '';
+        form.name.value = '';
+
+        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+      });
+
+      function pinNote(message, name, animate) {
+        const note = document.createElement('div');
+        const style = tagStyles[Math.floor(Math.random() * tagStyles.length)];
+        const rotation = (Math.random() - 0.5) * 10;
+        const fontSize = 0.85 + Math.random() * 0.6;
+        const top = Math.random() * Math.max(board.scrollHeight - 80, 300);
+        const left = Math.random() * Math.max(board.clientWidth - 200, 100);
+        const useSticker = isSticker();
+
+        note.className = 'wall-tag ' + (useSticker ? 'sticker' : style);
+        if (!useSticker && Math.random() < 0.25) note.classList.add('underlined');
+        note.style.top = top + 'px';
+        note.style.left = left + 'px';
+        note.style.transform = 'rotate(' + rotation + 'deg)';
+        if (!useSticker) note.style.fontSize = fontSize + 'rem';
+        note.innerHTML = message.replace(/</g, '&lt;') +
+          '<span class="note-author">— ' + (name || 'anonymous').replace(/</g, '&lt;') + '</span>';
+
+        if (animate) {
+          note.style.opacity = '0';
+          note.style.transform = 'rotate(' + rotation + 'deg) scale(0.3)';
+          board.appendChild(note);
+          requestAnimationFrame(() => {
+            note.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            note.style.opacity = '1';
+            note.style.transform = 'rotate(' + rotation + 'deg) scale(1)';
+          });
+        } else {
+          board.appendChild(note);
+        }
+      }
+    })();
   </script>
 </body>
 </html>
