@@ -687,20 +687,189 @@
       vertical-align: middle;
     }
 
+    .creative .section-header .bside-subtitle {
+      font-family: var(--font-display-alt);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      color: var(--orange);
+      transform: rotate(-3deg);
+      white-space: nowrap;
+      padding-bottom: 6px;
+    }
+
+    /* Loose zine collage holding the sketch + mixes */
+    .bside-collage {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 30px 50px;
+      padding: 30px 0 90px;
+    }
+
     /* Sketch image — casually placed */
     .bside-sketch {
-      max-width: 1200px;
-      margin: 0 auto;
+      flex: 1 1 340px;
+      max-width: 440px;
       display: flex;
       justify-content: center;
-      padding: 40px 0;
     }
 
     .bside-sketch img {
-      max-width: 70%;
+      max-width: 100%;
       height: auto;
-      transform: rotate(-2.5deg) translate(-30px, 10px);
+      transform: rotate(-2.5deg);
     }
+
+    /* Big faint background word */
+    .bside-ghost-word {
+      position: absolute;
+      top: -30px;
+      left: -20px;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 16vw, 13rem);
+      letter-spacing: -0.04em;
+      color: #000;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+
+    /* Spinning vinyl record accent */
+    .vinyl-disc {
+      position: absolute;
+      right: -60px;
+      bottom: 30px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, var(--teal) 0 13%, #111 13% 16%, #1a1a1a 16% 100%);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25),
+        inset 0 0 0 2px rgba(255,255,255,0.04);
+      z-index: 0;
+      opacity: 0.85;
+      animation: vinyl-spin 8s linear infinite;
+    }
+    .vinyl-disc::before {
+      content: '';
+      position: absolute;
+      inset: 18% ;
+      border-radius: 50%;
+      background: repeating-radial-gradient(circle at center, #1a1a1a 0 2px, #242424 2px 4px);
+    }
+    .vinyl-disc::after {
+      content: '';
+      position: absolute;
+      inset: 46%;
+      border-radius: 50%;
+      background: #111;
+      box-shadow: 0 0 0 6px var(--teal);
+    }
+    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
+
+    /* Mix "flyer" — a taped-on card holding the SoundCloud player */
+    .mixes {
+      flex: 1 1 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mix-flyer {
+      position: relative;
+      background: var(--cream);
+      padding: 26px 18px 18px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+      transform: rotate(1.5deg);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .mix-flyer:nth-child(even) { transform: rotate(-2deg); }
+    .mix-flyer:hover { transform: rotate(0deg) scale(1.015); }
+
+    /* Tape strips on the corners */
+    .mix-flyer::before,
+    .mix-flyer::after {
+      content: '';
+      position: absolute;
+      top: -13px;
+      width: 86px;
+      height: 26px;
+      background: rgba(77, 191, 184, 0.4);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .mix-flyer::before { left: 16px; transform: rotate(-5deg); }
+    .mix-flyer::after  { right: 16px; transform: rotate(4deg); background: rgba(232, 116, 42, 0.4); }
+
+    .mix-flyer-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .mix-tag {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      background: var(--black);
+      color: var(--cream);
+      padding: 3px 8px;
+    }
+    .mix-title {
+      font-family: var(--font-display-alt);
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+    .mix-player {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+    .mix-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #555;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Scattered zine decorations */
+    .bside-scatter {
+      position: absolute;
+      font-family: var(--font-display-alt);
+      color: var(--orange);
+      pointer-events: none;
+      z-index: 1;
+      user-select: none;
+    }
+    .scatter-note  { font-size: 3rem; top: 4%;   right: 6%;  transform: rotate(14deg); opacity: 0.5; color: var(--teal); }
+    .scatter-star  { font-size: 1.8rem; bottom: 22%; left: 2%; transform: rotate(-10deg); opacity: 0.6; }
+    .scatter-slash { font-size: 2.2rem; bottom: 8%; left: 38%; transform: rotate(-6deg); opacity: 0.4; color: var(--teal); }
+
+    .bside-sc-link {
+      position: absolute;
+      right: 2%;
+      bottom: 0;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 2px solid var(--teal);
+      padding-bottom: 3px;
+      transform: rotate(-2deg);
+      z-index: 3;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .bside-sc-link:hover { color: var(--orange); border-color: var(--orange); }
 
     /* ═══════════════════════════════════════
        CONTACT / GRAFFITI WALL SECTION
@@ -1154,7 +1323,13 @@
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
-      .bside-sketch img { max-width: 95%; transform: rotate(-1.5deg) translate(-10px, 5px); }
+      .bside-collage { gap: 20px; padding-bottom: 70px; }
+      .bside-sketch { flex-basis: auto; max-width: 320px; }
+      .bside-sketch img { max-width: 100%; transform: rotate(-1.5deg); }
+      .mixes { flex-basis: auto; width: 100%; }
+      .vinyl-disc { right: -20px; bottom: -20px; width: 110px; height: 110px; }
+      .bside-ghost-word { font-size: 5rem; top: -10px; }
+      .bside-sc-link { position: static; display: inline-block; margin-top: 20px; }
 
       .contact { padding: 80px 20px; }
       .contact-bg-text { font-size: 8rem; }
@@ -1255,10 +1430,26 @@
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
       <h2>B Side</h2>
+      <span class="bside-subtitle">behind the decks</span>
     </div>
 
-    <div class="bside-sketch reveal">
-      <img src="djing-sketch2.jpg" alt="DJing sketch">
+    <div class="bside-collage">
+      <span class="bside-ghost-word">SOUND</span>
+      <div class="vinyl-disc" aria-hidden="true"></div>
+
+      <div class="bside-sketch reveal">
+        <img src="djing-sketch2.jpg" alt="Sketch of Helen DJing">
+      </div>
+
+      <div class="mixes" id="mixesGrid"></div>
+
+      <span class="bside-scatter scatter-note">♪</span>
+      <span class="bside-scatter scatter-star">★</span>
+      <span class="bside-scatter scatter-slash">///</span>
+
+      <a class="bside-sc-link hoverable" href="https://soundcloud.com/itsjusthel" target="_blank" rel="noopener noreferrer">
+        Full catalogue on SoundCloud &nearr;
+      </a>
     </div>
   </section>
 
@@ -1386,13 +1577,22 @@
       }
     ];
 
-    const PHOTOS = [
-      { caption: "Urban Light — 2025", img: "https://picsum.photos/seed/hj-urban/800/1200", style: "polaroid", label: "Melbourne", x: 0, y: 6, w: 30, h: 55, rot: -4, z: 3 },
-      { caption: "Quiet Hours — 2024", img: "https://picsum.photos/seed/hj-quiet/600/400", style: "tape", x: 24, y: 0, w: 30, h: 35, rot: 3, z: 4 },
-      { caption: "Concrete & Sky — 2024", img: "https://picsum.photos/seed/hj-concrete/600/400", style: "raw", x: 58, y: 3, w: 24, h: 32, rot: -2.5, z: 2 },
-      { caption: "After Dark — 2025", img: "https://picsum.photos/seed/hj-dark/1200/400", style: "tape", label: "2am", x: 10, y: 58, w: 40, h: 30, rot: 1.5, z: 5 },
-      { caption: "Distant Frames — 2023", img: "https://picsum.photos/seed/hj-frames/600/400", style: "polaroid", label: "Tokyo", x: 52, y: 48, w: 22, h: 38, rot: -5.5, z: 3 },
-      { caption: "Still Moving — 2024", img: "https://picsum.photos/seed/hj-still/600/400", style: "raw", x: 72, y: 28, w: 27, h: 42, rot: 4, z: 2 }
+    /*
+     * ── YOUR MIXES (B SIDE) ──
+     * Each entry becomes a taped "flyer" with an embedded SoundCloud player.
+     * - url:    paste a specific track/set/playlist URL to feature one mix,
+     *           or leave the profile URL to show your full catalogue.
+     * - tag:    little label chip (e.g. "VOL.01")
+     * - title:  display name
+     * - note:   one-line blurb under the player
+     */
+    const MIXES = [
+      {
+        tag: "VOL.01",
+        title: "Selected Sets",
+        note: "High-energy live sets & studio mixes — pulled straight from SoundCloud.",
+        url: "https://soundcloud.com/itsjusthel"
+      }
     ];
 
     /* ── Auto-render projects ── */
@@ -1420,66 +1620,22 @@
       });
     })();
 
-    /* ── Auto-render photo collage ── */
-    (function renderPhotos() {
-      const grid = document.getElementById('photoGrid');
+    /* ── Auto-render B-Side mixes ── */
+    (function renderMixes() {
+      const grid = document.getElementById('mixesGrid');
       if (!grid) return;
-      PHOTOS.forEach((photo, i) => {
-        const cell = document.createElement('div');
-        cell.className = `photo-cell ${photo.style}`;
-        cell.style.cssText = `
-          left: ${photo.x}%; top: ${photo.y}%; width: ${photo.w}%; height: ${photo.h}%;
-          transform: rotate(${photo.rot}deg); z-index: ${photo.z};
-          opacity: 0; translate: 0 40px;
-        `;
-
-        let inner = `<img src="${photo.img}" alt="${photo.caption}" loading="lazy">
-          <div class="photo-overlay"><span class="photo-caption">${photo.caption}</span></div>`;
-
-        if (photo.style === 'polaroid' && photo.label) {
-          inner += `<span class="polaroid-label">${photo.label}</span>`;
-        }
-
-        cell.innerHTML = inner;
-
-        cell.addEventListener('mouseenter', () => {
-          cell.style.transform = `rotate(0deg) scale(1.04)`;
-        });
-        cell.addEventListener('mouseleave', () => {
-          cell.style.transform = `rotate(${photo.rot}deg)`;
-        });
-
-        collage.appendChild(cell);
-      });
-
-      /* Scattered decorative elements */
-      const scatterData = [
-        { text: 'SOUND', size: '7rem', x: 88, y: 15, rot: -90, opacity: 0.06 },
-        { text: '♪', size: '2.5rem', x: 84, y: 75, rot: 20, opacity: 0.1 },
-        { text: '★', size: '1.5rem', x: 5, y: 72, rot: 12, opacity: 0.08 },
-        { text: '///', size: '1.8rem', x: 48, y: 92, rot: -8, opacity: 0.1 },
-      ];
-
-      scatterData.forEach(s => {
-        const el = document.createElement('div');
-        el.className = 'collage-scatter';
-        el.textContent = s.text;
-        el.style.cssText = `font-size: ${s.size}; left: ${s.x}%; top: ${s.y}%; transform: rotate(${s.rot}deg); opacity: ${s.opacity}; color: var(--cream);`;
-        collage.appendChild(el);
-      });
-
-      /* Vinyl sticker badges */
-      const stickers = [
-        { text: 'B-SIDE', x: 82, y: 2, rot: 8 },
-        { text: 'VOL.03', x: 45, y: 82, rot: -12 },
-      ];
-
-      stickers.forEach(s => {
-        const el = document.createElement('div');
-        el.className = 'collage-sticker';
-        el.textContent = s.text;
-        el.style.cssText = `left: ${s.x}%; top: ${s.y}%; transform: rotate(${s.rot}deg);`;
-        collage.appendChild(el);
+      MIXES.forEach((m) => {
+        const player = `https://w.soundcloud.com/player/?url=${encodeURIComponent(m.url)}&color=%234DBFB8&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
+        const flyer = document.createElement('div');
+        flyer.className = 'mix-flyer reveal';
+        flyer.innerHTML = `
+          <div class="mix-flyer-head">
+            <span class="mix-tag">${m.tag}</span>
+            <span class="mix-title">${m.title}</span>
+          </div>
+          <iframe class="mix-player" height="300" loading="lazy" frameborder="no" scrolling="no" allow="autoplay" title="${m.title}" src="${player}"></iframe>
+          <p class="mix-note">${m.note}</p>`;
+        grid.appendChild(flyer);
       });
     })();
 
@@ -1857,23 +2013,6 @@
         scrollTrigger: {
           trigger: card,
           start: 'top 90%',
-          toggleActions: 'play none none none'
-        }
-      });
-    });
-
-    // Photo cells — drop in like tossed onto a table
-    gsap.utils.toArray('.photo-cell').forEach((cell, i) => {
-      const extraRot = (Math.random() - 0.5) * 8;
-      gsap.to(cell, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        delay: i * 0.12,
-        ease: 'back.out(1.2)',
-        scrollTrigger: {
-          trigger: '.photo-collage',
-          start: 'top 80%',
           toggleActions: 'play none none none'
         }
       });
