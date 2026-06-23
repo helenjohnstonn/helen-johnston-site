@@ -659,21 +659,22 @@
     }
 
     .creative .section-header {
-      max-width: 1200px;
-      margin: 0 auto 60px;
+      max-width: 1100px;
+      margin: 0 auto 24px;
       position: relative;
-      z-index: 25;
-      border-bottom: 3px solid var(--cream);
+      z-index: 5;
+      border-bottom: 3px solid var(--black);
       padding-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 20px;
     }
 
     .creative .section-header h2 {
       font-family: var(--font-display-alt);
       font-size: clamp(3rem, 6vw, 5rem);
-      color: var(--cream);
+      color: var(--black);
       line-height: 0.95;
     }
 
@@ -682,194 +683,122 @@
       display: inline-block;
       width: 14px;
       height: 14px;
-      background: var(--accent);
+      background: var(--teal);
       margin-right: 16px;
       vertical-align: middle;
     }
 
-    .creative .section-header .bside-subtitle {
-      font-family: var(--font-display-alt);
-      font-size: clamp(1rem, 2vw, 1.6rem);
-      color: var(--orange);
-      transform: rotate(-3deg);
+    .bside-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      padding-bottom: 10px;
       white-space: nowrap;
-      padding-bottom: 6px;
     }
 
-    /* Loose zine collage holding the sketch + mixes */
-    .bside-collage {
+    /* Editorial tracklist — the "back of the record" */
+    .bside-tracklist {
       max-width: 1100px;
       margin: 0 auto;
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 30px 50px;
-      padding: 30px 0 90px;
-    }
-
-    /* Sketch image — casually placed */
-    .bside-sketch {
-      flex: 1 1 340px;
-      max-width: 440px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .bside-sketch img {
-      max-width: 100%;
-      height: auto;
-      transform: rotate(-2.5deg);
-    }
-
-    /* Big faint background word */
-    .bside-ghost-word {
-      position: absolute;
-      top: -30px;
-      left: -20px;
-      font-family: var(--font-display);
-      font-size: clamp(6rem, 16vw, 13rem);
-      letter-spacing: -0.04em;
-      color: #000;
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 0;
-      user-select: none;
-    }
-
-    /* Spinning vinyl record accent */
-    .vinyl-disc {
-      position: absolute;
-      right: -60px;
-      bottom: 30px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at center, var(--teal) 0 13%, #111 13% 16%, #1a1a1a 16% 100%);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.25),
-        inset 0 0 0 2px rgba(255,255,255,0.04);
-      z-index: 0;
-      opacity: 0.85;
-      animation: vinyl-spin 8s linear infinite;
-    }
-    .vinyl-disc::before {
-      content: '';
-      position: absolute;
-      inset: 18% ;
-      border-radius: 50%;
-      background: repeating-radial-gradient(circle at center, #1a1a1a 0 2px, #242424 2px 4px);
-    }
-    .vinyl-disc::after {
-      content: '';
-      position: absolute;
-      inset: 46%;
-      border-radius: 50%;
-      background: #111;
-      box-shadow: 0 0 0 6px var(--teal);
-    }
-    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
-
-    /* Mix "flyer" — a taped-on card holding the SoundCloud player */
-    .mixes {
-      flex: 1 1 440px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
       position: relative;
       z-index: 2;
     }
 
-    .mix-flyer {
-      position: relative;
-      background: var(--cream);
-      padding: 26px 18px 18px;
-      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
-      transform: rotate(1.5deg);
-      transition: transform 0.3s ease;
-      border: 1px solid rgba(0,0,0,0.06);
+    .bside-track {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      padding: 46px 0;
+      border-top: 1px solid #e3ddd0;
     }
-    .mix-flyer:nth-child(even) { transform: rotate(-2deg); }
-    .mix-flyer:hover { transform: rotate(0deg) scale(1.015); }
+    .bside-track:first-child { border-top: 0; padding-top: 20px; }
 
-    /* Tape strips on the corners */
-    .mix-flyer::before,
-    .mix-flyer::after {
-      content: '';
-      position: absolute;
-      top: -13px;
-      width: 86px;
-      height: 26px;
-      background: rgba(77, 191, 184, 0.4);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .track-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      line-height: 1;
+      color: var(--teal);
+      letter-spacing: 0.02em;
     }
-    .mix-flyer::before { left: 16px; transform: rotate(-5deg); }
-    .mix-flyer::after  { right: 16px; transform: rotate(4deg); background: rgba(232, 116, 42, 0.4); }
-
-    .mix-flyer-head {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .mix-tag {
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      background: var(--black);
-      color: var(--cream);
-      padding: 3px 8px;
-    }
-    .mix-title {
-      font-family: var(--font-display-alt);
-      font-size: 1.5rem;
+    .track-title {
+      font-family: var(--font-bebas);
+      font-size: 2rem;
+      letter-spacing: 0.04em;
       color: var(--black);
+      margin-top: 6px;
     }
-    .mix-player {
-      display: block;
-      width: 100%;
-      border: 0;
+    .track-medium {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-top: 12px;
+      line-height: 1.6;
     }
-    .mix-note {
+    .track-link {
+      display: inline-block;
+      margin-top: 18px;
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      color: #555;
-      margin-top: 12px;
-      line-height: 1.5;
-    }
-
-    /* Scattered zine decorations */
-    .bside-scatter {
-      position: absolute;
-      font-family: var(--font-display-alt);
-      color: var(--orange);
-      pointer-events: none;
-      z-index: 1;
-      user-select: none;
-    }
-    .scatter-note  { font-size: 3rem; top: 4%;   right: 6%;  transform: rotate(14deg); opacity: 0.5; color: var(--teal); }
-    .scatter-star  { font-size: 1.8rem; bottom: 22%; left: 2%; transform: rotate(-10deg); opacity: 0.6; }
-    .scatter-slash { font-size: 2.2rem; bottom: 8%; left: 38%; transform: rotate(-6deg); opacity: 0.4; color: var(--teal); }
-
-    .bside-sc-link {
-      position: absolute;
-      right: 2%;
-      bottom: 0;
-      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
       color: var(--black);
       text-decoration: none;
       border-bottom: 2px solid var(--teal);
-      padding-bottom: 3px;
-      transform: rotate(-2deg);
-      z-index: 3;
+      padding-bottom: 2px;
       transition: color 0.2s, border-color 0.2s;
     }
-    .bside-sc-link:hover { color: var(--orange); border-color: var(--orange); }
+    .track-link:hover { color: var(--teal); }
+
+    .track-body { min-width: 0; }
+
+    .track-art {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .track-player { display: block; width: 100%; border: 0; }
+
+    /* Gallery grid for photo / design tracks */
+    .track-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 14px;
+    }
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #ece6da;
+      border: 1px solid #ddd5c6;
+      transition: border-color 0.3s;
+    }
+    .track-gallery.wide .gallery-item { aspect-ratio: 4 / 3; }
+    .gallery-item:hover { border-color: var(--teal); }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item.placeholder span {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #b3a98f;
+    }
 
     /* ═══════════════════════════════════════
        CONTACT / GRAFFITI WALL SECTION
@@ -949,183 +878,13 @@
       border-left-color: var(--accent-secondary);
     }
 
-    /* Note form — inline spray-can style */
-    .note-form-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .note-form {
-      display: flex;
-      gap: 12px;
-      align-items: flex-end;
-      flex-wrap: wrap;
-    }
-
-    .note-form textarea {
-      flex: 1;
-      min-width: 240px;
-      min-height: 70px;
-      max-height: 100px;
-      padding: 14px 18px;
-      font-family: 'Permanent Marker', cursive;
-      font-size: 1rem;
-      line-height: 1.4;
-      background: rgba(0,0,0,0.5);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 0;
-      color: var(--cream);
-      resize: none;
-      transition: border-color 0.3s, background 0.3s;
-    }
-
-    .note-form textarea::placeholder {
-      color: rgba(255,255,255,0.25);
-    }
-
-    .note-form textarea:focus {
-      outline: none;
-      border-color: var(--orange);
-      background: rgba(0,0,0,0.7);
-    }
-
-    .note-form input[type="text"] {
-      width: 160px;
-      padding: 14px 18px;
+    .contact-lead {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      background: rgba(0,0,0,0.5);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--cream);
-    }
-
-    .note-form input[type="text"]::placeholder {
-      color: rgba(255,255,255,0.25);
-    }
-
-    .note-form input[type="text"]:focus {
-      outline: none;
-      border-color: var(--teal);
-      background: rgba(0,0,0,0.7);
-    }
-
-    .note-submit {
-      padding: 14px 36px;
-      font-family: var(--font-bebas);
-      font-size: 1.2rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      background: var(--orange);
-      color: var(--cream);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
-    }
-
-    .note-submit:hover {
-      background: var(--teal);
-      color: var(--black);
-      box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
-    }
-
-    /* Graffiti wall / notes board */
-    .notes-board {
-      width: 100%;
-      min-height: 420px;
-      position: relative;
-      margin-top: 40px;
-      padding: 20px;
-      /* Subtle wall texture */
-      border-top: 2px solid rgba(255,255,255,0.05);
-    }
-
-    /* Graffiti tag style notes */
-    .wall-tag {
-      position: absolute;
-      max-width: 200px;
-      padding: 0;
-      font-family: 'Permanent Marker', cursive;
-      font-size: 1rem;
-      line-height: 1.3;
-      color: var(--cream);
-      background: none;
-      border: none;
-      cursor: default;
-      transition: transform 0.3s, filter 0.3s;
-      /* Spray paint glow */
-      text-shadow: 0 0 12px currentColor, 0 0 2px currentColor;
-      opacity: 0.85;
-    }
-
-    .wall-tag:hover {
-      transform: scale(1.1) rotate(0deg) !important;
-      opacity: 1;
-      z-index: 10;
-      filter: brightness(1.3);
-    }
-
-    .wall-tag .note-author {
-      display: block;
-      margin-top: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.5rem;
-      letter-spacing: 0.1em;
-      opacity: 0.4;
-      text-transform: uppercase;
-      text-shadow: none;
-    }
-
-    /* Graffiti color palette — matching site palette */
-    .wall-tag.tag-orange { color: var(--orange); }
-    .wall-tag.tag-teal { color: var(--teal); }
-    .wall-tag.tag-cream { color: var(--cream); }
-    .wall-tag.tag-pink { color: #E85D8A; }
-    .wall-tag.tag-gold { color: #D4A843; }
-    .wall-tag.tag-white { color: rgba(255,255,255,0.7); text-shadow: 0 0 8px rgba(255,255,255,0.3); }
-
-    /* Some tags look like stickers (pasted paper) */
-    .wall-tag.sticker {
-      background: var(--cream);
-      color: var(--black);
-      padding: 10px 14px;
-      text-shadow: none;
-      transform-origin: center;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-      font-size: 0.85rem;
-      border: 2px solid transparent;
-    }
-
-    .wall-tag.sticker .note-author {
-      opacity: 0.5;
-    }
-
-    .wall-tag.sticker:hover {
-      box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
-    }
-
-    /* Crossed-out / underline accents — like real walls */
-    .wall-tag.underlined::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: currentColor;
-      opacity: 0.4;
-      transform: rotate(-1deg);
-    }
-
-    .note-success {
-      display: none;
-      font-family: 'Permanent Marker', cursive;
-      font-size: 1.2rem;
-      color: var(--teal);
-      margin-top: 12px;
-      text-shadow: 0 0 10px var(--teal);
+      opacity: 0.8;
+      max-width: 540px;
     }
 
     .contact-bg-text {
@@ -1144,9 +903,6 @@
 
     @media (max-width: 768px) {
       .contact { padding: 80px 20px 60px; }
-      .notes-board { min-height: 350px; }
-      .wall-tag { font-size: 0.85rem; max-width: 150px; }
-      .wall-tag.sticker { font-size: 0.75rem; }
       .contact-bg-text { font-size: 8rem; }
     }
 
@@ -1323,13 +1079,11 @@
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
-      .bside-collage { gap: 20px; padding-bottom: 70px; }
-      .bside-sketch { flex-basis: auto; max-width: 320px; }
-      .bside-sketch img { max-width: 100%; transform: rotate(-1.5deg); }
-      .mixes { flex-basis: auto; width: 100%; }
-      .vinyl-disc { right: -20px; bottom: -20px; width: 110px; height: 110px; }
-      .bside-ghost-word { font-size: 5rem; top: -10px; }
-      .bside-sc-link { position: static; display: inline-block; margin-top: 20px; }
+      .bside-track { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+      .bside-track:first-child { padding-top: 8px; }
+      .track-num { font-size: 2rem; }
+      .track-gallery { grid-template-columns: repeat(2, 1fr); }
+      .track-art { max-width: 240px; }
 
       .contact { padding: 80px 20px; }
       .contact-bg-text { font-size: 8rem; }
@@ -1430,98 +1184,36 @@
     <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
       <h2>B Side</h2>
-      <span class="bside-subtitle">behind the decks</span>
+      <span class="bside-subtitle">The Creative Cuts</span>
     </div>
 
-    <div class="bside-collage">
-      <span class="bside-ghost-word">SOUND</span>
-      <div class="vinyl-disc" aria-hidden="true"></div>
-
-      <div class="bside-sketch reveal">
-        <img src="djing-sketch2.jpg" alt="Sketch of Helen DJing">
-      </div>
-
-      <div class="mixes" id="mixesGrid"></div>
-
-      <span class="bside-scatter scatter-note">♪</span>
-      <span class="bside-scatter scatter-star">★</span>
-      <span class="bside-scatter scatter-slash">///</span>
-
-      <a class="bside-sc-link hoverable" href="https://soundcloud.com/itsjusthel" target="_blank" rel="noopener noreferrer">
-        Full catalogue on SoundCloud &nearr;
-      </a>
-    </div>
+    <div class="bside-tracklist" id="tracklist"></div>
   </section>
 
   <!-- ═══════════════════════════════════════
-       CONTACT / GRAFFITI WALL SECTION
+       CONTACT / LINER NOTES SECTION
   ═══════════════════════════════════════ -->
-  <section class="contact" id="contact" style="overflow:visible;">
+  <section class="contact" id="contact">
     <div class="section-number">04</div>
-    <div class="tear-hand tear-hand-5"><img src="hand.png" alt=""></div>
     <div class="contact-inner">
-      <span class="section-tag reveal">005 / The Wall</span>
-      <h2 class="reveal">Leave Me<br>a <em>Note</em></h2>
-
-      <div class="note-form-wrap reveal">
-        <form class="note-form" id="noteForm">
-          <textarea name="message" placeholder="Tag the wall..." required></textarea>
-          <input type="text" name="name" placeholder="Your tag">
-          <button type="submit" class="note-submit hoverable">Spray it ↗</button>
-          <div class="note-success" id="noteSuccess">🎨 Tagged! It's on the wall now.</div>
-        </form>
-      </div>
-
-      <div class="notes-board" id="notesBoard">
-        <!-- Pre-seeded graffiti tags -->
-        <div class="wall-tag tag-orange" style="top: 15px; left: 2%; transform: rotate(-4deg); font-size: 1.4rem;">
-          Cool site! The record flip is 🔥
-          <span class="note-author">— visitor</span>
-        </div>
-        <div class="wall-tag tag-teal underlined" style="top: 10px; left: 48%; transform: rotate(1deg); font-size: 1.2rem;">
-          Your DJ sets go hard
-          <span class="note-author">— a fan</span>
-        </div>
-        <div class="wall-tag sticker" style="top: 20px; right: 4%; transform: rotate(-6deg);">
-          Incredible vibes ✨
-          <span class="note-author">— nightowl</span>
-        </div>
-        <div class="wall-tag tag-cream" style="top: 140px; left: 25%; transform: rotate(-2deg); font-size: 1.1rem;">
-          Love the zine vibes ✂️
-          <span class="note-author">— anon</span>
-        </div>
-        <div class="wall-tag tag-pink underlined" style="top: 180px; left: 60%; transform: rotate(3deg); font-size: 1.3rem;">
-          Let's collab sometime!
-          <span class="note-author">— fellow creative</span>
-        </div>
-        <div class="wall-tag sticker" style="top: 280px; left: 5%; transform: rotate(4deg);">
-          This made me want to learn to DJ
-          <span class="note-author">— inspired</span>
-        </div>
-        <div class="wall-tag tag-gold" style="top: 300px; left: 45%; transform: rotate(-3deg); font-size: 0.9rem;">
-          was here 🖤
-          <span class="note-author">— ghost</span>
-        </div>
-        <div class="wall-tag tag-white" style="top: 260px; right: 8%; transform: rotate(2deg); font-size: 1.5rem;">
-          HEL WAS HERE
-          <span class="note-author"></span>
-        </div>
-      </div>
+      <span class="section-tag reveal">04 / Liner Notes</span>
+      <h2 class="reveal">Let's make<br>something <em>good</em>.</h2>
+      <p class="contact-lead reveal">
+        Open to product &amp; marketing roles, creative collaborations, and the occasional DJ booking.
+        Pick a channel — I read all of them.
+      </p>
       <div class="contact-links reveal">
-        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
           Email &nearr;
-        </a>
-        <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          Instagram &nearr;
-        </a>
-        <a href="https://soundcloud.com/itsjusthel" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          SoundCloud &nearr;
         </a>
         <a href="https://www.linkedin.com/in/helenjohnstonn/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           LinkedIn &nearr;
         </a>
+        <a href="https://soundcloud.com/itsjusthel" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
+          SoundCloud &nearr;
+        </a>
         <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          Video Work &nearr;
+          Instagram &nearr;
         </a>
       </div>
     </div>
@@ -1578,20 +1270,43 @@
     ];
 
     /*
-     * ── YOUR MIXES (B SIDE) ──
-     * Each entry becomes a taped "flyer" with an embedded SoundCloud player.
-     * - url:    paste a specific track/set/playlist URL to feature one mix,
-     *           or leave the profile URL to show your full catalogue.
-     * - tag:    little label chip (e.g. "VOL.01")
-     * - title:  display name
-     * - note:   one-line blurb under the player
+     * ── B-SIDE TRACKLIST ──
+     * Each entry is one "track" (a creative discipline). Two body types:
+     *   type: "soundcloud" → embeds a player from `url`
+     *   type: "gallery"    → image grid from `images` (filenames in this folder).
+     *                        A `null` slot renders an "Add ___" placeholder, so
+     *                        just swap nulls for filenames as you add real work.
+     * Optional fields: `art` (image above the body, e.g. the DJ sketch),
+     *   `link` + `linkText` (labelled outbound link), `wide` (wider gallery cells),
+     *   `phLabel` (placeholder caption).
      */
-    const MIXES = [
+    const TRACKS = [
       {
-        tag: "VOL.01",
-        title: "Selected Sets",
-        note: "High-energy live sets & studio mixes — pulled straight from SoundCloud.",
-        url: "https://soundcloud.com/itsjusthel"
+        num: "B1",
+        title: "DJing",
+        medium: "Live sets · studio mixes · custom visuals",
+        type: "soundcloud",
+        url: "https://soundcloud.com/itsjusthel",
+        art: "djing-sketch2.jpg",
+        link: "https://soundcloud.com/itsjusthel",
+        linkText: "Full catalogue ↗"
+      },
+      {
+        num: "B2",
+        title: "Photography",
+        medium: "35mm · digital",
+        type: "gallery",
+        phLabel: "Photo",
+        images: [null, null, null, null, null, null]
+      },
+      {
+        num: "B3",
+        title: "Graphic Design",
+        medium: "Posters · layouts · identity",
+        type: "gallery",
+        wide: true,
+        phLabel: "Design",
+        images: [null, null, null, null]
       }
     ];
 
@@ -1620,22 +1335,44 @@
       });
     })();
 
-    /* ── Auto-render B-Side mixes ── */
-    (function renderMixes() {
-      const grid = document.getElementById('mixesGrid');
-      if (!grid) return;
-      MIXES.forEach((m) => {
-        const player = `https://w.soundcloud.com/player/?url=${encodeURIComponent(m.url)}&color=%234DBFB8&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
-        const flyer = document.createElement('div');
-        flyer.className = 'mix-flyer reveal';
-        flyer.innerHTML = `
-          <div class="mix-flyer-head">
-            <span class="mix-tag">${m.tag}</span>
-            <span class="mix-title">${m.title}</span>
-          </div>
-          <iframe class="mix-player" height="300" loading="lazy" frameborder="no" scrolling="no" allow="autoplay" title="${m.title}" src="${player}"></iframe>
-          <p class="mix-note">${m.note}</p>`;
-        grid.appendChild(flyer);
+    /* ── Auto-render B-Side tracklist ── */
+    (function renderTracks() {
+      const list = document.getElementById('tracklist');
+      if (!list) return;
+      TRACKS.forEach((t) => {
+        const row = document.createElement('div');
+        row.className = 'bside-track reveal';
+
+        let meta = `
+          <div class="track-meta">
+            <div class="track-num">${t.num}</div>
+            <div class="track-title">${t.title}</div>
+            <div class="track-medium">${t.medium}</div>`;
+        if (t.link) {
+          meta += `<a class="track-link hoverable" href="${t.link}" target="_blank" rel="noopener noreferrer">${t.linkText || 'View ↗'}</a>`;
+        }
+        meta += `</div>`;
+
+        let body = `<div class="track-body">`;
+        if (t.art) {
+          body += `<img class="track-art" src="${t.art}" alt="${t.title} sketch">`;
+        }
+        if (t.type === 'soundcloud') {
+          const player = `https://w.soundcloud.com/player/?url=${encodeURIComponent(t.url)}&color=%234DBFB8&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
+          body += `<iframe class="track-player" height="300" loading="lazy" frameborder="no" scrolling="no" allow="autoplay" title="${t.title}" src="${player}"></iframe>`;
+        } else if (t.type === 'gallery') {
+          body += `<div class="track-gallery${t.wide ? ' wide' : ''}">`;
+          t.images.forEach((img) => {
+            body += img
+              ? `<div class="gallery-item"><img src="${img}" alt="${t.title}" loading="lazy"></div>`
+              : `<div class="gallery-item placeholder"><span>${t.phLabel || 'Add image'}</span></div>`;
+          });
+          body += `</div>`;
+        }
+        body += `</div>`;
+
+        row.innerHTML = meta + body;
+        list.appendChild(row);
       });
     })();
 
@@ -1835,7 +1572,7 @@
       ctx.stroke();
 
       // ── NAVIGATION LINKS — rotated 90°, down the right edge ──
-      const navItems = ['About', 'A Side', 'B Side', 'The Wall'];
+      const navItems = ['About', 'A Side', 'B Side', 'Contact'];
       const navAnchors = ['#about', '#projects', '#creative', '#contact'];
       ctx.font = '44px "Permanent Marker", cursive';
       ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
@@ -2040,74 +1777,6 @@
       }
     });
 
-    /* ═══════════════════════════════════════
-       LEAVE A NOTE — Guestbook Logic
-    ═══════════════════════════════════════ */
-    (function() {
-      const form = document.getElementById('noteForm');
-      const board = document.getElementById('notesBoard');
-      const successMsg = document.getElementById('noteSuccess');
-      const tagStyles = ['tag-orange','tag-teal','tag-cream','tag-pink','tag-gold','tag-white'];
-      const isSticker = () => Math.random() < 0.3; // 30% chance of sticker style
-
-      // Load saved notes from localStorage
-      const savedNotes = JSON.parse(localStorage.getItem('hj_guestbook') || '[]');
-      savedNotes.forEach(n => pinNote(n.message, n.name, false));
-
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const message = form.message.value.trim();
-        const name = form.name.value.trim() || 'anonymous';
-
-        if (!message) return;
-
-        // Save to localStorage
-        savedNotes.push({ message, name });
-        localStorage.setItem('hj_guestbook', JSON.stringify(savedNotes));
-
-        // Pin to board
-        pinNote(message, name, true);
-
-        // Show success
-        successMsg.style.display = 'block';
-        form.message.value = '';
-        form.name.value = '';
-
-        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
-      });
-
-      function pinNote(message, name, animate) {
-        const note = document.createElement('div');
-        const style = tagStyles[Math.floor(Math.random() * tagStyles.length)];
-        const rotation = (Math.random() - 0.5) * 10;
-        const fontSize = 0.85 + Math.random() * 0.6;
-        const top = Math.random() * Math.max(board.scrollHeight - 80, 300);
-        const left = Math.random() * Math.max(board.clientWidth - 200, 100);
-        const useSticker = isSticker();
-
-        note.className = 'wall-tag ' + (useSticker ? 'sticker' : style);
-        if (!useSticker && Math.random() < 0.25) note.classList.add('underlined');
-        note.style.top = top + 'px';
-        note.style.left = left + 'px';
-        note.style.transform = 'rotate(' + rotation + 'deg)';
-        if (!useSticker) note.style.fontSize = fontSize + 'rem';
-        note.innerHTML = message.replace(/</g, '&lt;') +
-          '<span class="note-author">— ' + (name || 'anonymous').replace(/</g, '&lt;') + '</span>';
-
-        if (animate) {
-          note.style.opacity = '0';
-          note.style.transform = 'rotate(' + rotation + 'deg) scale(0.3)';
-          board.appendChild(note);
-          requestAnimationFrame(() => {
-            note.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            note.style.opacity = '1';
-            note.style.transform = 'rotate(' + rotation + 'deg) scale(1)';
-          });
-        } else {
-          board.appendChild(note);
-        }
-      }
-    })();
   </script>
 </body>
 </html>
