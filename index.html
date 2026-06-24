@@ -1495,8 +1495,9 @@
         }
       }
 
-      // Teal shadow layer — moves with cursor
-      drawLetters('rgba(77, 191, 184, 0.35)', mx, my);
+      // Teal shadow layer — moves with cursor (high opacity so the orange
+      // underneath doesn't desaturate it to brown when it pokes out)
+      drawLetters('rgba(77, 191, 184, 0.85)', mx, my);
       // Main black letters
       drawLetters('#1A1A1A', 0, 0);
 
