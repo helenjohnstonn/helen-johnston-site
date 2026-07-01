@@ -18,9 +18,11 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Next
 
+- [ ] **Wire real audio into the B-side player.** Player UI is built but playback is *simulated* (timeline + waveform animate). Needs final SoundCloud track URLs, then hook up the SoundCloud Widget API for live audio. (Decision made: persistent player with real audio.)
+- [ ] **Add real B-side assets.** Photography strip currently shows 2 real images + placeholders; graphic design not yet surfaced. Helen to select/export work ("plenty but not ready").
+- [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
-- [ ] **Design pass** — Helen has specific design ideas to work through (TBD; capture them here as they come up).
-- [ ] **Mobile check** — confirm hero / A Side / B Side / contact all look intentional on a phone.
+- [ ] **Mobile check** — confirm hero / A Side / B Side / contact all look intentional on a phone (player goes single-column < 768px).
 
 ## Later
 
@@ -31,6 +33,9 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] **B Side redesigned music-first** — flat B1/B2/B3 tracklist replaced with a featured "Now Spinning" player (disc = play button, animated waveform/scrubber, transport), a set list of mixes, and a photography filmstrip (2026-06-23)
+- [x] **Record flip made real** — the dead flip code now works: a flip button (+ A/B nav links) spins a record and inverts the whole site between the A-side (orange/professional) and B-side (teal/creative) palettes; deep-link `#creative` lands on the B-side (2026-06-23)
+- [x] Hero kept as-is (the warped "HELEN" vinyl) — confirmed it's the anchor, not to be touched (2026-06-23)
 - [x] B Side reworked into a creative tracklist; The Wall replaced with contact (2026-06-23)
 - [x] B Side built out as zine collage of DJ mixes
 - [x] Core sections in place: hero, about, A Side (projects), B Side (creative), contact

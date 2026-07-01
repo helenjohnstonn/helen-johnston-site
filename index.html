@@ -644,26 +644,24 @@
     }
 
     /* ═══════════════════════════════════════
-       CREATIVE WORK SECTION — B SIDE
+       CREATIVE WORK SECTION — B SIDE (music-first)
     ═══════════════════════════════════════ */
     .creative {
       padding: 120px 40px;
-      background: #fff;
+      background: #1d1d1b;
       position: relative;
       color: var(--cream);
       overflow: hidden;
     }
 
-    .creative .section-number {
-      color: #ddd;
-    }
+    .creative .section-number { color: rgba(255,255,255,0.05); }
 
     .creative .section-header {
       max-width: 1100px;
-      margin: 0 auto 24px;
+      margin: 0 auto 10px;
       position: relative;
       z-index: 5;
-      border-bottom: 3px solid var(--black);
+      border-bottom: 3px solid var(--teal);
       padding-bottom: 20px;
       display: flex;
       justify-content: space-between;
@@ -674,7 +672,7 @@
     .creative .section-header h2 {
       font-family: var(--font-display-alt);
       font-size: clamp(3rem, 6vw, 5rem);
-      color: var(--black);
+      color: var(--cream);
       line-height: 0.95;
     }
 
@@ -693,112 +691,182 @@
       font-size: 0.72rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: #999;
+      color: var(--teal);
       padding-bottom: 10px;
       white-space: nowrap;
     }
 
-    /* Editorial tracklist — the "back of the record" */
-    .bside-tracklist {
-      max-width: 1100px;
-      margin: 0 auto;
+    .bside-stage { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+
+    /* ── Featured player ── */
+    .player {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 50px;
+      align-items: center;
+      padding: 50px 0 46px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .player-disc {
       position: relative;
+      width: 300px; height: 300px;
+      cursor: pointer;
+      justify-self: center;
+    }
+    .disc {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle at 50% 50%, #101010 0 2px, #181818 2px 4px),
+        #141414;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .disc::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+    .disc.spinning { animation: discSpin 6s linear infinite; }
+    @keyframes discSpin { to { transform: rotate(360deg); } }
+    .disc-label {
+      position: relative;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
       z-index: 2;
     }
-
-    .bside-track {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      padding: 46px 0;
-      border-top: 1px solid #e3ddd0;
-    }
-    .bside-track:first-child { border-top: 0; padding-top: 20px; }
-
-    .track-num {
+    .disc-label .dl-name {
       font-family: var(--font-display);
-      font-size: 2.4rem;
+      font-size: 1.6rem;
+      color: #0c2b28;
       line-height: 1;
-      color: var(--teal);
-      letter-spacing: 0.02em;
     }
-    .track-title {
-      font-family: var(--font-bebas);
-      font-size: 2rem;
-      letter-spacing: 0.04em;
-      color: var(--black);
-      margin-top: 6px;
-    }
-    .track-medium {
+    .disc-label .dl-sub {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #aaa;
-      margin-top: 12px;
-      line-height: 1.6;
+      font-size: 0.5rem;
+      letter-spacing: 0.18em;
+      color: #0c2b28;
+      margin-top: 4px;
     }
-    .track-link {
-      display: inline-block;
-      margin-top: 18px;
+    .disc-spindle {
+      position: absolute; top: 50%; left: 50%;
+      width: 10px; height: 10px;
+      background: #1d1d1b;
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 3;
+    }
+    .disc-playbtn {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(20,20,20,0.72);
+      border: 2px solid var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cream);
+      font-size: 1.3rem;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .player-disc:hover .disc-playbtn { opacity: 1; }
+
+    .np { min-width: 0; }
+    .np-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+    }
+    .np-title {
+      font-family: var(--font-display-alt);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .np-meta {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--black);
-      text-decoration: none;
-      border-bottom: 2px solid var(--teal);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      letter-spacing: 0.08em;
+      color: rgba(242,237,228,0.6);
+      margin-bottom: 26px;
     }
-    .track-link:hover { color: var(--teal); }
+    .np-wave {
+      display: flex; align-items: flex-end; gap: 2px;
+      height: 56px; cursor: pointer; margin-bottom: 14px;
+    }
+    .np-wave .bar {
+      flex: 1 1 auto;
+      min-width: 0;
+      background: rgba(242,237,228,0.18);
+      transition: background 0.1s;
+    }
+    .np-wave .bar.on { background: var(--teal); }
+    .np-foot { display: flex; justify-content: space-between; align-items: center; }
+    .np-time { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(242,237,228,0.6); }
+    .np-controls { display: flex; gap: 14px; align-items: center; }
+    .np-controls button {
+      background: none; border: none; color: var(--cream);
+      font-size: 0.95rem; cursor: pointer; padding: 6px; line-height: 1;
+      transition: color 0.2s;
+    }
+    .np-controls button:hover { color: var(--teal); }
+    .np-controls .play-main {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2px solid var(--teal); color: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .np-controls .play-main:hover { background: var(--teal); color: #0c2b28; }
 
-    .track-body { min-width: 0; }
-
-    .track-art {
-      display: block;
-      width: 100%;
-      max-width: 320px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    .track-player { display: block; width: 100%; border: 0; }
-
-    /* Gallery grid for photo / design tracks */
-    .track-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-      gap: 14px;
-    }
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      background: #ece6da;
-      border: 1px solid #ddd5c6;
-      transition: border-color 0.3s;
-    }
-    .track-gallery.wide .gallery-item { aspect-ratio: 4 / 3; }
-    .gallery-item:hover { border-color: var(--teal); }
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-item.placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .gallery-item.placeholder span {
+    .setlist-head, .strip-head {
       font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #b3a98f;
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--teal); margin: 44px 0 4px;
     }
+    .set-row {
+      display: flex; align-items: center; gap: 18px;
+      padding: 16px 4px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: background 0.2s, padding-left 0.2s;
+    }
+    .set-row:hover { background: rgba(255,255,255,0.03); padding-left: 12px; }
+    .set-row.active .set-name { color: var(--teal); }
+    .set-row.active .set-ico { opacity: 1; }
+    .set-ico { width: 16px; color: var(--teal); font-size: 0.75rem; flex: 0 0 auto; opacity: 0.7; }
+    .set-name { flex: 1 1 auto; font-family: var(--font-bebas); font-size: 1.35rem; letter-spacing: 0.04em; color: var(--cream); }
+    .set-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; color: rgba(242,237,228,0.4); text-transform: uppercase; }
+    .set-len { font-family: var(--font-mono); font-size: 0.72rem; color: rgba(242,237,228,0.55); flex: 0 0 auto; }
+
+    .photostrip {
+      display: flex; gap: 12px; overflow-x: auto; padding: 4px 0 10px;
+      scrollbar-width: thin; scrollbar-color: var(--teal) transparent;
+    }
+    .photo-tile {
+      position: relative; flex: 0 0 auto;
+      width: 190px; height: 138px;
+      background: #2a2a28; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .photo-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .photo-tile:hover img { transform: scale(1.07); }
+    .photo-tile.add {
+      display: flex; align-items: center; justify-content: center;
+      border-style: dashed; border-color: rgba(77,191,184,0.4);
+    }
+    .photo-tile.add span { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--teal); text-transform: uppercase; }
 
     /* ═══════════════════════════════════════
        CONTACT / GRAFFITI WALL SECTION
@@ -1056,6 +1124,95 @@
       opacity: 0;
     }
 
+    /* ── The actual flip: a record that spins to reveal the other side ── */
+    .flip-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 9997;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1600px;
+      background: rgba(15,15,14,0.7);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .flip-record {
+      width: 58vmin;
+      height: 58vmin;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      background:
+        repeating-radial-gradient(circle at 50% 50%, #101010 0 3px, #1a1a1a 3px 6px),
+        #141414;
+    }
+    .flip-face .ff-label {
+      width: 34%; height: 34%;
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .flip-front .ff-label { background: var(--orange); }
+    .flip-back { transform: rotateY(180deg); }
+    .flip-back .ff-label { background: var(--teal); }
+    .ff-label .ff-side { font-family: var(--font-display); font-size: 5vmin; color: #1A1A1A; line-height: 1; }
+    .ff-label .ff-name { font-family: var(--font-mono); font-size: 1.4vmin; letter-spacing: 0.3em; color: #1A1A1A; margin-top: 4px; }
+
+    /* ── Floating flip control ── */
+    .flip-fab {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 1500;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 22px 12px 14px;
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 2px solid var(--accent);
+      border-radius: 40px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s, transform 0.4s, border-color 0.3s;
+    }
+    .flip-fab.visible { opacity: 1; transform: translateY(0); }
+    .flip-fab:hover { border-color: var(--accent-secondary); }
+    .flip-fab .ffab-disc {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: repeating-radial-gradient(circle at 50% 50%, #101010 0 1.5px, #222 1.5px 3px), #141414;
+      position: relative; flex: 0 0 auto;
+    }
+    .flip-fab .ffab-disc::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent); transform: translate(-50%,-50%);
+    }
+    .flip-fab.spin .ffab-disc { animation: discSpin 4s linear infinite; }
+    .flip-fab .ffab-text {
+      font-family: var(--font-mono);
+      color: var(--cream);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .flip-fab .ffab-text b { color: var(--accent); font-weight: 700; }
+    @media (max-width: 480px) {
+      .flip-fab { bottom: 16px; right: 16px; padding: 10px 16px 10px 12px; }
+      .flip-fab .ffab-text { font-size: 0.62rem; }
+    }
+
     /* ═══════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════ */
@@ -1079,11 +1236,10 @@
       .projects-grid { grid-template-columns: 1fr; gap: 24px; }
 
       .creative { padding: 80px 20px; }
-      .bside-track { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
-      .bside-track:first-child { padding-top: 8px; }
-      .track-num { font-size: 2rem; }
-      .track-gallery { grid-template-columns: repeat(2, 1fr); }
-      .track-art { max-width: 240px; }
+      .player { grid-template-columns: 1fr; gap: 28px; }
+      .player-disc { width: 220px; height: 220px; }
+      .set-tag { display: none; }
+      .photo-tile { width: 150px; height: 110px; }
 
       .contact { padding: 80px 20px; }
       .contact-bg-text { font-size: 8rem; }
@@ -1101,6 +1257,20 @@
   <!-- Flip transition overlays -->
   <div class="flip-overlay" id="flipOverlay"></div>
   <div class="flip-edge-line" id="flipEdgeLine"></div>
+
+  <!-- The flipping record -->
+  <div class="flip-stage" id="flipStage">
+    <div class="flip-record" id="flipRecord">
+      <div class="flip-face flip-front"><div class="ff-label"><span class="ff-side">A</span><span class="ff-name">SIDE</span></div></div>
+      <div class="flip-face flip-back"><div class="ff-label"><span class="ff-side">B</span><span class="ff-name">SIDE</span></div></div>
+    </div>
+  </div>
+
+  <!-- Floating flip control -->
+  <button class="flip-fab" id="flipFab" aria-label="Flip the record">
+    <span class="ffab-disc"></span>
+    <span class="ffab-text">Flip to <b id="flipFabSide">B-Side</b></span>
+  </button>
 
   <!-- Fixed Navigation — appears on scroll -->
   <nav id="mainNav">
@@ -1181,13 +1351,45 @@
   ═══════════════════════════════════════ -->
   <section class="creative" id="creative">
     <div class="section-number">03</div>
-    <div class="tear-hand tear-hand-4"><img src="hand.png" alt=""></div>
     <div class="section-header reveal">
       <h2>B Side</h2>
-      <span class="bside-subtitle">The Creative Cuts</span>
+      <span class="bside-subtitle">The Creative Cut</span>
     </div>
 
-    <div class="bside-tracklist" id="tracklist"></div>
+    <div class="bside-stage">
+      <!-- Featured player -->
+      <div class="player reveal">
+        <div class="player-disc hoverable" id="playerDisc">
+          <div class="disc" id="disc">
+            <div class="disc-label"><span class="dl-name">HJ</span><span class="dl-sub">B-SIDE</span></div>
+            <div class="disc-spindle"></div>
+          </div>
+          <div class="disc-playbtn" id="discPlayBtn">▶</div>
+        </div>
+        <div class="np">
+          <div class="np-eyebrow">Now Spinning</div>
+          <div class="np-title" id="npTitle">Warehouse Set — Vol. 3</div>
+          <div class="np-meta" id="npMeta">Live · 62 min · house / breaks</div>
+          <div class="np-wave" id="npWave"></div>
+          <div class="np-foot">
+            <div class="np-controls">
+              <button id="prevBtn" class="hoverable" aria-label="Previous mix">⏮</button>
+              <button class="play-main hoverable" id="playMain" aria-label="Play">▶</button>
+              <button id="nextBtn" class="hoverable" aria-label="Next mix">⏭</button>
+            </div>
+            <div class="np-time"><span id="curTime">0:00</span> / <span id="durTime">62:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Set list -->
+      <div class="setlist-head">More Mixes</div>
+      <div class="setlist" id="setlist"></div>
+
+      <!-- Photography -->
+      <div class="strip-head">Photography — 35mm / digital</div>
+      <div class="photostrip" id="photostrip"></div>
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════
@@ -1270,45 +1472,31 @@
     ];
 
     /*
-     * ── B-SIDE TRACKLIST ──
-     * Each entry is one "track" (a creative discipline). Two body types:
-     *   type: "soundcloud" → embeds a player from `url`
-     *   type: "gallery"    → image grid from `images` (filenames in this folder).
-     *                        A `null` slot renders an "Add ___" placeholder, so
-     *                        just swap nulls for filenames as you add real work.
-     * Optional fields: `art` (image above the body, e.g. the DJ sketch),
-     *   `link` + `linkText` (labelled outbound link), `wide` (wider gallery cells),
-     *   `phLabel` (placeholder caption).
+     * ── B-SIDE MIXES ──
+     * Each entry is one DJ mix. The first one loads as "Now Spinning".
+     *   title — mix name
+     *   meta  — line under the title (live/studio · length · genre)
+     *   len   — duration "MM:SS" (drives the player timeline)
+     *   tag   — short genre label shown in the set list
+     *   url   — (optional) SoundCloud link to wire real audio later
+     *
+     * NOTE: playback here is simulated (the timeline + waveform animate so you
+     * can feel the UX). Drop in real SoundCloud track URLs and we hook up the
+     * Widget API for live audio.
      */
-    const TRACKS = [
-      {
-        num: "B1",
-        title: "DJing",
-        medium: "Live sets · studio mixes · custom visuals",
-        type: "soundcloud",
-        url: "https://soundcloud.com/itsjusthel",
-        art: "djing-sketch2.jpg",
-        link: "https://soundcloud.com/itsjusthel",
-        linkText: "Full catalogue ↗"
-      },
-      {
-        num: "B2",
-        title: "Photography",
-        medium: "35mm · digital",
-        type: "gallery",
-        phLabel: "Photo",
-        images: [null, null, null, null, null, null]
-      },
-      {
-        num: "B3",
-        title: "Graphic Design",
-        medium: "Posters · layouts · identity",
-        type: "gallery",
-        wide: true,
-        phLabel: "Design",
-        images: [null, null, null, null]
-      }
+    const MIXES = [
+      { title: "Warehouse Set — Vol. 3", meta: "Live · 62 min · house / breaks", len: "62:00", tag: "House / Breaks", url: "https://soundcloud.com/itsjusthel" },
+      { title: "Sunrise Set — Open Air",  meta: "Live · 58 min · melodic",       len: "58:00", tag: "Melodic",        url: "https://soundcloud.com/itsjusthel" },
+      { title: "Basement Tape 002",       meta: "Studio · 71 min · techno",      len: "71:00", tag: "Techno",         url: "https://soundcloud.com/itsjusthel" },
+      { title: "Breaks & Beyond",         meta: "Studio · 44 min · breaks",      len: "44:00", tag: "Breaks",         url: "https://soundcloud.com/itsjusthel" }
     ];
+
+    /*
+     * ── B-SIDE PHOTOGRAPHY ──
+     * Filenames in this folder, in display order. `null` renders an "Add photo"
+     * placeholder — swap nulls for real files as you select/export your shots.
+     */
+    const PHOTOS = ["IMG_6992.jpg", "djing-sketch2.jpg", null, null, null];
 
     /* ── Auto-render projects ── */
     (function renderProjects() {
@@ -1335,45 +1523,161 @@
       });
     })();
 
-    /* ── Auto-render B-Side tracklist ── */
-    (function renderTracks() {
-      const list = document.getElementById('tracklist');
-      if (!list) return;
-      TRACKS.forEach((t) => {
-        const row = document.createElement('div');
-        row.className = 'bside-track reveal';
+    /* ── B-Side music player (simulated playback) ── */
+    (function bsidePlayer() {
+      const wave = document.getElementById('npWave');
+      if (!wave) return;
+      const setlistEl = document.getElementById('setlist');
+      const stripEl   = document.getElementById('photostrip');
+      const disc      = document.getElementById('disc');
+      const playMain  = document.getElementById('playMain');
+      const discBtn   = document.getElementById('discPlayBtn');
+      const npTitle   = document.getElementById('npTitle');
+      const npMeta    = document.getElementById('npMeta');
+      const curTimeEl = document.getElementById('curTime');
+      const durTimeEl = document.getElementById('durTime');
 
-        let meta = `
-          <div class="track-meta">
-            <div class="track-num">${t.num}</div>
-            <div class="track-title">${t.title}</div>
-            <div class="track-medium">${t.medium}</div>`;
-        if (t.link) {
-          meta += `<a class="track-link hoverable" href="${t.link}" target="_blank" rel="noopener noreferrer">${t.linkText || 'View ↗'}</a>`;
-        }
-        meta += `</div>`;
+      const BAR_COUNT = 64;
+      const bars = [];
+      for (let i = 0; i < BAR_COUNT; i++) {
+        const b = document.createElement('div');
+        b.className = 'bar';
+        const h = 22 + Math.abs(Math.sin(i * 0.55) + Math.sin(i * 0.21)) * 38 + Math.random() * 22;
+        b.style.height = Math.min(100, h) + '%';
+        wave.appendChild(b);
+        bars.push(b);
+      }
 
-        let body = `<div class="track-body">`;
-        if (t.art) {
-          body += `<img class="track-art" src="${t.art}" alt="${t.title} sketch">`;
-        }
-        if (t.type === 'soundcloud') {
-          const player = `https://w.soundcloud.com/player/?url=${encodeURIComponent(t.url)}&color=%234DBFB8&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
-          body += `<iframe class="track-player" height="300" loading="lazy" frameborder="no" scrolling="no" allow="autoplay" title="${t.title}" src="${player}"></iframe>`;
-        } else if (t.type === 'gallery') {
-          body += `<div class="track-gallery${t.wide ? ' wide' : ''}">`;
-          t.images.forEach((img) => {
-            body += img
-              ? `<div class="gallery-item"><img src="${img}" alt="${t.title}" loading="lazy"></div>`
-              : `<div class="gallery-item placeholder"><span>${t.phLabel || 'Add image'}</span></div>`;
-          });
-          body += `</div>`;
-        }
-        body += `</div>`;
+      const toSec = (s) => { const [m, ss] = s.split(':').map(Number); return m * 60 + ss; };
+      const fmt = (t) => { const m = Math.floor(t / 60); const s = Math.floor(t % 60); return m + ':' + String(s).padStart(2, '0'); };
 
-        row.innerHTML = meta + body;
-        list.appendChild(row);
+      let idx = 0, playing = false, elapsed = 0, dur = toSec(MIXES[0].len), timer = null;
+
+      function paint() {
+        const frac = dur ? elapsed / dur : 0;
+        const on = Math.floor(frac * BAR_COUNT);
+        bars.forEach((b, i) => b.classList.toggle('on', i < on));
+        curTimeEl.textContent = fmt(elapsed);
+      }
+      function updateUI() {
+        playMain.textContent = playing ? '⏸' : '▶';
+        discBtn.textContent = playing ? '⏸' : '▶';
+        disc.classList.toggle('spinning', playing);
+        paint();
+      }
+      function tick() {
+        elapsed += 0.25;
+        if (elapsed >= dur) { elapsed = dur; next(); return; }
+        paint();
+      }
+      function play() { playing = true; updateUI(); clearInterval(timer); timer = setInterval(tick, 250); }
+      function pause() { playing = false; updateUI(); clearInterval(timer); }
+      function toggle() { playing ? pause() : play(); }
+      function loadMix(i, autoplay) {
+        idx = (i + MIXES.length) % MIXES.length;
+        const m = MIXES[idx];
+        npTitle.textContent = m.title;
+        npMeta.textContent = m.meta;
+        dur = toSec(m.len); elapsed = 0;
+        durTimeEl.textContent = fmt(dur);
+        document.querySelectorAll('.set-row').forEach((r, j) => r.classList.toggle('active', j === idx));
+        if (autoplay) play(); else updateUI();
+      }
+      function next() { loadMix(idx + 1, true); }
+      function prev() { loadMix(idx - 1, true); }
+
+      playMain.addEventListener('click', toggle);
+      document.getElementById('playerDisc').addEventListener('click', toggle);
+      document.getElementById('nextBtn').addEventListener('click', next);
+      document.getElementById('prevBtn').addEventListener('click', prev);
+      wave.addEventListener('click', (e) => {
+        const rect = wave.getBoundingClientRect();
+        const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        elapsed = frac * dur;
+        paint();
       });
+
+      MIXES.forEach((m, i) => {
+        const row = document.createElement('div');
+        row.className = 'set-row hoverable';
+        row.innerHTML =
+          `<span class="set-ico">▶</span>` +
+          `<span class="set-name">${m.title}</span>` +
+          `<span class="set-tag">${m.tag}</span>` +
+          `<span class="set-len">${m.len}</span>`;
+        row.addEventListener('click', () => loadMix(i, true));
+        setlistEl.appendChild(row);
+      });
+
+      PHOTOS.forEach((src) => {
+        const tile = document.createElement('div');
+        if (src) {
+          tile.className = 'photo-tile hoverable';
+          tile.innerHTML = `<img src="${src}" alt="Photography by Helen Johnston" loading="lazy">`;
+        } else {
+          tile.className = 'photo-tile add hoverable';
+          tile.innerHTML = `<span>+ Photo</span>`;
+        }
+        stripEl.appendChild(tile);
+      });
+
+      loadMix(0, false);
+    })();
+
+    /* ── The flip: spin the record to reveal the other side ── */
+    (function recordFlip() {
+      const stage   = document.getElementById('flipStage');
+      const rec     = document.getElementById('flipRecord');
+      const fab     = document.getElementById('flipFab');
+      const fabSide = document.getElementById('flipFabSide');
+      const navA    = document.getElementById('navASide');
+      const navB    = document.getElementById('navBSide');
+      if (!stage || !rec || !fab) return;
+      let animating = false;
+
+      const isB = () => document.body.classList.contains('b-side');
+      function syncFab() {
+        fabSide.textContent = isB() ? 'A-Side' : 'B-Side';
+        fab.classList.toggle('spin', isB());
+      }
+      function scrollToSide(goB) {
+        const el = document.querySelector(goB ? '#creative' : '#projects');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+      function doFlip(target) {
+        const goB = target === 'b';
+        if (animating) return;
+        if (goB === isB()) { scrollToSide(goB); return; }
+        animating = true;
+        gsap.set(stage, { visibility: 'visible', opacity: 0 });
+        gsap.set(rec, { rotationY: goB ? 0 : 180, scale: 0.5, autoAlpha: 0 });
+        const tl = gsap.timeline({
+          onComplete: () => { animating = false; gsap.set(stage, { opacity: 0, visibility: 'hidden' }); }
+        });
+        tl.to(stage, { opacity: 1, duration: 0.25 }, 0);
+        tl.to(rec, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(1.6)' }, 0);
+        tl.to(rec, { rotationY: goB ? 180 : 360, duration: 0.8, ease: 'power2.inOut' });
+        tl.add(() => { document.body.classList.toggle('b-side', goB); syncFab(); }, '-=0.42');
+        tl.to(rec, { scale: 0.5, autoAlpha: 0, duration: 0.3, ease: 'power2.in' });
+        tl.to(stage, { opacity: 0, duration: 0.2 }, '-=0.2');
+        tl.add(() => scrollToSide(goB), '-=0.05');
+      }
+
+      fab.addEventListener('click', () => doFlip(isB() ? 'a' : 'b'));
+      if (navB) navB.addEventListener('click', (e) => { e.preventDefault(); doFlip('b'); });
+      if (navA) navA.addEventListener('click', (e) => { e.preventDefault(); doFlip('a'); });
+
+      ScrollTrigger.create({
+        trigger: '#about',
+        start: 'top 80%',
+        onEnter: () => fab.classList.add('visible'),
+        onLeaveBack: () => fab.classList.remove('visible')
+      });
+
+      // Deep link: arriving straight at the creative section lands you on the B-side.
+      if (location.hash === '#creative') document.body.classList.add('b-side');
+
+      syncFab();
     })();
 
     /* ─── HERO CANVAS — FUKT MAGAZINE STYLE ─── */
