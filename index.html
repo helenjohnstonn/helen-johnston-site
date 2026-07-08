@@ -1527,8 +1527,8 @@
       <div class="setlist-head">More Mixes</div>
       <div class="setlist" id="setlist"></div>
 
-      <!-- Photography -->
-      <div class="strip-head">Photography — 35mm / digital</div>
+      <!-- Graphic design -->
+      <div class="strip-head">Graphic Design — posters / layouts / identity</div>
       <div class="photostrip" id="photostrip"></div>
     </div>
 
@@ -1668,11 +1668,11 @@
     ];
 
     /*
-     * ── B-SIDE PHOTOGRAPHY ──
-     * Filenames in this folder, in display order. `null` renders an "Add photo"
-     * placeholder — swap nulls for real files as you select/export your shots.
+     * ── B-SIDE GRAPHIC DESIGN ──
+     * Filenames in this folder, in display order. `null` renders an "Add design"
+     * placeholder — swap nulls for real files as you select/export your work.
      */
-    const PHOTOS = ["IMG_6992.webp", "djing-sketch2.webp", null, null, null];
+    const DESIGNS = ["djing-sketch2.webp", null, null, null, null];
 
     /* ── Auto-render projects ── */
     (function renderProjects() {
@@ -1826,14 +1826,14 @@
         setlistEl.appendChild(row);
       });
 
-      PHOTOS.forEach((src) => {
+      DESIGNS.forEach((src) => {
         const tile = document.createElement('div');
         if (src) {
           tile.className = 'photo-tile hoverable';
-          tile.innerHTML = `<img src="${src}" alt="Photography by Helen Johnston" loading="lazy">`;
+          tile.innerHTML = `<img src="${src}" alt="Graphic design by Helen Johnston" loading="lazy">`;
         } else {
           tile.className = 'photo-tile add hoverable';
-          tile.innerHTML = `<span>+ Photo</span>`;
+          tile.innerHTML = `<span>+ Design</span>`;
         }
         stripEl.appendChild(tile);
       });

@@ -16,7 +16,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Next
 
-- [ ] **Add real B-side assets.** Photography strip currently shows 2 real images + placeholders; graphic design not yet surfaced. Helen to select/export work ("plenty but not ready").
+- [ ] **Add real B-side assets.** The strip is now Graphic Design (was Photography, changed 2026-07-07) and shows 1 real image (the djing sketch) + "+ Design" placeholders. Helen to select/export posters/layouts/identity work ("plenty but not ready").
 - [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
 - [ ] **Design pass** — Helen has specific design ideas to work through (TBD; capture them here as they come up).
