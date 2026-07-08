@@ -16,7 +16,6 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Next
 
-- [ ] **Wire real audio into the B-side player.** Player UI is built but playback is *simulated* (timeline + waveform animate). Needs final SoundCloud track URLs, then hook up the SoundCloud Widget API for live audio. (Decision made: persistent player with real audio.)
 - [ ] **Add real B-side assets.** Photography strip currently shows 2 real images + placeholders; graphic design not yet surfaced. Helen to select/export work ("plenty but not ready").
 - [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
@@ -30,6 +29,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] **Real SoundCloud audio wired into the B-side player** — hidden Widget API embed drives the custom UI; all 3 real mixes (Mean Gills Y2K / Magical Forest / UKG Prescription) with true durations, play/pause/seek/track-switch verified (2026-07-07)
 - [x] **Contact section redone neo-brutalist** — marquee ticker, hard-shadow slab links with hover invert, rubber-stamp badge, barcode colophon; inverts with the A/B flip; verified desktop + mobile (2026-07-07)
 - [x] Mobile hero nav fixed — A/B Side below the wordmark, About/Contact dropped on mobile; hero labels trigger the flip (2026-07-07)
 - [x] Record flip + music-first B-side actually merged to main (was stranded on an unmerged branch) via PR #7 (2026-07-06)
