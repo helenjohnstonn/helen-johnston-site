@@ -720,9 +720,21 @@
       background:
         repeating-radial-gradient(circle at 50% 50%, #101010 0 2px, #181818 2px 4px),
         #141414;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      /* Deep drop + faint orange halo so the record doesn't fade into the dark bg */
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.65),
+        0 0 70px rgba(232, 116, 42, 0.22),
+        0 0 150px rgba(232, 116, 42, 0.10);
       position: relative;
       display: flex; align-items: center; justify-content: center;
+      transition: box-shadow 0.6s ease;
+    }
+    /* Glow warms up while playing */
+    .disc.spinning {
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.65),
+        0 0 80px rgba(232, 116, 42, 0.34),
+        0 0 180px rgba(232, 116, 42, 0.16);
     }
     .disc::after {
       content: '';
@@ -1514,11 +1526,10 @@
     <div class="contact-inner">
       <span class="section-tag reveal">04 / Liner Notes</span>
       <div class="contact-headline">
-        <h2 class="reveal">Say <em>hi.</em></h2>
+        <h2 class="reveal">Inbox open<br>for <em>adventure.</em></h2>
       </div>
       <p class="contact-lead reveal">
         Tell me something interesting! Ask about my DJing! Recommend me a book!
-        My inbox is open for adventure.
       </p>
       <div class="contact-links reveal">
         <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
