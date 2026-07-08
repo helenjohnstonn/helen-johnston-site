@@ -933,22 +933,14 @@
 
     .contact h2 {
       font-family: var(--font-heading);
-      font-size: clamp(4.2rem, 11vw, 10.5rem);
+      /* Sized so "FOR ADVENTURE." fits one line in Permanent Marker (B-side) */
+      font-size: clamp(3.6rem, 9vw, 8rem);
       text-transform: uppercase;
       color: var(--black);
-      line-height: 0.85;
+      line-height: 0.9;
       letter-spacing: -0.01em;
       margin-bottom: 40px;
-      text-shadow: 7px 7px 0 var(--cream);
-    }
-
-    .contact h2 em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      text-transform: none;
-      letter-spacing: 0;
-      color: var(--cream);
-      text-shadow: 5px 5px 0 var(--black);
+      text-shadow: 6px 6px 0 var(--cream);
     }
 
     /* Spec-sheet lead — a taped-on label */
@@ -1074,11 +1066,10 @@
       .contact { padding-bottom: 64px; }
       .contact-inner { padding: 64px 20px 0; }
       .contact h2 {
-        /* Permanent Marker (B-side) runs wide — size down so SOMETHING fits */
-        font-size: clamp(2.6rem, 13vw, 4.2rem);
+        /* Permanent Marker (B-side) runs wide — size so FOR ADVENTURE. fits */
+        font-size: clamp(2.2rem, 11vw, 3.6rem);
         text-shadow: 4px 4px 0 var(--cream);
       }
-      .contact h2 em { text-shadow: 3px 3px 0 var(--black); }
       .contact-links { grid-template-columns: 1fr; gap: 20px; }
       .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; }
       .cl-name { font-size: 1.9rem; }
@@ -1504,7 +1495,7 @@
     <div class="contact-inner">
       <span class="section-tag reveal">04 / Liner Notes</span>
       <div class="contact-headline">
-        <h2 class="reveal">Inbox open<br>for <em>adventure.</em></h2>
+        <h2 class="reveal">Inbox open<br>for adventure.</h2>
       </div>
       <p class="contact-lead reveal">
         Tell me something interesting! Ask about my DJing! Recommend me a book!
