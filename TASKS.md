@@ -31,6 +31,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] Bio reworked: leads with core PMM role on YouTube Culture & Artists + YouTube Recap, warmer creative closer (2026-07-07)
 - [x] B Side reworked into a creative tracklist; The Wall replaced with contact (2026-06-23)
 - [x] B Side built out as zine collage of DJ mixes
 - [x] Core sections in place: hero, about, A Side (projects), B Side (creative), contact
