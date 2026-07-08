@@ -65,12 +65,12 @@
     }
 
     :root {
-      --cursor-hand: url('cursor-hand.png') 6 1;
+      --cursor-hand: url('cursor-hand.png') 8 1;
     }
     /* Crisp cursor on retina displays where image-set is supported */
-    @supports (cursor: image-set(url('cursor-hand.png') 1x) 6 1, pointer) {
+    @supports (cursor: image-set(url('cursor-hand.png') 1x) 8 1, pointer) {
       :root {
-        --cursor-hand: image-set(url('cursor-hand.png') 1x, url('cursor-hand@2x.png') 2x) 6 1;
+        --cursor-hand: image-set(url('cursor-hand.png') 1x, url('cursor-hand@2x.png') 2x) 8 1;
       }
     }
 
@@ -96,28 +96,6 @@
     ::selection {
       background: var(--accent);
       color: var(--bg-primary);
-    }
-
-    /* ═══════════════════════════════════════
-       CUSTOM CURSOR FOLLOWER
-    ═══════════════════════════════════════ */
-    .cursor-ring {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, border-color 0.3s;
-      mix-blend-mode: difference;
-    }
-
-    .cursor-ring.hovering {
-      width: 70px;
-      height: 70px;
-      border-color: var(--accent-secondary);
     }
 
     /* ═══════════════════════════════════════
@@ -1388,14 +1366,12 @@
       .contact-bg-text { font-size: 8rem; }
 
       .issue-badge { display: none; }
-      .cursor-ring { display: none; }
     }
   </style>
 </head>
 <body>
 
   <!-- Cursor follower -->
-  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Flip transition overlays -->
   <div class="flip-overlay" id="flipOverlay"></div>
@@ -2180,19 +2156,7 @@
       }
     });
 
-/* ─── CURSOR RING ─── */
-    const cursorRing = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', (e) => {
-      cursorRing.style.left = e.clientX + 'px';
-      cursorRing.style.top = e.clientY + 'px';
-    });
-
-    document.querySelectorAll('.hoverable').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
-    });
-
-    /* ─── WAVEFORM BARS ─── */
+/* ─── WAVEFORM BARS ─── */
     const waveform = document.getElementById('waveform');
     if (waveform) {
       const barCount = 60;
