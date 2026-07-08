@@ -947,24 +947,6 @@
       text-shadow: 5px 5px 0 var(--black);
     }
 
-    /* Rubber-stamp badge, slapped on at an angle */
-    .contact-stamp {
-      position: absolute;
-      top: -18px;
-      right: 0;
-      transform: rotate(7deg);
-      font-family: var(--font-bebas);
-      font-size: 1rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--black);
-      border: 3px dashed var(--black);
-      padding: 12px 18px 10px;
-      line-height: 1.5;
-      text-align: center;
-      pointer-events: none;
-    }
-
     /* Spec-sheet lead — a taped-on label */
     .contact-lead {
       display: inline-block;
@@ -1059,21 +1041,11 @@
     /* ── Colophon: barcode + catalog number ── */
     .contact-colophon {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: flex-end;
-      gap: 30px;
-      flex-wrap: wrap;
       margin-top: 74px;
       padding-top: 26px;
       border-top: 4px solid var(--black);
-    }
-    .colophon-note {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--black);
     }
     .barcode {
       width: 190px;
@@ -1103,12 +1075,6 @@
         text-shadow: 4px 4px 0 var(--cream);
       }
       .contact h2 em { text-shadow: 3px 3px 0 var(--black); }
-      .contact-stamp {
-        position: static;
-        display: inline-block;
-        transform: rotate(-3deg);
-        margin-bottom: 26px;
-      }
       .contact-links { grid-template-columns: 1fr; gap: 20px; }
       .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; }
       .cl-name { font-size: 1.9rem; }
@@ -1548,12 +1514,11 @@
     <div class="contact-inner">
       <span class="section-tag reveal">04 / Liner Notes</span>
       <div class="contact-headline">
-        <h2 class="reveal">Let's make<br>something <em>good.</em></h2>
-        <div class="contact-stamp reveal">Replies fast<br>&#10010; No spam &#10010;</div>
+        <h2 class="reveal">Say <em>hi.</em></h2>
       </div>
       <p class="contact-lead reveal">
-        Open to product &amp; marketing roles, creative collaborations, and the occasional DJ booking.
-        Pick a channel — I read all of them.
+        Tell me something interesting! Ask about my DJing! Recommend me a book!
+        My inbox is open for adventure.
       </p>
       <div class="contact-links reveal">
         <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
@@ -1590,10 +1555,9 @@
         </a>
       </div>
       <div class="contact-colophon reveal">
-        <span class="colophon-note">Recorded &amp; mixed by Helen Johnston &mdash; no forms, no funnels</span>
         <div>
           <div class="barcode" aria-hidden="true"></div>
-          <div class="barcode-label">HJ&middot;004&middot;LN</div>
+          <div class="barcode-label">HJ2026</div>
         </div>
       </div>
     </div>
@@ -2236,11 +2200,9 @@
     // Two identical halves + translateX(-50%) = seamless loop
     const contactTicker = document.getElementById('contactTicker');
     if (contactTicker) {
-      const phrase = 'LET&rsquo;S MAKE SOMETHING GOOD <span class="tick-sep">&#10033;</span> ' +
-                     'NO FORMS <span class="tick-sep">&#10033;</span> ' +
-                     'NO FUNNELS <span class="tick-sep">&#10033;</span> ' +
-                     'JUST TALK <span class="tick-sep">&#10033;</span> ';
-      contactTicker.innerHTML = phrase.repeat(6);
+      const phrase = 'DANCE MORE <span class="tick-sep">&#10033;</span> ' +
+                     'WORRY LESS <span class="tick-sep">&#10033;</span> ';
+      contactTicker.innerHTML = phrase.repeat(12);
     }
 
     /* ─── GSAP SCROLL ANIMATIONS ─── */
