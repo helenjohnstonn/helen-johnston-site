@@ -30,6 +30,9 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] **Contact section redone neo-brutalist** — marquee ticker, hard-shadow slab links with hover invert, rubber-stamp badge, barcode colophon; inverts with the A/B flip; verified desktop + mobile (2026-07-07)
+- [x] Mobile hero nav fixed — A/B Side below the wordmark, About/Contact dropped on mobile; hero labels trigger the flip (2026-07-07)
+- [x] Record flip + music-first B-side actually merged to main (was stranded on an unmerged branch) via PR #7 (2026-07-06)
 - [x] Performance pass — converted all images to right-sized WebP (~20MB → 1.3MB), removed 2 unused images (2026-07-06)
 - [x] Mobile check — hero / about / A Side / B Side / contact verified at 375px, no overflow, all images load (2026-07-06)
 - [x] GitHub Pages enabled, serving `main` — live at https://helenjohnstonn.github.io/helen-johnston-site/ (repo made public; history scanned for secrets first — clean) (2026-07-06)

@@ -871,107 +871,247 @@
     /* ═══════════════════════════════════════
        CONTACT / GRAFFITI WALL SECTION
     ═══════════════════════════════════════ */
+    /* Neo-brutalist back cover of the record sleeve: flat accent field,
+       black slabs, hard offset shadows (no blur anywhere), everything on
+       semantic tokens so the A/B flip inverts the whole section. */
     .contact {
-      padding: 120px 40px 80px;
-      background: var(--charcoal);
+      padding: 0 0 90px;
+      background: var(--accent);
       position: relative;
       overflow: hidden;
-      border-top: 6px solid var(--accent);
+      border-top: 8px solid var(--black);
+      scroll-margin-top: 72px; /* land below the fixed nav so the ticker shows */
     }
+
+    /* ── Marquee ticker ── */
+    .contact-ticker {
+      background: var(--black);
+      border-bottom: 5px solid var(--black);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 12px 0;
+      user-select: none;
+    }
+    .contact-ticker-track {
+      display: inline-block;
+      font-family: var(--font-bebas);
+      font-size: 1.5rem;
+      letter-spacing: 0.22em;
+      color: var(--cream);
+      animation: tickerScroll 22s linear infinite;
+    }
+    .contact-ticker-track .tick-sep { color: var(--accent); padding: 0 18px; }
+    @keyframes tickerScroll { to { transform: translateX(-50%); } }
 
     .contact-inner {
       max-width: 1200px;
       margin: 0 auto;
       position: relative;
       z-index: 2;
+      padding: 90px 40px 0;
     }
 
     .contact .section-tag {
+      display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.62rem;
+      font-weight: 700;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--accent-secondary);
-      margin-bottom: 20px;
-      display: block;
+      color: var(--cream);
+      background: var(--black);
+      padding: 8px 14px;
+      margin-bottom: 34px;
     }
+
+    .contact-headline { position: relative; }
 
     .contact h2 {
       font-family: var(--font-heading);
-      font-size: clamp(4rem, 10vw, 9rem);
-      color: var(--cream);
-      line-height: 0.95;
-      margin-bottom: 30px;
-      /* Spray paint drip feel */
-      text-shadow:
-        3px 3px 0 rgba(0,0,0,0.4),
-        0 0 40px rgba(232, 116, 42, 0.15);
+      font-size: clamp(4.2rem, 11vw, 10.5rem);
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 0.85;
+      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+      text-shadow: 7px 7px 0 var(--cream);
     }
 
     .contact h2 em {
       font-family: var(--font-serif);
       font-style: italic;
       text-transform: none;
-      color: var(--accent);
+      letter-spacing: 0;
+      color: var(--cream);
+      text-shadow: 5px 5px 0 var(--black);
     }
 
-    /* Contact links row — bottom of section */
+    /* Rubber-stamp badge, slapped on at an angle */
+    .contact-stamp {
+      position: absolute;
+      top: -18px;
+      right: 0;
+      transform: rotate(7deg);
+      font-family: var(--font-bebas);
+      font-size: 1rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--black);
+      border: 3px dashed var(--black);
+      padding: 12px 18px 10px;
+      line-height: 1.5;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    /* Spec-sheet lead — a taped-on label */
+    .contact-lead {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--black);
+      background: var(--cream);
+      border: 3px solid var(--black);
+      box-shadow: 7px 7px 0 var(--black);
+      padding: 18px 22px;
+      max-width: 560px;
+    }
+
+    /* ── Channel slabs ── */
     .contact-links {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 50px;
-      padding-top: 30px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 64px;
     }
 
     .contact-link {
-      font-family: var(--font-bebas);
-      font-size: 1.3rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cream);
-      text-decoration: none;
-      padding: 8px 0 8px 16px;
-      border-left: 4px solid var(--accent);
-      border-bottom: none;
-      transition: all 0.3s;
-      display: inline-flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      gap: 8px;
+      gap: 20px;
+      background: var(--cream);
+      border: 4px solid var(--black);
+      box-shadow: 9px 9px 0 var(--black);
+      padding: 24px 26px;
+      text-decoration: none;
+      transition: transform 0.13s ease-out, box-shadow 0.13s ease-out,
+                  background 0.13s ease-out;
     }
-
     .contact-link:hover {
-      color: var(--accent-secondary);
-      border-left-color: var(--accent-secondary);
+      transform: translate(-5px, -5px);
+      box-shadow: 14px 14px 0 var(--black);
+      background: var(--black);
+    }
+    .contact-link:active {
+      transform: translate(3px, 3px);
+      box-shadow: 3px 3px 0 var(--black);
     }
 
-    .contact-lead {
+    .cl-num {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--cream);
-      opacity: 0.8;
-      max-width: 540px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--black);
+      border: 2px solid var(--black);
+      padding: 4px 7px;
+      transition: color 0.13s, border-color 0.13s;
     }
-
-    .contact-bg-text {
-      position: absolute;
-      bottom: -40px;
-      right: -20px;
-      font-family: var(--font-display);
-      font-size: 18rem;
-      color: var(--cream);
-      opacity: 0.02;
+    .cl-body { min-width: 0; }
+    .cl-name {
+      display: block;
+      font-family: var(--font-bebas);
+      font-size: 2.4rem;
+      letter-spacing: 0.06em;
       line-height: 1;
-      pointer-events: none;
-      user-select: none;
       text-transform: uppercase;
+      color: var(--black);
+      transition: color 0.13s;
+    }
+    .cl-handle {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--black);
+      opacity: 0.65;
+      margin-top: 7px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.13s;
+    }
+    .cl-arrow {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      line-height: 1;
+      color: var(--black);
+      transition: transform 0.13s ease-out, color 0.13s;
+    }
+    .contact-link:hover .cl-name,
+    .contact-link:hover .cl-handle,
+    .contact-link:hover .cl-arrow { color: var(--cream); }
+    .contact-link:hover .cl-num { color: var(--accent); border-color: var(--accent); }
+    .contact-link:hover .cl-arrow { transform: translate(5px, -5px); }
+
+    /* ── Colophon: barcode + catalog number ── */
+    .contact-colophon {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 74px;
+      padding-top: 26px;
+      border-top: 4px solid var(--black);
+    }
+    .colophon-note {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .barcode {
+      width: 190px;
+      height: 52px;
+      background: repeating-linear-gradient(90deg,
+        var(--black) 0 3px, transparent 3px 6px,
+        var(--black) 6px 8px, transparent 8px 13px,
+        var(--black) 13px 14px, transparent 14px 17px,
+        var(--black) 17px 21px, transparent 21px 24px);
+    }
+    .barcode-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.42em;
+      color: var(--black);
+      margin-top: 6px;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
-      .contact { padding: 80px 20px 60px; }
-      .contact-bg-text { font-size: 8rem; }
+      .contact { padding-bottom: 64px; }
+      .contact-inner { padding: 64px 20px 0; }
+      .contact h2 {
+        /* Permanent Marker (B-side) runs wide — size down so SOMETHING fits */
+        font-size: clamp(2.6rem, 13vw, 4.2rem);
+        text-shadow: 4px 4px 0 var(--cream);
+      }
+      .contact h2 em { text-shadow: 3px 3px 0 var(--black); }
+      .contact-stamp {
+        position: static;
+        display: inline-block;
+        transform: rotate(-3deg);
+        margin-bottom: 26px;
+      }
+      .contact-links { grid-template-columns: 1fr; gap: 20px; }
+      .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; }
+      .cl-name { font-size: 1.9rem; }
+      .contact-colophon { flex-direction: column; align-items: flex-start; }
     }
 
     /* Footer */
@@ -1396,30 +1536,61 @@
        CONTACT / LINER NOTES SECTION
   ═══════════════════════════════════════ -->
   <section class="contact" id="contact">
-    <div class="section-number">04</div>
+    <div class="contact-ticker" aria-hidden="true">
+      <div class="contact-ticker-track" id="contactTicker"></div>
+    </div>
     <div class="contact-inner">
       <span class="section-tag reveal">04 / Liner Notes</span>
-      <h2 class="reveal">Let's make<br>something <em>good</em>.</h2>
+      <div class="contact-headline">
+        <h2 class="reveal">Let's make<br>something <em>good.</em></h2>
+        <div class="contact-stamp reveal">Replies fast<br>&#10010; No spam &#10010;</div>
+      </div>
       <p class="contact-lead reveal">
         Open to product &amp; marketing roles, creative collaborations, and the occasional DJ booking.
         Pick a channel — I read all of them.
       </p>
       <div class="contact-links reveal">
         <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
-          Email &nearr;
+          <span class="cl-num">01</span>
+          <span class="cl-body">
+            <span class="cl-name">Email</span>
+            <span class="cl-handle">hello@helenjohnston.com</span>
+          </span>
+          <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="https://www.linkedin.com/in/helenjohnstonn/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          LinkedIn &nearr;
+          <span class="cl-num">02</span>
+          <span class="cl-body">
+            <span class="cl-name">LinkedIn</span>
+            <span class="cl-handle">in/helenjohnstonn</span>
+          </span>
+          <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="https://soundcloud.com/itsjusthel" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          SoundCloud &nearr;
+          <span class="cl-num">03</span>
+          <span class="cl-body">
+            <span class="cl-name">SoundCloud</span>
+            <span class="cl-handle">@itsjusthel</span>
+          </span>
+          <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          Instagram &nearr;
+          <span class="cl-num">04</span>
+          <span class="cl-body">
+            <span class="cl-name">Instagram</span>
+            <span class="cl-handle">DMs open</span>
+          </span>
+          <span class="cl-arrow">&nearr;</span>
         </a>
       </div>
+      <div class="contact-colophon reveal">
+        <span class="colophon-note">Recorded &amp; mixed by Helen Johnston &mdash; no forms, no funnels</span>
+        <div>
+          <div class="barcode" aria-hidden="true"></div>
+          <div class="barcode-label">HJ&middot;004&middot;LN</div>
+        </div>
+      </div>
     </div>
-    <div class="contact-bg-text">HJ</div>
   </section>
 
   <!-- Footer -->
@@ -2013,6 +2184,17 @@
           clearInterval(bar._interval);
         });
       });
+    }
+
+    /* ─── CONTACT TICKER ─── */
+    // Two identical halves + translateX(-50%) = seamless loop
+    const contactTicker = document.getElementById('contactTicker');
+    if (contactTicker) {
+      const phrase = 'LET&rsquo;S MAKE SOMETHING GOOD <span class="tick-sep">&#10033;</span> ' +
+                     'NO FORMS <span class="tick-sep">&#10033;</span> ' +
+                     'NO FUNNELS <span class="tick-sep">&#10033;</span> ' +
+                     'JUST TALK <span class="tick-sep">&#10033;</span> ';
+      contactTicker.innerHTML = phrase.repeat(6);
     }
 
     /* ─── GSAP SCROLL ANIMATIONS ─── */
