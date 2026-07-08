@@ -30,6 +30,9 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] **Custom pointer-finger cursor** — Helen's halftone hand image (Desktop `PointerFinger.jpg`) cut out to a transparent PNG and used as the cursor site-wide (48px + retina 2x via image-set; default, links/buttons, hero canvas) (2026-07-07)
+- [x] **Hero fixed on wide screens** — wordmark size now clamped by viewport height (was width-only, so wide/short laptop windows clipped HELEN off-screen); right-edge nav labels scale up on tall screens (2026-07-07)
+- [x] **Scroll reveals made resilient** — sections no longer hidden by CSS awaiting GSAP; hidden state applied via gsap.set so content stays visible if the CDN is blocked (verified with GSAP disabled) (2026-07-07)
 - [x] **Contact section redone neo-brutalist** — marquee ticker, hard-shadow slab links with hover invert, rubber-stamp badge, barcode colophon; inverts with the A/B flip; verified desktop + mobile (2026-07-07)
 - [x] Mobile hero nav fixed — A/B Side below the wordmark, About/Contact dropped on mobile; hero labels trigger the flip (2026-07-07)
 - [x] Record flip + music-first B-side actually merged to main (was stranded on an unmerged branch) via PR #7 (2026-07-06)

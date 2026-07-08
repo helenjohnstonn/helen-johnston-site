@@ -63,6 +63,16 @@
       --font-heading: var(--font-display-alt);
     }
 
+    :root {
+      --cursor-hand: url('cursor-hand.png') 6 1;
+    }
+    /* Crisp cursor on retina displays where image-set is supported */
+    @supports (cursor: image-set(url('cursor-hand.png') 1x) 6 1, pointer) {
+      :root {
+        --cursor-hand: image-set(url('cursor-hand.png') 1x, url('cursor-hand@2x.png') 2x) 6 1;
+      }
+    }
+
     html {
       scroll-behavior: smooth;
       scrollbar-width: thin;
@@ -74,8 +84,12 @@
       color: var(--text-primary);
       font-family: var(--font-mono);
       overflow-x: hidden;
-      cursor: crosshair;
+      cursor: var(--cursor-hand), crosshair;
       transition: background 0.1s, color 0.1s;
+    }
+
+    a, button, select, label, summary {
+      cursor: var(--cursor-hand), pointer;
     }
 
     ::selection {
@@ -413,7 +427,7 @@
       color: var(--black);
       text-transform: uppercase;
       transition: all 0.3s ease;
-      cursor: default;
+      cursor: var(--cursor-hand), default;
     }
 
     .discipline-tag:hover {
@@ -577,7 +591,7 @@
     .project-card {
       position: relative;
       overflow: hidden;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
     }
 
     .project-card a {
@@ -710,7 +724,7 @@
     .player-disc {
       position: relative;
       width: 300px; height: 300px;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       justify-self: center;
     }
     .disc {
@@ -839,7 +853,7 @@
       display: flex; align-items: center; gap: 18px;
       padding: 16px 4px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       transition: background 0.2s, padding-left 0.2s;
     }
     .set-row:hover { background: rgba(255,255,255,0.03); padding-left: 12px; }
@@ -1198,20 +1212,8 @@
     /* ═══════════════════════════════════════
        REVEAL ANIMATIONS
     ═══════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-60px);
-    }
-
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(60px);
-    }
+    /* Initial hidden states are applied by gsap.set() in the script, not
+       here — if GSAP fails to load, content stays visible (no animation). */
 
     /* ═══════════════════════════════════════
        B SIDE — LAYOUT LOOSENESS
@@ -1322,7 +1324,7 @@
       -webkit-backdrop-filter: blur(8px);
       border: 2px solid var(--accent);
       border-radius: 40px;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.4s, transform 0.4s, border-color 0.3s;
@@ -1930,7 +1932,9 @@
       ctx.fillRect(0, 0, w, h);
 
       // ── SIZING — Letters fill frame, starting lower to clear nav ──
-      const baseSize = w * 0.28;
+      // Width-driven, but clamped by height so wide/short laptop windows
+      // don't blow the wordmark past the bottom of the viewport
+      const baseSize = Math.min(w * 0.28, h * 0.35);
       const verticalStretch = 2.5;
       const textCenterY = h * 0.55; // shifted down from center
       const cx = w / 2 + (mouseX - 0.5) * 250 * interactionStrength;
@@ -2077,7 +2081,9 @@
       } else {
         const navItems = ['About', 'A Side', 'B Side', 'Contact'];
         const navAnchors = ['#about', '#projects', '#creative', '#contact'];
-        ctx.font = '44px "Permanent Marker", cursive';
+        // Scale nav with the viewport so it doesn't read tiny on big screens
+        const navFontSize = Math.max(44, Math.min(72, Math.round(h * 0.055)));
+        ctx.font = `${navFontSize}px "Permanent Marker", cursive`;
         ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
         const navX = w - 35;
         const sectionHeight = h / navItems.length;
@@ -2128,24 +2134,7 @@
       }
     });
 
-    // Change cursor when hovering nav areas
-    canvas.addEventListener('mousemove', (e) => {
-      if (!canvas._navAreas) return;
-      const rect = canvas.getBoundingClientRect();
-      const hx = e.clientX - rect.left;
-      const hy = e.clientY - rect.top;
-      let overNav = false;
-      for (const area of canvas._navAreas) {
-        if (hx >= area.x && hx <= area.x + area.w &&
-            hy >= area.y && hy <= area.y + area.h) {
-          overNav = true;
-          break;
-        }
-      }
-      canvas.style.cursor = overNav ? 'pointer' : 'crosshair';
-    });
-
-    /* ─── CURSOR RING ─── */
+/* ─── CURSOR RING ─── */
     const cursorRing = document.getElementById('cursorRing');
     document.addEventListener('mousemove', (e) => {
       cursorRing.style.left = e.clientX + 'px';
@@ -2199,6 +2188,12 @@
 
     /* ─── GSAP SCROLL ANIMATIONS ─── */
     gsap.registerPlugin(ScrollTrigger);
+
+    // Hidden start states live here rather than in CSS so the content
+    // still shows if GSAP never loads (blocked CDN, no JS)
+    gsap.set('.reveal', { opacity: 0, y: 40 });
+    gsap.set('.reveal-left', { opacity: 0, x: -60 });
+    gsap.set('.reveal-right', { opacity: 0, x: 60 });
 
     // Reveal animations
     gsap.utils.toArray('.reveal').forEach(el => {
