@@ -8,6 +8,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Now
 
+- [ ] **Merge the handwriting branch** — `claude/vigorous-shtern-78a9da` is committed and pushed (eb13dd6); open a PR to main and merge so the live site picks it up (reminder scheduled for 2026-07-08 9am)
 - [ ] **Deploy to a custom domain via GitHub Pages.** Decision made: custom domain (most impressive to send). Remaining sub-steps:
   - [ ] **[Helen]** Pick + register a domain at a registrar (Cloudflare / Namecheap / Porkbun). ~$10-15/yr. This is the only gating step Helen has to do herself.
   - [ ] Point the domain's DNS at GitHub Pages + add it as the custom domain in repo settings (Claude will give exact records)
@@ -23,12 +24,16 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Later
 
+- [ ] **More handwritten elements** — hero nav, top nav, and the bio name are now real handwriting (see Done). Remaining candidates: the A-Side/B-Side discipline labels in the about section, the contact headline, "Flip to B-Side" fab. Same pipeline: Helen writes it, photo → masked WebP asset.
 - [ ] Meta tags / link preview (Open Graph image + description) so the link looks good when sent in a message or posted
 - [ ] Favicon
 - [ ] Mobile hero: nav labels ("A Side" / "B Side") slightly overlap the HELEN wordmark — reads as zine-collage, but worth a deliberate look during the design pass
 
 ## Done
 
+- [x] **Real handwriting everywhere the site faked it** — hero canvas nav (About/A-Side/B-Side/Contact, rotated right-edge on desktop, horizontal A/B on mobile), top nav links, section headers, and the bio "Helen Johnston" (two photos composed into one baseline-aligned lockup) are all Helen's actual marker lettering; masked WebP assets follow the theme color on both sides; hit areas track the drawn art; bio discipline labels/tags removed (2026-07-07)
+- [x] **Fixed latent hero-death bug** — loading the site in a hidden/background tab killed the hero canvas draw loop permanently (0-size canvas threw mid-frame); now it bails and self-heals when the tab becomes visible (2026-07-07)
+- [x] Handwritten "HELEN" in the bio — first pass of the handwriting pipeline, superseded same day by the full name lockup (2026-07-07)
 - [x] **Custom pointer-finger cursor** — Helen's halftone hand image (Desktop `PointerFinger.jpg`) cut out to a transparent PNG and used as the cursor site-wide (64px + retina 2x via image-set; default, links/buttons, hero canvas); the old orange cursor-ring follower removed in favor of the hand (2026-07-08)
 - [x] **Hero fixed on wide screens** — wordmark size now clamped by viewport height (was width-only, so wide/short laptop windows clipped HELEN off-screen); right-edge nav labels scale up on tall screens (2026-07-07)
 - [x] **Scroll reveals made resilient** — sections no longer hidden by CSS awaiting GSAP; hidden state applied via gsap.set so content stays visible if the CDN is blocked (verified with GSAP disabled) (2026-07-07)
