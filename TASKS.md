@@ -8,11 +8,9 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Now
 
-- [ ] **Deploy to a custom domain via GitHub Pages.** Decision made: custom domain (most impressive to send). Remaining sub-steps:
-  - [ ] **[Helen]** Pick + register a domain at a registrar (Cloudflare / Namecheap / Porkbun). ~$10-15/yr. This is the only gating step Helen has to do herself.
-  - [ ] Point the domain's DNS at GitHub Pages + add it as the custom domain in repo settings (Claude will give exact records)
-  - [ ] Enable "Enforce HTTPS" once the cert provisions
-  - [ ] Repoint the Desktop/Dock shortcut at the live custom-domain URL
+- [ ] **Deploy to a custom domain via GitHub Pages.** Live at itsjusthel.com over HTTP (2026-07-09) — Helen registered the domain, set the DNS A/CNAME records, and added it in repo settings herself. Remaining:
+  - [ ] Enable "Enforce HTTPS" once GitHub's cert provisions (was still provisioning as of 2026-07-09 afternoon; usually minutes-to-hours)
+  - [ ] Repoint the Desktop/Dock shortcut at https://itsjusthel.com
 
 ## Next
 
