@@ -8,10 +8,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Now
 
-- [ ] **Handwriting follow-ups** (reminder scheduled for 2026-07-08 9am):
-  - [ ] Commit the handwriting work (currently uncommitted on worktree branch `claude/vigorous-shtern-78a9da`) + PR to main
-  - [x] ~~Remove the A-Side / B-Side discipline labels from the bio~~ — done 2026-07-07, whole disciplines block (labels + subgenre tags) deleted
-  - [x] ~~Prototype the A Side / B Side section headers in the handwritten assets~~ — done 2026-07-07: both headers converted (mask + `currentColor`, sized up to 1.25em), correct on both sides of the flip
+- [ ] **Merge the handwriting branch** — `claude/vigorous-shtern-78a9da` is committed and pushed (eb13dd6); open a PR to main and merge so the live site picks it up (reminder scheduled for 2026-07-08 9am)
 - [ ] **Deploy to a custom domain via GitHub Pages.** Decision made: custom domain (most impressive to send). Remaining sub-steps:
   - [ ] **[Helen]** Pick + register a domain at a registrar (Cloudflare / Namecheap / Porkbun). ~$10-15/yr. This is the only gating step Helen has to do herself.
   - [ ] Point the domain's DNS at GitHub Pages + add it as the custom domain in repo settings (Claude will give exact records)
