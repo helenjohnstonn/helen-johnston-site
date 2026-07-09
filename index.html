@@ -370,9 +370,10 @@
       font-family: var(--font-mono);
       font-size: 0.9rem;
       line-height: 2.0;
-      color: var(--black);
+      /* dim via color alpha, not opacity, so the handwritten name
+         (currentColor mask in the strong) can stay full-ink */
+      color: rgba(26, 26, 26, 0.85);
       margin-bottom: 24px;
-      opacity: 0.85;
     }
 
     .about-right p strong {
@@ -384,45 +385,45 @@
       line-height: 1;
     }
 
-    .about-disciplines {
-      margin-top: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    /* Helen's actual handwriting (scanned marker lettering), inked via
+       mask so it always matches the surrounding text color */
+    .hw-name {
+      display: inline-block;
+      height: 1.5em;
+      aspect-ratio: 1100 / 209;
+      background: currentColor;
+      -webkit-mask: url('hw-name.webp') center / contain no-repeat;
+      mask: url('hw-name.webp') center / contain no-repeat;
+      vertical-align: -0.35em;
+      margin-right: 0.15em;
     }
 
-    .discipline-label {
-      font-family: 'Permanent Marker', cursive;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--black);
-      width: 100%;
-      margin-top: 16px;
-      margin-bottom: -4px;
+    /* Handwritten nav labels — same trick, one class per word */
+    .hw-label {
+      display: inline-block;
+      height: 1em;
+      background: currentColor;
+      vertical-align: -0.14em;
     }
-
-    .discipline-label:first-child {
-      margin-top: 0;
+    .hw-label-about {
+      aspect-ratio: 600 / 231;
+      -webkit-mask: url('hw-about.webp') center / contain no-repeat;
+      mask: url('hw-about.webp') center / contain no-repeat;
     }
-
-    .discipline-tag {
-      font-family: var(--font-bebas);
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      padding: 8px 20px;
-      border: 3px solid var(--black);
-      color: var(--black);
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      cursor: default;
+    .hw-label-a-side {
+      aspect-ratio: 600 / 190;
+      -webkit-mask: url('hw-a-side.webp') center / contain no-repeat;
+      mask: url('hw-a-side.webp') center / contain no-repeat;
     }
-
-    .discipline-tag:hover {
-      background: var(--accent-secondary);
-      border-color: var(--accent-secondary);
-      color: var(--black);
-      transform: translateY(-2px);
-      box-shadow: 4px 4px 0 var(--black);
+    .hw-label-b-side {
+      aspect-ratio: 600 / 183;
+      -webkit-mask: url('hw-b-side.webp') center / contain no-repeat;
+      mask: url('hw-b-side.webp') center / contain no-repeat;
+    }
+    .hw-label-contact {
+      aspect-ratio: 600 / 172;
+      -webkit-mask: url('hw-contact.webp') center / contain no-repeat;
+      mask: url('hw-contact.webp') center / contain no-repeat;
     }
 
     .section-number {
@@ -547,6 +548,12 @@
       font-size: clamp(3rem, 6vw, 5rem);
       color: var(--text-on-dark);
       line-height: 0.95;
+    }
+
+    .projects .section-header h2 .hw-label,
+    .creative .section-header h2 .hw-label {
+      height: 1.25em;
+      vertical-align: -0.1em;
     }
 
     .projects .section-header h2::before {
@@ -1236,11 +1243,6 @@
       opacity: 0.08;
     }
 
-    body.b-side .discipline-tag {
-      border-style: dashed;
-      border-width: 2px;
-    }
-
     /* ═══════════════════════════════════════
        FLIP TRANSITION OVERLAY
     ═══════════════════════════════════════ */
@@ -1417,13 +1419,13 @@
   <nav id="mainNav">
     <a href="#hero" class="logo hoverable">HJ</a>
     <ul class="nav-links">
-      <li><a href="#about" class="hoverable">About</a></li>
+      <li><a href="#about" class="hoverable" aria-label="About"><span class="hw-label hw-label-about"></span></a></li>
       <li><span class="nav-divider">/</span></li>
-      <li><a href="#projects" class="hoverable" id="navASide">A Side</a></li>
+      <li><a href="#projects" class="hoverable" id="navASide" aria-label="A Side"><span class="hw-label hw-label-a-side"></span></a></li>
       <li><span class="nav-divider">/</span></li>
-      <li><a href="#creative" class="hoverable" id="navBSide">B Side</a></li>
+      <li><a href="#creative" class="hoverable" id="navBSide" aria-label="B Side"><span class="hw-label hw-label-b-side"></span></a></li>
       <li><span class="nav-divider">/</span></li>
-      <li><a href="#contact" class="hoverable">Contact</a></li>
+      <li><a href="#contact" class="hoverable" aria-label="Contact"><span class="hw-label hw-label-contact"></span></a></li>
     </ul>
   </nav>
 
@@ -1449,7 +1451,7 @@
       </div>
       <div class="about-right reveal-right">
         <p>
-          <strong>Helen Johnston</strong> is a core PMM on YouTube's Culture &amp; Artists team, leading the annual YouTube Recap. Her work lives exactly where she does: at the intersection of culture and music, making people feel seen and bringing communities together.
+          <strong><span class="hw-name" role="img" aria-label="Helen Johnston"></span></strong> is a core PMM on YouTube's Culture &amp; Artists team, leading the annual YouTube Recap. Her work lives exactly where she does: at the intersection of culture and music, making people feel seen and bringing communities together.
         </p>
         <p>
           Helen got here by spending three years at Google understanding why people use the things they use. That curiosity took second place at a global Google hackathon with Early Days, a UXR simulator, and built Pique, an app that gets people outside and into the world.
@@ -1457,15 +1459,6 @@
         <p>
           Outside of work, you can find Helen DJing with her custom visuals, designing graphics, going on extreme adventures, or picking up a new creative side project (metal welding, anyone?). She's happy you're here.
         </p>
-        <div class="about-disciplines">
-          <span class="discipline-label">A-Side</span>
-          <span class="discipline-tag hoverable">Product Marketing</span>
-          <span class="discipline-tag hoverable">Projects</span>
-          <span class="discipline-label">B-Side</span>
-          <span class="discipline-tag hoverable">Photography</span>
-          <span class="discipline-tag hoverable">DJing</span>
-          <span class="discipline-tag hoverable">Graphic Design</span>
-        </div>
       </div>
     </div>
   </section>
@@ -1481,7 +1474,7 @@
     <div class="tear-hand tear-hand-2"><img src="hand.webp" alt=""></div>
     <div class="tear-hand tear-hand-3"><img src="hand.webp" alt=""></div>
     <div class="section-header reveal">
-      <h2>A Side</h2>
+      <h2><span class="hw-label hw-label-a-side" role="img" aria-label="A Side"></span></h2>
     </div>
 
     <div class="projects-grid" id="projectsGrid"></div>
@@ -1493,7 +1486,7 @@
   <section class="creative" id="creative">
     <div class="section-number">03</div>
     <div class="section-header reveal">
-      <h2>B Side</h2>
+      <h2><span class="hw-label hw-label-b-side" role="img" aria-label="B Side"></span></h2>
       <span class="bside-subtitle">The Creative Cut</span>
     </div>
 
@@ -1931,9 +1924,41 @@
     const offCanvas = document.createElement('canvas');
     const offCtx = offCanvas.getContext('2d');
 
+    // Helen's real handwriting for the nav labels (black ink on
+    // transparent). Falls back to Permanent Marker text until loaded.
+    const hwNav = {};
+    [['About', 'hw-about.webp'],
+     ['A Side', 'hw-a-side.webp'],
+     ['B Side', 'hw-b-side.webp'],
+     ['Contact', 'hw-contact.webp']].forEach(([label, src]) => {
+      const img = new Image();
+      img.src = src;
+      hwNav[label] = img;
+    });
+
+    // Draw a nav label centered on (x, y) in the current transform;
+    // returns the drawn width so hit areas stay accurate.
+    function drawNavLabel(item, x, y, capH) {
+      const img = hwNav[item];
+      if (img && img.complete && img.naturalWidth) {
+        const dw = capH * img.naturalWidth / img.naturalHeight;
+        ctx.drawImage(img, x - dw / 2, y - capH / 2, dw, capH);
+        return dw;
+      }
+      ctx.fillText(item, x, y);
+      return ctx.measureText(item).width;
+    }
+
     function drawHero() {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
+
+      // Loading in a hidden/background tab lays out at 0×0, which used
+      // to kill the draw loop (drawImage throws on a 0-size canvas and
+      // the next frame never got scheduled). Bail and retry instead,
+      // and re-sync the backing store once real dimensions appear.
+      if (!w || !h) { animFrame = requestAnimationFrame(drawHero); return; }
+      if (canvas.width !== Math.round(w * window.devicePixelRatio)) resizeCanvas();
 
       // More responsive mouse tracking — circle follows mouse closely
       const smoothing = isMouseDown ? 0.5 : 0.18;
@@ -2103,15 +2128,14 @@
         const navItems = ['A Side', 'B Side'];
         const navAnchors = ['#projects', '#creative'];
         ctx.font = '30px "Permanent Marker", cursive';
-        ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
+        ctx.fillStyle = '#1A1A1A';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         const letterBottom = textCenterY + (baseSize * verticalStretch) / 2;
         const navY = Math.min(letterBottom + 55, h - 40);
         for (let i = 0; i < navItems.length; i++) {
           const nx = w * (i === 0 ? 0.28 : 0.72);
-          ctx.fillText(navItems[i], nx, navY);
-          const textWidth = ctx.measureText(navItems[i]).width;
+          const textWidth = drawNavLabel(navItems[i], nx, navY, 24);
           canvas._navAreas.push({
             x: nx - textWidth / 2 - 12,
             y: navY - 26,
@@ -2124,7 +2148,7 @@
         const navItems = ['About', 'A Side', 'B Side', 'Contact'];
         const navAnchors = ['#about', '#projects', '#creative', '#contact'];
         ctx.font = '44px "Permanent Marker", cursive';
-        ctx.fillStyle = 'rgba(26, 26, 26, 0.85)';
+        ctx.fillStyle = '#1A1A1A';
         const navX = w - 35;
         const sectionHeight = h / navItems.length;
         for (let i = 0; i < navItems.length; i++) {
@@ -2134,10 +2158,9 @@
           ctx.rotate(Math.PI / 2);
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(navItems[i], 0, 0);
+          const textWidth = drawNavLabel(navItems[i], 0, 0, 34);
           ctx.restore();
           // Hit area for clicks
-          const textWidth = ctx.measureText(navItems[i]).width;
           canvas._navAreas.push({
             x: navX - 20,
             y: ny - textWidth / 2,

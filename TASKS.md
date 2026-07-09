@@ -8,6 +8,10 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Now
 
+- [ ] **Handwriting follow-ups** (reminder scheduled for 2026-07-08 9am):
+  - [ ] Commit the handwriting work (currently uncommitted on worktree branch `claude/vigorous-shtern-78a9da`) + PR to main
+  - [x] ~~Remove the A-Side / B-Side discipline labels from the bio~~ — done 2026-07-07, whole disciplines block (labels + subgenre tags) deleted
+  - [x] ~~Prototype the A Side / B Side section headers in the handwritten assets~~ — done 2026-07-07: both headers converted (mask + `currentColor`, sized up to 1.25em), correct on both sides of the flip
 - [ ] **Deploy to a custom domain via GitHub Pages.** Decision made: custom domain (most impressive to send). Remaining sub-steps:
   - [ ] **[Helen]** Pick + register a domain at a registrar (Cloudflare / Namecheap / Porkbun). ~$10-15/yr. This is the only gating step Helen has to do herself.
   - [ ] Point the domain's DNS at GitHub Pages + add it as the custom domain in repo settings (Claude will give exact records)
@@ -23,12 +27,16 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Later
 
+- [ ] **More handwritten elements** — hero nav, top nav, and the bio name are now real handwriting (see Done). Remaining candidates: the A-Side/B-Side discipline labels in the about section, the contact headline, "Flip to B-Side" fab. Same pipeline: Helen writes it, photo → masked WebP asset.
 - [ ] Meta tags / link preview (Open Graph image + description) so the link looks good when sent in a message or posted
 - [ ] Favicon
 - [ ] Mobile hero: nav labels ("A Side" / "B Side") slightly overlap the HELEN wordmark — reads as zine-collage, but worth a deliberate look during the design pass
 
 ## Done
 
+- [x] **Real handwriting everywhere the site faked it** — hero canvas nav (About/A-Side/B-Side/Contact, rotated right-edge on desktop, horizontal A/B on mobile), top nav links, and the bio "Helen Johnston" (two photos composed into one baseline-aligned lockup) are all Helen's actual marker lettering; masked WebP assets follow the theme color on both sides; hit areas track the drawn art (2026-07-07)
+- [x] **Fixed latent hero-death bug** — loading the site in a hidden/background tab killed the hero canvas draw loop permanently (0-size canvas threw mid-frame); now it bails and self-heals when the tab becomes visible (2026-07-07)
+- [x] Handwritten "HELEN" in the bio — first pass of the handwriting pipeline, superseded same day by the full name lockup (2026-07-07)
 - [x] Bio reworked: leads with core PMM role on YouTube Culture & Artists + YouTube Recap, warmer creative closer (2026-07-07)
 - [x] **Real SoundCloud audio wired into the B-side player** — hidden Widget API embed drives the custom UI; all 3 real mixes (Mean Gills Y2K / Magical Forest / UKG Prescription) with true durations, play/pause/seek/track-switch verified (2026-07-07)
 - [x] **Contact section redone neo-brutalist** — marquee ticker, hard-shadow slab links with hover invert, rubber-stamp badge, barcode colophon; inverts with the A/B flip; verified desktop + mobile (2026-07-07)
