@@ -767,6 +767,17 @@
       color: #0c2b28;
       margin-top: 4px;
     }
+    /* Real mix artwork from SoundCloud — shown once loaded, else the HJ label */
+    .disc-label .dl-art {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: none;
+    }
+    .disc-label.has-art .dl-art { display: block; }
+    .disc-label.has-art .dl-name,
+    .disc-label.has-art .dl-sub { visibility: hidden; }
     .disc-spindle {
       position: absolute; top: 50%; left: 50%;
       width: 10px; height: 10px;
@@ -823,8 +834,12 @@
       flex: 1 1 auto;
       min-width: 0;
       background: rgba(242,237,228,0.18);
-      transition: background 0.1s;
+      border-radius: 2px 2px 0 0;
+      transform-origin: bottom;
+      transition: background 0.1s, transform 0.5s ease;
     }
+    /* While playing, the pulse loop drives transform every frame — no easing */
+    .np-wave.playing .bar { transition: background 0.1s; will-change: transform; }
     .np-wave .bar.on { background: var(--teal); }
     .np-foot { display: flex; justify-content: space-between; align-items: center; }
     .np-time { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(242,237,228,0.6); }
@@ -847,6 +862,25 @@
       font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
       color: var(--teal); margin: 44px 0 4px;
     }
+    .strip-head {
+      font-family: var(--font-bebas);
+      font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      margin: 56px 0 16px;
+      position: relative;
+      z-index: 0;
+      width: fit-content;
+    }
+    /* Offset misprint layer — same text in orange, peeking out behind */
+    .strip-head::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 0.09em; top: 0.09em;
+      color: var(--orange);
+      z-index: -1;
+      white-space: nowrap;
+    }
     .set-row {
       display: flex; align-items: center; gap: 18px;
       padding: 16px 4px;
@@ -868,13 +902,14 @@
     }
     .photo-tile {
       position: relative; flex: 0 0 auto;
-      width: 190px; height: 138px;
+      height: 215px; /* fixed row height; width follows each image's aspect */
       background: #2a2a28; overflow: hidden;
       border: 1px solid rgba(255,255,255,0.07);
     }
-    .photo-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .photo-tile img { width: auto; height: 100%; display: block; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
     .photo-tile:hover img { transform: scale(1.07); }
     .photo-tile.add {
+      width: 300px;
       display: flex; align-items: center; justify-content: center;
       border-style: dashed; border-color: rgba(77,191,184,0.4);
     }
@@ -1331,7 +1366,8 @@
       .player { grid-template-columns: 1fr; gap: 28px; }
       .player-disc { width: 220px; height: 220px; }
       .set-tag { display: none; }
-      .photo-tile { width: 150px; height: 110px; }
+      .photo-tile { height: 158px; }
+      .photo-tile.add { width: 220px; }
 
       .contact { padding: 80px 20px; }
       .contact-bg-text { font-size: 8rem; }
@@ -1442,7 +1478,7 @@
       <div class="player reveal">
         <div class="player-disc hoverable" id="playerDisc">
           <div class="disc" id="disc">
-            <div class="disc-label"><span class="dl-name">HJ</span><span class="dl-sub">B-SIDE</span></div>
+            <div class="disc-label" id="discLabel"><span class="dl-name">HJ</span><span class="dl-sub">B-SIDE</span><img class="dl-art" id="discArt" alt="" aria-hidden="true"></div>
             <div class="disc-spindle"></div>
           </div>
           <div class="disc-playbtn" id="discPlayBtn">▶</div>
@@ -1468,7 +1504,7 @@
       <div class="setlist" id="setlist"></div>
 
       <!-- Graphic design -->
-      <div class="strip-head">Graphic Design — posters / layouts / identity</div>
+      <div class="strip-head" data-text="Graphic Design">Graphic Design</div>
       <div class="photostrip" id="photostrip"></div>
     </div>
 
@@ -1606,10 +1642,23 @@
 
     /*
      * ── B-SIDE GRAPHIC DESIGN ──
-     * Filenames in this folder, in display order. `null` renders an "Add design"
-     * placeholder — swap nulls for real files as you select/export your work.
+     * Display order. `null` renders an "Add design" placeholder. Tiles are
+     * free-width: all one row height, each as wide as its aspect ratio.
+     * w/h are the asset's real pixel dimensions — they reserve layout space
+     * so lazy-loading works (a 0-width img never intersects, never loads).
      */
-    const DESIGNS = ["djing-sketch2.webp", null, null, null, null];
+    const DESIGNS = [
+      { src: "gd-01-angel-wings.webp",    w: 627, h: 430 },
+      { src: "gd-02-fwf.webp",            w: 430, h: 430 },
+      { src: "gd-03-key-food-mart.webp",  w: 677, h: 430 },
+      { src: "gd-04-itsjusthel.webp",     w: 316, h: 430 },
+      { src: "gd-05-mean-gils.webp",      w: 347, h: 430 },
+      { src: "gd-06-key-food-mart-2.webp",w: 677, h: 430 },
+      { src: "gd-07-artwork-1.webp",      w: 430, h: 430 },
+      { src: "gd-08-artwork-3.webp",      w: 619, h: 430 },
+      { src: "gd-09-fwf-2.webp",          w: 430, h: 430 },
+      { src: "gd-10-djing-sketch.webp",   w: 664, h: 430 }
+    ];
 
     /* ── Auto-render projects ── */
     (function renderProjects() {
@@ -1649,6 +1698,20 @@
       const npMeta    = document.getElementById('npMeta');
       const curTimeEl = document.getElementById('curTime');
       const durTimeEl = document.getElementById('durTime');
+
+      const discLabel = document.getElementById('discLabel');
+      const discArt   = document.getElementById('discArt');
+      // Swap the record-label art; null falls back to the HJ monogram
+      function setDiscArt(url) {
+        if (!url) {
+          discLabel.classList.remove('has-art');
+          discArt.removeAttribute('src');
+          return;
+        }
+        discArt.onload  = () => discLabel.classList.add('has-art');
+        discArt.onerror = () => discLabel.classList.remove('has-art');
+        discArt.src = url;
+      }
 
       const BAR_COUNT = 64;
       const bars = [];
@@ -1693,10 +1756,47 @@
         bars.forEach((b, i) => b.classList.toggle('on', i < on));
         curTimeEl.textContent = fmt(elapsed);
       }
+
+      /*
+       * Waveform pulse — the audio lives in a cross-origin SoundCloud iframe,
+       * so the bars can't read real frequency data. Instead this synthesizes a
+       * groove: a global beat thump plus per-bar shimmer, with the energy
+       * concentrated around the playhead and rippling outward.
+       */
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let rafId = null;
+      // Per-bar character so no two bars move alike
+      const barPhase = bars.map((_, i) => i * 1.73 + Math.random() * Math.PI * 2);
+      const barRate  = bars.map(() => 2.2 + Math.random() * 2.6);
+      function pulse(now) {
+        const t = now / 1000;
+        const head = dur ? (elapsed / dur) * BAR_COUNT : 0;
+        // Half-time thump (~87 bpm feel) with a sharp attack
+        const beat = Math.pow((Math.sin(t * Math.PI * 2 * 1.45) + 1) / 2, 3);
+        for (let i = 0; i < BAR_COUNT; i++) {
+          const near = Math.max(0, 1 - Math.abs(i - head) / 9); // energy radiates from the playhead
+          const shimmer = (Math.sin(t * barRate[i] + barPhase[i]) + 1) / 2;
+          const s = 0.86 + shimmer * 0.16 + near * (0.1 + beat * 0.42 * (0.5 + shimmer));
+          bars[i].style.transform = 'scaleY(' + Math.min(s, 1.42).toFixed(3) + ')';
+        }
+        rafId = requestAnimationFrame(pulse);
+      }
+      function startPulse() {
+        if (reducedMotion || rafId) return;
+        wave.classList.add('playing');
+        rafId = requestAnimationFrame(pulse);
+      }
+      function stopPulse() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        wave.classList.remove('playing');
+        bars.forEach((b) => { b.style.transform = ''; });
+      }
+
       function updateUI() {
         playMain.textContent = playing ? '⏸' : '▶';
         discBtn.textContent = playing ? '⏸' : '▶';
         disc.classList.toggle('spinning', playing);
+        playing ? startPulse() : stopPulse();
         paint();
       }
       // Simulated fallback tick — only used when the widget is unavailable
@@ -1723,6 +1823,7 @@
         durTimeEl.textContent = fmt(dur);
         document.querySelectorAll('.set-row').forEach((r, j) => r.classList.toggle('active', j === idx));
         clearInterval(timer); playing = false;
+        setDiscArt(null); // drop the old cover while the next mix loads
         if (widget) {
           widget.load(m.url, {
             auto_play: !!autoplay,
@@ -1731,6 +1832,11 @@
             callback: () => {
               // True duration from SoundCloud (keeps the timeline honest)
               widget.getDuration((ms) => { if (ms) { dur = ms / 1000; durTimeEl.textContent = fmt(dur); paint(); } });
+              // Real cover art onto the record label (t500x500 = hi-res variant)
+              widget.getCurrentSound((sound) => {
+                const art = sound && sound.artwork_url;
+                setDiscArt(art ? art.replace('-large.', '-t500x500.') : null);
+              });
             }
           });
           updateUI();
@@ -1763,11 +1869,11 @@
         setlistEl.appendChild(row);
       });
 
-      DESIGNS.forEach((src) => {
+      DESIGNS.forEach((d) => {
         const tile = document.createElement('div');
-        if (src) {
+        if (d) {
           tile.className = 'photo-tile hoverable';
-          tile.innerHTML = `<img src="${src}" alt="Graphic design by Helen Johnston" loading="lazy">`;
+          tile.innerHTML = `<img src="${d.src}" width="${d.w}" height="${d.h}" alt="Graphic design by Helen Johnston">`;
         } else {
           tile.className = 'photo-tile add hoverable';
           tile.innerHTML = `<span>+ Design</span>`;
