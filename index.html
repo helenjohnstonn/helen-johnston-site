@@ -973,6 +973,8 @@
     }
 
     .contact-link {
+      --cl: var(--orange);          /* per-card sticker colour */
+      --cl-tilt: -2deg;             /* per-card taped-on angle */
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
@@ -982,27 +984,36 @@
       box-shadow: 9px 9px 0 var(--black);
       padding: 24px 26px;
       text-decoration: none;
-      transition: transform 0.13s ease-out, box-shadow 0.13s ease-out,
-                  background 0.13s ease-out;
+      transform: rotate(var(--cl-tilt));
+      transition: transform 0.16s cubic-bezier(.34,1.56,.64,1),
+                  box-shadow 0.16s ease-out, background 0.16s ease-out;
     }
+    /* Each channel gets its own colour + jaunty angle, like stickers on a case */
+    .contact-link:nth-child(1) { --cl: var(--orange); --cl-tilt: -2deg; }
+    .contact-link:nth-child(2) { --cl: var(--teal);   --cl-tilt: 1.5deg; }
+    .contact-link:nth-child(3) { --cl: #E5B23C;        --cl-tilt: -1.5deg; }
+    .contact-link:nth-child(4) { --cl: #D26A8C;        --cl-tilt: 2deg; }
+
     .contact-link:hover {
-      transform: translate(-5px, -5px);
+      transform: rotate(0deg) translate(-5px, -5px);
       box-shadow: 14px 14px 0 var(--black);
-      background: var(--black);
+      background: var(--cl);
     }
     .contact-link:active {
-      transform: translate(3px, 3px);
+      transform: rotate(0deg) translate(3px, 3px);
       box-shadow: 3px 3px 0 var(--black);
     }
 
     .cl-num {
+      align-self: start;
       font-family: var(--font-mono);
       font-size: 0.68rem;
       font-weight: 700;
       color: var(--black);
+      background: var(--cl);
       border: 2px solid var(--black);
       padding: 4px 7px;
-      transition: color 0.13s, border-color 0.13s;
+      transition: background 0.16s, color 0.16s;
     }
     .cl-body { min-width: 0; }
     .cl-name {
@@ -1015,31 +1026,43 @@
       color: var(--black);
       transition: color 0.13s;
     }
+    .cl-tag {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cl);
+      margin-top: 9px;
+      transition: color 0.16s;
+    }
     .cl-handle {
       display: block;
       font-family: var(--font-mono);
       font-size: 0.68rem;
       letter-spacing: 0.06em;
       color: var(--black);
-      opacity: 0.65;
-      margin-top: 7px;
+      opacity: 0.6;
+      margin-top: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: color 0.13s;
+      transition: color 0.13s, opacity 0.13s;
     }
     .cl-arrow {
+      align-self: start;
       font-family: var(--font-display);
       font-size: 2.1rem;
       line-height: 1;
       color: var(--black);
-      transition: transform 0.13s ease-out, color 0.13s;
+      transition: transform 0.16s ease-out, color 0.13s;
     }
-    .contact-link:hover .cl-name,
-    .contact-link:hover .cl-handle,
-    .contact-link:hover .cl-arrow { color: var(--cream); }
-    .contact-link:hover .cl-num { color: var(--accent); border-color: var(--accent); }
-    .contact-link:hover .cl-arrow { transform: translate(5px, -5px); }
+    /* On hover the whole slab floods with the channel's colour */
+    .contact-link:hover .cl-tag { color: var(--black); }
+    .contact-link:hover .cl-handle { opacity: 0.75; }
+    .contact-link:hover .cl-num { background: var(--black); color: var(--cl); }
+    .contact-link:hover .cl-arrow { transform: translate(5px, -5px) rotate(0deg); }
 
     /* ── Colophon: barcode + catalog number ── */
     .contact-colophon {
@@ -1078,7 +1101,7 @@
         text-shadow: 4px 4px 0 var(--cream);
       }
       .contact-links { grid-template-columns: 1fr; gap: 20px; }
-      .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; }
+      .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; --cl-tilt: 0deg; }
       .cl-name { font-size: 1.9rem; }
       .contact-colophon { flex-direction: column; align-items: flex-start; }
     }
@@ -1398,13 +1421,16 @@
       </div>
       <div class="about-right reveal-right">
         <p>
-          <strong><span class="hw-name" role="img" aria-label="Helen Johnston"></span></strong> is a core PMM on YouTube's Culture &amp; Artists team, leading the annual YouTube Recap. Her work lives exactly where she does: at the intersection of culture and music, making people feel seen and bringing communities together.
+          <strong><span class="hw-name" role="img" aria-label="Helen Johnston"></span></strong> is a core PMM on YouTube's Core &amp; Artists team, leading the annual YouTube Recap. Her work lives exactly where she does: at the intersection of culture and music, making people feel seen and bringing communities together.
         </p>
         <p>
-          Helen got here by spending three years at Google understanding why people use the things they use. That curiosity took second place at a global Google hackathon with Early Days, a UXR simulator, and built Pique, an app that gets people outside and into the world.
+          Helen spends her time thinking about why people use the things they use, and how we can make people feel seen both in person and online. She's a builder at heart &mdash; whether that means creating global campaigns or making award-winning UXR simulators, she is consistently doing and sometimes thinking.
         </p>
         <p>
-          Outside of work, you can find Helen DJing with her custom visuals, designing graphics, going on extreme adventures, or picking up a new creative side project (metal welding, anyone?). She's happy you're here.
+          Outside of work, you can find Helen DJing with her custom visuals, designing graphics, going on extreme adventures, or picking up a new creative side project (metal welding, anyone?).
+        </p>
+        <p>
+          Welcome to Helen's little corner of the internet!
         </p>
       </div>
     </div>
@@ -1494,34 +1520,38 @@
         Tell me something interesting! Ask about my DJing! Recommend me a book!
       </p>
       <div class="contact-links reveal">
-        <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
-          <span class="cl-num">01</span>
+        <a href="mailto:helensjohnston@gmail.com" class="contact-link hoverable">
+          <span class="cl-num">A1</span>
           <span class="cl-body">
             <span class="cl-name">Email</span>
-            <span class="cl-handle">hello@helenjohnston.com</span>
+            <span class="cl-tag">for the important stuff</span>
+            <span class="cl-handle">helensjohnston@gmail.com</span>
           </span>
           <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="https://www.linkedin.com/in/helenjohnstonn/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          <span class="cl-num">02</span>
+          <span class="cl-num">A2</span>
           <span class="cl-body">
             <span class="cl-name">LinkedIn</span>
+            <span class="cl-tag">the professional one</span>
             <span class="cl-handle">in/helenjohnstonn</span>
           </span>
           <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="https://soundcloud.com/itsjusthel" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          <span class="cl-num">03</span>
+          <span class="cl-num">B1</span>
           <span class="cl-body">
             <span class="cl-name">SoundCloud</span>
+            <span class="cl-tag">hear me mix</span>
             <span class="cl-handle">@itsjusthel</span>
           </span>
           <span class="cl-arrow">&nearr;</span>
         </a>
         <a href="https://www.instagram.com/itsjusthel/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
-          <span class="cl-num">04</span>
+          <span class="cl-num">B2</span>
           <span class="cl-body">
             <span class="cl-name">Instagram</span>
+            <span class="cl-tag">photos + chaos</span>
             <span class="cl-handle">@itsjusthel</span>
           </span>
           <span class="cl-arrow">&nearr;</span>
