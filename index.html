@@ -64,6 +64,16 @@
       --font-heading: var(--font-display-alt);
     }
 
+    :root {
+      --cursor-hand: url('cursor-hand.png') 8 1;
+    }
+    /* Crisp cursor on retina displays where image-set is supported */
+    @supports (cursor: image-set(url('cursor-hand.png') 1x) 8 1, pointer) {
+      :root {
+        --cursor-hand: image-set(url('cursor-hand.png') 1x, url('cursor-hand@2x.png') 2x) 8 1;
+      }
+    }
+
     html {
       scroll-behavior: smooth;
       scrollbar-width: thin;
@@ -75,35 +85,17 @@
       color: var(--text-primary);
       font-family: var(--font-mono);
       overflow-x: hidden;
-      cursor: crosshair;
+      cursor: var(--cursor-hand), crosshair;
       transition: background 0.1s, color 0.1s;
+    }
+
+    a, button, select, label, summary {
+      cursor: var(--cursor-hand), pointer;
     }
 
     ::selection {
       background: var(--accent);
       color: var(--bg-primary);
-    }
-
-    /* ═══════════════════════════════════════
-       CUSTOM CURSOR FOLLOWER
-    ═══════════════════════════════════════ */
-    .cursor-ring {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, border-color 0.3s;
-      mix-blend-mode: difference;
-    }
-
-    .cursor-ring.hovering {
-      width: 70px;
-      height: 70px;
-      border-color: var(--accent-secondary);
     }
 
     /* ═══════════════════════════════════════
@@ -585,7 +577,7 @@
     .project-card {
       position: relative;
       overflow: hidden;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
     }
 
     .project-card a {
@@ -718,7 +710,7 @@
     .player-disc {
       position: relative;
       width: 300px; height: 300px;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       justify-self: center;
     }
     .disc {
@@ -727,9 +719,21 @@
       background:
         repeating-radial-gradient(circle at 50% 50%, #101010 0 2px, #181818 2px 4px),
         #141414;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      /* Deep drop + faint orange halo so the record doesn't fade into the dark bg */
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.65),
+        0 0 70px rgba(232, 116, 42, 0.22),
+        0 0 150px rgba(232, 116, 42, 0.10);
       position: relative;
       display: flex; align-items: center; justify-content: center;
+      transition: box-shadow 0.6s ease;
+    }
+    /* Glow warms up while playing */
+    .disc.spinning {
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.65),
+        0 0 80px rgba(232, 116, 42, 0.34),
+        0 0 180px rgba(232, 116, 42, 0.16);
     }
     .disc::after {
       content: '';
@@ -813,7 +817,7 @@
     }
     .np-wave {
       display: flex; align-items: flex-end; gap: 2px;
-      height: 56px; cursor: pointer; margin-bottom: 14px;
+      height: 56px; cursor: var(--cursor-hand), pointer; margin-bottom: 14px;
     }
     .np-wave .bar {
       flex: 1 1 auto;
@@ -827,7 +831,7 @@
     .np-controls { display: flex; gap: 14px; align-items: center; }
     .np-controls button {
       background: none; border: none; color: var(--cream);
-      font-size: 0.95rem; cursor: pointer; padding: 6px; line-height: 1;
+      font-size: 0.95rem; cursor: var(--cursor-hand), pointer; padding: 6px; line-height: 1;
       transition: color 0.2s;
     }
     .np-controls button:hover { color: var(--teal); }
@@ -847,7 +851,7 @@
       display: flex; align-items: center; gap: 18px;
       padding: 16px 4px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       transition: background 0.2s, padding-left 0.2s;
     }
     .set-row:hover { background: rgba(255,255,255,0.03); padding-left: 12px; }
@@ -936,40 +940,14 @@
 
     .contact h2 {
       font-family: var(--font-heading);
-      font-size: clamp(4.2rem, 11vw, 10.5rem);
+      /* Sized so "FOR ADVENTURE." fits one line in Permanent Marker (B-side) */
+      font-size: clamp(3.6rem, 9vw, 8rem);
       text-transform: uppercase;
       color: var(--black);
-      line-height: 0.85;
+      line-height: 0.9;
       letter-spacing: -0.01em;
       margin-bottom: 40px;
-      text-shadow: 7px 7px 0 var(--cream);
-    }
-
-    .contact h2 em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      text-transform: none;
-      letter-spacing: 0;
-      color: var(--cream);
-      text-shadow: 5px 5px 0 var(--black);
-    }
-
-    /* Rubber-stamp badge, slapped on at an angle */
-    .contact-stamp {
-      position: absolute;
-      top: -18px;
-      right: 0;
-      transform: rotate(7deg);
-      font-family: var(--font-bebas);
-      font-size: 1rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--black);
-      border: 3px dashed var(--black);
-      padding: 12px 18px 10px;
-      line-height: 1.5;
-      text-align: center;
-      pointer-events: none;
+      text-shadow: 6px 6px 0 var(--cream);
     }
 
     /* Spec-sheet lead — a taped-on label */
@@ -1066,21 +1044,11 @@
     /* ── Colophon: barcode + catalog number ── */
     .contact-colophon {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: flex-end;
-      gap: 30px;
-      flex-wrap: wrap;
       margin-top: 74px;
       padding-top: 26px;
       border-top: 4px solid var(--black);
-    }
-    .colophon-note {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--black);
     }
     .barcode {
       width: 190px;
@@ -1105,16 +1073,9 @@
       .contact { padding-bottom: 64px; }
       .contact-inner { padding: 64px 20px 0; }
       .contact h2 {
-        /* Permanent Marker (B-side) runs wide — size down so SOMETHING fits */
-        font-size: clamp(2.6rem, 13vw, 4.2rem);
+        /* Permanent Marker (B-side) runs wide — size so FOR ADVENTURE. fits */
+        font-size: clamp(2.2rem, 11vw, 3.6rem);
         text-shadow: 4px 4px 0 var(--cream);
-      }
-      .contact h2 em { text-shadow: 3px 3px 0 var(--black); }
-      .contact-stamp {
-        position: static;
-        display: inline-block;
-        transform: rotate(-3deg);
-        margin-bottom: 26px;
       }
       .contact-links { grid-template-columns: 1fr; gap: 20px; }
       .contact-link { box-shadow: 6px 6px 0 var(--black); padding: 20px; }
@@ -1206,20 +1167,8 @@
     /* ═══════════════════════════════════════
        REVEAL ANIMATIONS
     ═══════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-60px);
-    }
-
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(60px);
-    }
+    /* Initial hidden states are applied by gsap.set() in the script, not
+       here — if GSAP fails to load, content stays visible (no animation). */
 
     /* ═══════════════════════════════════════
        B SIDE — LAYOUT LOOSENESS
@@ -1325,7 +1274,7 @@
       -webkit-backdrop-filter: blur(8px);
       border: 2px solid var(--accent);
       border-radius: 40px;
-      cursor: pointer;
+      cursor: var(--cursor-hand), pointer;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.4s, transform 0.4s, border-color 0.3s;
@@ -1388,14 +1337,12 @@
       .contact-bg-text { font-size: 8rem; }
 
       .issue-badge { display: none; }
-      .cursor-ring { display: none; }
     }
   </style>
 </head>
 <body>
 
   <!-- Cursor follower -->
-  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Flip transition overlays -->
   <div class="flip-overlay" id="flipOverlay"></div>
@@ -1541,12 +1488,10 @@
     <div class="contact-inner">
       <span class="section-tag reveal">04 / Liner Notes</span>
       <div class="contact-headline">
-        <h2 class="reveal">Let's make<br>something <em>good.</em></h2>
-        <div class="contact-stamp reveal">Replies fast<br>&#10010; No spam &#10010;</div>
+        <h2 class="reveal">Inbox open<br>for adventure.</h2>
       </div>
       <p class="contact-lead reveal">
-        Open to product &amp; marketing roles, creative collaborations, and the occasional DJ booking.
-        Pick a channel — I read all of them.
+        Tell me something interesting! Ask about my DJing! Recommend me a book!
       </p>
       <div class="contact-links reveal">
         <a href="mailto:hello@helenjohnston.com" class="contact-link hoverable">
@@ -1573,20 +1518,19 @@
           </span>
           <span class="cl-arrow">&nearr;</span>
         </a>
-        <a href="#" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.instagram.com/itsjusthel/" class="contact-link hoverable" target="_blank" rel="noopener noreferrer">
           <span class="cl-num">04</span>
           <span class="cl-body">
             <span class="cl-name">Instagram</span>
-            <span class="cl-handle">DMs open</span>
+            <span class="cl-handle">@itsjusthel</span>
           </span>
           <span class="cl-arrow">&nearr;</span>
         </a>
       </div>
       <div class="contact-colophon reveal">
-        <span class="colophon-note">Recorded &amp; mixed by Helen Johnston &mdash; no forms, no funnels</span>
         <div>
           <div class="barcode" aria-hidden="true"></div>
-          <div class="barcode-label">HJ&middot;004&middot;LN</div>
+          <div class="barcode-label">HJ2026</div>
         </div>
       </div>
     </div>
@@ -2001,7 +1945,9 @@
       ctx.fillRect(0, 0, w, h);
 
       // ── SIZING — Letters fill frame, starting lower to clear nav ──
-      const baseSize = w * 0.28;
+      // Width-driven, but clamped by height so wide/short laptop windows
+      // don't blow the wordmark past the bottom of the viewport
+      const baseSize = Math.min(w * 0.28, h * 0.35);
       const verticalStretch = 2.5;
       const textCenterY = h * 0.55; // shifted down from center
       const cx = w / 2 + (mouseX - 0.5) * 250 * interactionStrength;
@@ -2147,8 +2093,11 @@
       } else {
         const navItems = ['About', 'A Side', 'B Side', 'Contact'];
         const navAnchors = ['#about', '#projects', '#creative', '#contact'];
-        ctx.font = '44px "Permanent Marker", cursive';
+        // Scale nav with the viewport so it doesn't read tiny on big screens
+        const navFontSize = Math.max(44, Math.min(72, Math.round(h * 0.055)));
+        ctx.font = `${navFontSize}px "Permanent Marker", cursive`;
         ctx.fillStyle = '#1A1A1A';
+        const navCapH = Math.round(navFontSize * 0.77);
         const navX = w - 35;
         const sectionHeight = h / navItems.length;
         for (let i = 0; i < navItems.length; i++) {
@@ -2158,13 +2107,13 @@
           ctx.rotate(Math.PI / 2);
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          const textWidth = drawNavLabel(navItems[i], 0, 0, 34);
+          const textWidth = drawNavLabel(navItems[i], 0, 0, navCapH);
           ctx.restore();
           // Hit area for clicks
           canvas._navAreas.push({
-            x: navX - 20,
+            x: navX - navCapH / 2 - 6,
             y: ny - textWidth / 2,
-            w: 40,
+            w: navCapH + 12,
             h: textWidth,
             href: navAnchors[i]
           });
@@ -2197,36 +2146,7 @@
       }
     });
 
-    // Change cursor when hovering nav areas
-    canvas.addEventListener('mousemove', (e) => {
-      if (!canvas._navAreas) return;
-      const rect = canvas.getBoundingClientRect();
-      const hx = e.clientX - rect.left;
-      const hy = e.clientY - rect.top;
-      let overNav = false;
-      for (const area of canvas._navAreas) {
-        if (hx >= area.x && hx <= area.x + area.w &&
-            hy >= area.y && hy <= area.y + area.h) {
-          overNav = true;
-          break;
-        }
-      }
-      canvas.style.cursor = overNav ? 'pointer' : 'crosshair';
-    });
-
-    /* ─── CURSOR RING ─── */
-    const cursorRing = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', (e) => {
-      cursorRing.style.left = e.clientX + 'px';
-      cursorRing.style.top = e.clientY + 'px';
-    });
-
-    document.querySelectorAll('.hoverable').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
-    });
-
-    /* ─── WAVEFORM BARS ─── */
+/* ─── WAVEFORM BARS ─── */
     const waveform = document.getElementById('waveform');
     if (waveform) {
       const barCount = 60;
@@ -2259,15 +2179,19 @@
     // Two identical halves + translateX(-50%) = seamless loop
     const contactTicker = document.getElementById('contactTicker');
     if (contactTicker) {
-      const phrase = 'LET&rsquo;S MAKE SOMETHING GOOD <span class="tick-sep">&#10033;</span> ' +
-                     'NO FORMS <span class="tick-sep">&#10033;</span> ' +
-                     'NO FUNNELS <span class="tick-sep">&#10033;</span> ' +
-                     'JUST TALK <span class="tick-sep">&#10033;</span> ';
-      contactTicker.innerHTML = phrase.repeat(6);
+      const phrase = 'DANCE MORE <span class="tick-sep">&#10033;</span> ' +
+                     'WORRY LESS <span class="tick-sep">&#10033;</span> ';
+      contactTicker.innerHTML = phrase.repeat(12);
     }
 
     /* ─── GSAP SCROLL ANIMATIONS ─── */
     gsap.registerPlugin(ScrollTrigger);
+
+    // Hidden start states live here rather than in CSS so the content
+    // still shows if GSAP never loads (blocked CDN, no JS)
+    gsap.set('.reveal', { opacity: 0, y: 40 });
+    gsap.set('.reveal-left', { opacity: 0, x: -60 });
+    gsap.set('.reveal-right', { opacity: 0, x: 60 });
 
     // Reveal animations
     gsap.utils.toArray('.reveal').forEach(el => {

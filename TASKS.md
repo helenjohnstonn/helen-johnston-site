@@ -31,9 +31,12 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
-- [x] **Real handwriting everywhere the site faked it** — hero canvas nav (About/A-Side/B-Side/Contact, rotated right-edge on desktop, horizontal A/B on mobile), top nav links, and the bio "Helen Johnston" (two photos composed into one baseline-aligned lockup) are all Helen's actual marker lettering; masked WebP assets follow the theme color on both sides; hit areas track the drawn art (2026-07-07)
+- [x] **Real handwriting everywhere the site faked it** — hero canvas nav (About/A-Side/B-Side/Contact, rotated right-edge on desktop, horizontal A/B on mobile), top nav links, section headers, and the bio "Helen Johnston" (two photos composed into one baseline-aligned lockup) are all Helen's actual marker lettering; masked WebP assets follow the theme color on both sides; hit areas track the drawn art; bio discipline labels/tags removed (2026-07-07)
 - [x] **Fixed latent hero-death bug** — loading the site in a hidden/background tab killed the hero canvas draw loop permanently (0-size canvas threw mid-frame); now it bails and self-heals when the tab becomes visible (2026-07-07)
 - [x] Handwritten "HELEN" in the bio — first pass of the handwriting pipeline, superseded same day by the full name lockup (2026-07-07)
+- [x] **Custom pointer-finger cursor** — Helen's halftone hand image (Desktop `PointerFinger.jpg`) cut out to a transparent PNG and used as the cursor site-wide (64px + retina 2x via image-set; default, links/buttons, hero canvas); the old orange cursor-ring follower removed in favor of the hand (2026-07-08)
+- [x] **Hero fixed on wide screens** — wordmark size now clamped by viewport height (was width-only, so wide/short laptop windows clipped HELEN off-screen); right-edge nav labels scale up on tall screens (2026-07-07)
+- [x] **Scroll reveals made resilient** — sections no longer hidden by CSS awaiting GSAP; hidden state applied via gsap.set so content stays visible if the CDN is blocked (verified with GSAP disabled) (2026-07-07)
 - [x] Bio reworked: leads with core PMM role on YouTube Culture & Artists + YouTube Recap, warmer creative closer (2026-07-07)
 - [x] **Real SoundCloud audio wired into the B-side player** — hidden Widget API embed drives the custom UI; all 3 real mixes (Mean Gills Y2K / Magical Forest / UKG Prescription) with true durations, play/pause/seek/track-switch verified (2026-07-07)
 - [x] **Contact section redone neo-brutalist** — marquee ticker, hard-shadow slab links with hover invert, rubber-stamp badge, barcode colophon; inverts with the A/B flip; verified desktop + mobile (2026-07-07)
