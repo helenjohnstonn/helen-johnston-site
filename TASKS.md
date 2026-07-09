@@ -14,8 +14,6 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Next
 
-- [ ] **Expandable graphic design pieces** — clicking a design in the B-side graphic design strip should expand it (lightbox/full-size view).
-- [ ] **B-side text color fix** — after flipping to the B side, A-side section text (e.g. "Find Hub") should be black, not white.
 - [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
 - [ ] **Design pass** — Helen has specific design ideas to work through (TBD; capture them here as they come up).
@@ -23,12 +21,15 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 ## Later
 
 - [ ] **More handwritten elements** — hero nav, top nav, and the bio name are now real handwriting (see Done). Remaining candidates: the A-Side/B-Side discipline labels in the about section, the contact headline, "Flip to B-Side" fab. Same pipeline: Helen writes it, photo → masked WebP asset.
+- [ ] Higher-res exports of the 10 graphic-design pieces — current WebPs are 430px tall (sized for the strip), so the lightbox caps at native size to stay crisp; bigger source exports would let it fill the screen
 - [ ] Meta tags / link preview (Open Graph image + description) so the link looks good when sent in a message or posted
 - [ ] Favicon
 - [ ] Mobile hero: nav labels ("A Side" / "B Side") slightly overlap the HELEN wordmark — reads as zine-collage, but worth a deliberate look during the design pass
 
 ## Done
 
+- [x] **Graphic design pieces expand in a lightbox** — tap any design in the B-side strip for a zine-styled expanded view (cream frame, hard accent shadow, slight tilt, mono counter) with prev/next + arrow keys + Escape + scrim-click close; capped at the assets' native 430px height so nothing upscales soft (2026-07-09)
+- [x] **B-side project titles now black** — card titles ("Find Hub" etc.) were hardcoded white and washed out on the B side's cream background; now on the `--text-on-dark` token (cream on A side, black on B side) (2026-07-09)
 - [x] **Hero record interactive works on mobile** — mouse-only listeners swapped for pointer events (mouse + touch + pen) so touch drags/presses drive the warp; `touch-action: pan-y pinch-zoom` keeps vertical swipes scrolling the page; verified in preview at 375px, desktop behavior unchanged (2026-07-09)
 - [x] **Contact channel slabs made playful** — email updated to helensjohnston@gmail.com; each of the four links now has its own zine-sticker colour (orange/teal/mustard/pink), a taped-on tilt that straightens + floods with its colour on hover, an in-voice caption line ("for the important stuff", "the professional one", "hear me mix", "photos + chaos"), and A1/A2/B1/B2 catalog numbers; tilt neutralised on mobile (2026-07-09)
 - [x] **Bio rewritten** — Helen's updated three-paragraph bio (Core & Artists team, builder-at-heart framing, "little corner of the internet" closer); name handwriting asset preserved as the opener (2026-07-09)
