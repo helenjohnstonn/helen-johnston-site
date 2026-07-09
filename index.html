@@ -215,6 +215,9 @@
       left: 0;
       width: 100%;
       height: 100%;
+      /* Vertical swipes keep scrolling the page; horizontal drags and
+         presses go to the record warp via pointer events */
+      touch-action: pan-y pinch-zoom;
     }
 
     .hero-overlay-text {
@@ -1990,15 +1993,23 @@
     let isMouseDown = false;
     let interactionStrength = 1;
 
-    canvas.addEventListener('mousemove', (e) => {
+    // Pointer events cover mouse, touch, and pen — mouse-only listeners
+    // left the warp dead on phones. The browser sends pointercancel when
+    // it takes over a vertical pan (touch-action on .hero-canvas).
+    function trackPointer(e) {
       const rect = canvas.getBoundingClientRect();
       targetMouseX = (e.clientX - rect.left) / rect.width;
       targetMouseY = (e.clientY - rect.top) / rect.height;
-    });
+    }
 
-    canvas.addEventListener('mousedown', () => { isMouseDown = true; });
-    canvas.addEventListener('mouseup', () => { isMouseDown = false; });
-    canvas.addEventListener('mouseleave', () => { isMouseDown = false; });
+    canvas.addEventListener('pointermove', trackPointer);
+    canvas.addEventListener('pointerdown', (e) => {
+      isMouseDown = true;
+      trackPointer(e); // a tap pulls the warp toward the finger right away
+    });
+    canvas.addEventListener('pointerup', () => { isMouseDown = false; });
+    canvas.addEventListener('pointercancel', () => { isMouseDown = false; });
+    canvas.addEventListener('pointerleave', () => { isMouseDown = false; });
 
     // Offscreen canvas for text rendering + displacement
     const offCanvas = document.createElement('canvas');

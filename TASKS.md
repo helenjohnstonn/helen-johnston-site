@@ -14,6 +14,8 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Next
 
+- [ ] **Expandable graphic design pieces** — clicking a design in the B-side graphic design strip should expand it (lightbox/full-size view).
+- [ ] **B-side text color fix** — after flipping to the B side, A-side section text (e.g. "Find Hub") should be black, not white.
 - [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
 - [ ] **Design pass** — Helen has specific design ideas to work through (TBD; capture them here as they come up).
@@ -27,6 +29,7 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Done
 
+- [x] **Hero record interactive works on mobile** — mouse-only listeners swapped for pointer events (mouse + touch + pen) so touch drags/presses drive the warp; `touch-action: pan-y pinch-zoom` keeps vertical swipes scrolling the page; verified in preview at 375px, desktop behavior unchanged (2026-07-09)
 - [x] **Contact channel slabs made playful** — email updated to helensjohnston@gmail.com; each of the four links now has its own zine-sticker colour (orange/teal/mustard/pink), a taped-on tilt that straightens + floods with its colour on hover, an in-voice caption line ("for the important stuff", "the professional one", "hear me mix", "photos + chaos"), and A1/A2/B1/B2 catalog numbers; tilt neutralised on mobile (2026-07-09)
 - [x] **Bio rewritten** — Helen's updated three-paragraph bio (Core & Artists team, builder-at-heart framing, "little corner of the internet" closer); name handwriting asset preserved as the opener (2026-07-09)
 - [x] **B-side polish pass merged to main** via PR #20 — waveform pulses with playback (synthesized groove; SC iframe is cross-origin so no real FFT), Graphic Design heading enlarged w/ orange offset-print layer, real SoundCloud cover art on the record label, and all 10 real designs from Helen's "Graphic Design" folder in the strip as free-width 430px-tall WebPs (~270KB total; old djing-sketch2.webp removed) (2026-07-09)
