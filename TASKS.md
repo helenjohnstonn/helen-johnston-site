@@ -8,15 +8,12 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 
 ## Now
 
-- [ ] **Deploy to a custom domain via GitHub Pages.** Decision made: custom domain (most impressive to send). Remaining sub-steps:
-  - [ ] **[Helen]** Pick + register a domain at a registrar (Cloudflare / Namecheap / Porkbun). ~$10-15/yr. This is the only gating step Helen has to do herself.
-  - [ ] Point the domain's DNS at GitHub Pages + add it as the custom domain in repo settings (Claude will give exact records)
-  - [ ] Enable "Enforce HTTPS" once the cert provisions
-  - [ ] Repoint the Desktop/Dock shortcut at the live custom-domain URL
+- [ ] **Deploy to a custom domain via GitHub Pages.** Live at itsjusthel.com over HTTP (2026-07-09) — Helen registered the domain, set the DNS A/CNAME records, and added it in repo settings herself. Remaining:
+  - [ ] Enable "Enforce HTTPS" once GitHub's cert provisions (was still provisioning as of 2026-07-09 afternoon; usually minutes-to-hours)
+  - [ ] Repoint the Desktop/Dock shortcut at https://itsjusthel.com
 
 ## Next
 
-- [ ] **Add real B-side assets.** The strip is now Graphic Design (was Photography, changed 2026-07-07) and shows 1 real image (the djing sketch) + "+ Design" placeholders. Helen to select/export posters/layouts/identity work ("plenty but not ready").
 - [ ] **A-side redesign — undecided.** Helen may want to rethink the A-side (product work) so it stops feeling like a visual resume, but not yet. Revisit after B-side settles.
 - [ ] **Desktop/Dock shortcut** to open the live site in one click (currently points at the local file — update to the live URL once deployed).
 - [ ] **Design pass** — Helen has specific design ideas to work through (TBD; capture them here as they come up).
@@ -31,6 +28,8 @@ Sections: **Now** (actively building) · **Next** (queued, ready to pick up) · 
 ## Done
 
 - [x] **Contact channel slabs made playful** — email updated to helensjohnston@gmail.com; each of the four links now has its own zine-sticker colour (orange/teal/mustard/pink), a taped-on tilt that straightens + floods with its colour on hover, an in-voice caption line ("for the important stuff", "the professional one", "hear me mix", "photos + chaos"), and A1/A2/B1/B2 catalog numbers; tilt neutralised on mobile (2026-07-09)
+- [x] **Bio rewritten** — Helen's updated three-paragraph bio (Core & Artists team, builder-at-heart framing, "little corner of the internet" closer); name handwriting asset preserved as the opener (2026-07-09)
+- [x] **B-side polish pass merged to main** via PR #20 — waveform pulses with playback (synthesized groove; SC iframe is cross-origin so no real FFT), Graphic Design heading enlarged w/ orange offset-print layer, real SoundCloud cover art on the record label, and all 10 real designs from Helen's "Graphic Design" folder in the strip as free-width 430px-tall WebPs (~270KB total; old djing-sketch2.webp removed) (2026-07-09)
 - [x] **Handwriting branch merged to main** via PR #19 — all real-handwriting work + hidden-tab hero fix now live (2026-07-08)
 - [x] **Real handwriting everywhere the site faked it** — hero canvas nav (About/A-Side/B-Side/Contact, rotated right-edge on desktop, horizontal A/B on mobile), top nav links, section headers, and the bio "Helen Johnston" (two photos composed into one baseline-aligned lockup) are all Helen's actual marker lettering; masked WebP assets follow the theme color on both sides; hit areas track the drawn art; bio discipline labels/tags removed (2026-07-07)
 - [x] **Fixed latent hero-death bug** — loading the site in a hidden/background tab killed the hero canvas draw loop permanently (0-size canvas threw mid-frame); now it bails and self-heals when the tab becomes visible (2026-07-07)
